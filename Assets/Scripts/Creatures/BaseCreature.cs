@@ -1,4 +1,5 @@
 using System;
+using Player;
 using UnityEngine;
 
 
@@ -7,6 +8,7 @@ namespace Creatures {
     public struct CreatureTraits {
         public float maxSpeed;
         public float acceleration;
+        public float moveForceScale;
         public float height;
         public float heightSpringForce;
         public float heightSpringDamper;
@@ -14,6 +16,18 @@ namespace Creatures {
     public class BaseCreature: MonoBehaviour {
         [SerializeField] protected Rigidbody rb;
         [SerializeField] protected CreatureTraits compiledTraits;
+        [SerializeField] protected PlayerInputController inputController;
+        
+        [SerializeField] protected Vector3 goalVelocity;
+
+        
+        private void Update() {
+            Debug.DrawLine(this.transform.position, this.transform.position + (this.compiledTraits.height * Vector3.down), Color.red);
+        }
+
+        private void FixedUpdate() {
+            this.PhysicsUpdate(Time.fixedDeltaTime);
+        }
 
         public void HandleGravity(float deltaTime) {
             RaycastHit hit;
@@ -36,13 +50,24 @@ namespace Creatures {
                 var springForce = (x * this.compiledTraits.heightSpringForce) -
                     (relVel * this.compiledTraits.heightSpringDamper);
                 
-                Debug.DrawLine(this.transform.position, this.transform.position + (rayDir * springForce), Color.green);
                 this.rb.AddForce(rayDir * springForce);
+            } else {
+                
             }
+        }
+
+        public void HandleMove(float deltaTime) {
+            var inputDirection = this.inputController.moveInput;
+            var worldDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
+            var targetGoalVelocity = worldDirection * this.compiledTraits.maxSpeed;
+            this.goalVelocity = Vector3.MoveTowards(this.goalVelocity, targetGoalVelocity, deltaTime * this.compiledTraits.acceleration);
+            
+            var accelNeeded = (this.goalVelocity - this.rb.linearVelocity) / deltaTime;
+            this.rb.AddForce(Vector3.Scale(accelNeeded, new Vector3(1,0,1)));
         }
         public void PhysicsUpdate(float deltaTime) {
             this.HandleGravity(deltaTime);
-            var direction = new Vector2(0.5f, 0.5f);
+            this.HandleMove(deltaTime);
         }
     }
 }
