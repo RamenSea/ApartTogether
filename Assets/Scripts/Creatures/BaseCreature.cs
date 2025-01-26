@@ -1,19 +1,39 @@
 using System;
 using Player;
+using UnityEditor;
 using UnityEngine;
 
 
 namespace Creatures {
+    
     [Serializable]
     public struct CreatureTraits {
         public float maxSpeed;
         public float acceleration;
-        public float moveForceScale;
         public float height;
         public float heightSpringForce;
         public float heightSpringDamper;
+        public float uprightSpringStrength;
+        public float uprightSpringDamper;
     }
     public class BaseCreature: MonoBehaviour {
+        public static Quaternion ShortestRotation(Quaternion to, Quaternion from)
+        {
+            if (Quaternion.Dot(to, from) < 0)
+            {
+                return to * Quaternion.Inverse(Multiply(from, -1));
+            }
+
+            else return to * Quaternion.Inverse(from);
+        }
+
+
+
+        public static Quaternion Multiply(Quaternion input, float scalar)
+        {
+            return new Quaternion(input.x * scalar, input.y * scalar, input.z * scalar, input.w * scalar);
+        }
+        
         [SerializeField] protected Rigidbody rb;
         [SerializeField] protected CreatureTraits compiledTraits;
         [SerializeField] protected PlayerInputController inputController;
@@ -30,12 +50,13 @@ namespace Creatures {
         }
 
         public void HandleGravity(float deltaTime) {
+            var usingDown = Vector3.down;
             RaycastHit hit;
-            if (Physics.Raycast(this.transform.position, transform.TransformDirection(Vector3.down), out hit, this.compiledTraits.height)) {
-                
-                var downDir = Vector3.down;
+            if (Physics.Raycast(this.transform.position, transform.TransformDirection(usingDown), out hit, this.compiledTraits.height)) {
                 var velocity = rb.linearVelocity;
-                var rayDir = this.transform.TransformDirection(downDir);
+                var rayDir = usingDown;
+                // var downDir = Vector3.down;
+                // var rayDir = this.transform.TransformDirection(downDir);
 
                 var otherVel = Vector3.zero;
                 Rigidbody hitBody = hit.rigidbody;
@@ -56,6 +77,19 @@ namespace Creatures {
             }
         }
 
+        public void CorrectRotation(float deltaTime) {
+            var upRightRotation = Quaternion.identity; //todo
+            var toGoal = BaseCreature.ShortestRotation(upRightRotation, this.transform.rotation);
+
+            Vector3 rotAxis;
+            float rotDegree;
+            toGoal.ToAngleAxis(out rotDegree, out rotAxis);
+            rotAxis.Normalize();
+            
+            float rotRadians = rotDegree * Mathf.Deg2Rad;
+            
+            this.rb.AddTorque((rotAxis * (rotRadians * this.compiledTraits.uprightSpringStrength)) - (this.rb.angularVelocity * this.compiledTraits.heightSpringDamper));
+        }
         public void HandleMove(float deltaTime) {
             var inputDirection = this.inputController.moveInput;
             var worldDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
@@ -67,6 +101,7 @@ namespace Creatures {
         }
         public void PhysicsUpdate(float deltaTime) {
             this.HandleGravity(deltaTime);
+            this.CorrectRotation(deltaTime);
             this.HandleMove(deltaTime);
         }
     }

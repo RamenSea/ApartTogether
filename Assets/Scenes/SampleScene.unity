@@ -453,12 +453,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.38413414, y: 0, z: 0, w: 0.9232773}
-  m_LocalPosition: {x: 0, y: 3.22, z: -3.48}
+  m_LocalRotation: {x: 0.38413414, y: -0, z: -0, w: 0.9232773}
+  m_LocalPosition: {x: 0, y: 3.937, z: -3.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 759691969}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 45.18, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -777,7 +777,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 2
 --- !u!114 &759691968
 MonoBehaviour:
@@ -795,10 +795,11 @@ MonoBehaviour:
   compiledTraits:
     maxSpeed: 3
     acceleration: 15
-    moveForceScale: 0
     height: 0.4
     heightSpringForce: 2000
     heightSpringDamper: 100
+    uprightSpringStrength: 2000
+    uprightSpringDamper: 30
   inputController: {fileID: 759691970}
   goalVelocity: {x: 0, y: 0, z: 0}
 --- !u!4 &759691969
@@ -814,7 +815,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 330585546}
   - {fileID: 1586366184}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1710,3 +1710,4 @@ SceneRoots:
   - {fileID: 280401916}
   - {fileID: 1192085829}
   - {fileID: 1704152267}
+  - {fileID: 330585546}
