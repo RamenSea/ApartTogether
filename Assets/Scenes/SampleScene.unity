@@ -800,8 +800,11 @@ MonoBehaviour:
     heightSpringDamper: 100
     uprightSpringStrength: 2000
     uprightSpringDamper: 30
+    jumpPower: 500
   inputController: {fileID: 759691970}
   goalVelocity: {x: 0, y: 0, z: 0}
+  isOnGround: 0
+  jumpRecharge: 0
 --- !u!4 &759691969
 Transform:
   m_ObjectHideFlags: 0
@@ -831,6 +834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveInput: {x: 0, y: 0}
+  didPressJump: 0
 --- !u!1 &791773530
 GameObject:
   m_ObjectHideFlags: 0

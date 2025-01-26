@@ -15,6 +15,7 @@ namespace Creatures {
         public float heightSpringDamper;
         public float uprightSpringStrength;
         public float uprightSpringDamper;
+        public float jumpPower;
     }
     public class BaseCreature: MonoBehaviour {
         public static Quaternion ShortestRotation(Quaternion to, Quaternion from)
@@ -39,10 +40,20 @@ namespace Creatures {
         [SerializeField] protected PlayerInputController inputController;
         
         [SerializeField] protected Vector3 goalVelocity;
+        [SerializeField] protected bool isOnGround;
+        [SerializeField] protected float jumpRecharge;
 
         
         private void Update() {
             Debug.DrawLine(this.transform.position, this.transform.position + (this.compiledTraits.height * Vector3.down), Color.red);
+
+            if (this.jumpRecharge > 0) {
+                this.jumpRecharge -= Time.deltaTime;
+            }
+            if (this.inputController.didPressJump && this.isOnGround && this.jumpRecharge <= 0.0f) {
+                this.jumpRecharge = 0.2f;
+                this.rb.AddForce(Vector3.up * this.compiledTraits.jumpPower);
+            }
         }
 
         private void FixedUpdate() {
@@ -53,6 +64,7 @@ namespace Creatures {
             var usingDown = Vector3.down;
             RaycastHit hit;
             if (Physics.Raycast(this.transform.position, transform.TransformDirection(usingDown), out hit, this.compiledTraits.height)) {
+                this.isOnGround = true;
                 var velocity = rb.linearVelocity;
                 var rayDir = usingDown;
                 // var downDir = Vector3.down;
@@ -73,7 +85,7 @@ namespace Creatures {
                 
                 this.rb.AddForce(rayDir * springForce);
             } else {
-                
+                this.isOnGround = false;
             }
         }
 
@@ -88,9 +100,12 @@ namespace Creatures {
             
             float rotRadians = rotDegree * Mathf.Deg2Rad;
             
-            this.rb.AddTorque((rotAxis * (rotRadians * this.compiledTraits.uprightSpringStrength)) - (this.rb.angularVelocity * this.compiledTraits.heightSpringDamper));
+            this.rb.AddTorque((rotAxis * (rotRadians * this.compiledTraits.uprightSpringStrength)) - (this.rb.angularVelocity * this.compiledTraits.uprightSpringDamper));
         }
         public void HandleMove(float deltaTime) {
+            // if (!this.isOnGround) {
+            //     return;
+            // }
             var inputDirection = this.inputController.moveInput;
             var worldDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
             var targetGoalVelocity = worldDirection * this.compiledTraits.maxSpeed;
