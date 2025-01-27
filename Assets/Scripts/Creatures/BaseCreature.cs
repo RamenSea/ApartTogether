@@ -1,6 +1,8 @@
 using System;
 using Player;
+using RamenSea.Foundation.Extensions;
 using RamenSea.Foundation3D.Extensions;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,6 +18,8 @@ namespace Creatures {
         public float heightSpringDamper;
         public float uprightSpringStrength;
         public float uprightSpringDamper;
+        public float rotationSpeedMin;
+        public float rotationSpeedDampener;
         public float jumpPower;
     }
     public class BaseCreature: MonoBehaviour {
@@ -38,6 +42,8 @@ namespace Creatures {
         [SerializeField] protected bool isOnGround;
         [SerializeField] protected float jumpRecharge;
 
+        public Vector3 moveDirection;
+        private float currentRotation;
         
         private void Update() {
             Debug.DrawLine(this.transform.position, this.transform.position + (this.compiledTraits.height * Vector3.down), Color.red);
@@ -49,6 +55,9 @@ namespace Creatures {
                 this.jumpRecharge = 0.2f;
                 this.rb.AddForce(Vector3.up * this.compiledTraits.jumpPower);
             }
+            
+            this.CorrectRotation(Time.deltaTime);
+
         }
 
         private void FixedUpdate() {
@@ -86,41 +95,44 @@ namespace Creatures {
 
         public void CorrectRotation(float deltaTime) {
             // var upRightRotation = Quaternion.Euler(new Vector3(0,this.inputController.moveInput.Angle(),0)); //todo
-            var upRightRotation = Quaternion.identity; //todo
-            var toGoal = BaseCreature.ShortestRotation(upRightRotation, this.transform.rotation);
-            print(toGoal.eulerAngles.magnitude);
-
-            Vector3 rotAxis;
-            float rotDegree;
-            toGoal.ToAngleAxis(out rotDegree, out rotAxis);
-            rotAxis.Normalize();
+            // var upRightRotation = Quaternion.identity; //todo
+            // var toGoal = BaseCreature.ShortestRotation(upRightRotation, this.transform.rotation);
+            // print(toGoal.eulerAngles.magnitude);
+            //
+            // Vector3 rotAxis;
+            // float rotDegree;
+            // toGoal.ToAngleAxis(out rotDegree, out rotAxis);
+            // rotAxis.Normalize();
+            //
+            // float rotRadians = rotDegree * Mathf.Deg2Rad;
+            //
+            // this.rb.AddTorque((rotAxis * (rotRadians * this.compiledTraits.uprightSpringStrength)) - (this.rb.angularVelocity * this.compiledTraits.uprightSpringDamper));
             
-            float rotRadians = rotDegree * Mathf.Deg2Rad;
-            
-            this.rb.AddTorque((rotAxis * (rotRadians * this.compiledTraits.uprightSpringStrength)) - (this.rb.angularVelocity * this.compiledTraits.uprightSpringDamper));
+            var currentVelocity = this.rb.linearVelocity;
+            var currentVelocityVector2 = new Vector2(currentVelocity.x, currentVelocity.z);
+            var speed = currentVelocityVector2.magnitude;
+            if (speed > 0.01f) {
+                var targetAngle = currentVelocityVector2.normalized;
+                var rotationSpeed = speed * this.compiledTraits.rotationSpeedDampener;
+                // rotationSpeed = Mathf.Max(rotationSpeed, );
+                this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(new Vector3(currentVelocityVector2.x, 0, currentVelocityVector2.y)), this.compiledTraits.rotationSpeedMin * deltaTime);
+            }
         }
         public void HandleMove(float deltaTime) {
             // if (!this.isOnGround) {
             //     return;
             // }
-            var inputDirection = this.inputController.moveInput;
-            var worldDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
+            var worldDirection = this.moveDirection;
             var targetGoalVelocity = worldDirection * this.compiledTraits.maxSpeed;
             this.goalVelocity = Vector3.MoveTowards(this.goalVelocity, targetGoalVelocity, deltaTime * this.compiledTraits.acceleration);
             
             var accelNeeded = (this.goalVelocity - this.rb.linearVelocity) / deltaTime;
             this.rb.AddForce(Vector3.Scale(accelNeeded, new Vector3(1,0,1)));
             
-            var currentVelocity = this.rb.linearVelocity;
-            var currentVelocityVector2 = new Vector2(currentVelocity.x, currentVelocity.z);
-            if (currentVelocityVector2.magnitude > 0.01f) {
-                this.transform.eulerAngles = new Vector3(0, currentVelocityVector2.Angle(), 0);
-            }
             
         }
         public void PhysicsUpdate(float deltaTime) {
             this.HandleGravity(deltaTime);
-            // this.CorrectRotation(deltaTime);
             this.HandleMove(deltaTime);
         }
     }

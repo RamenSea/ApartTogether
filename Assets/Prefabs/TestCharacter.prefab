@@ -530,11 +530,14 @@ MonoBehaviour:
     heightSpringDamper: 100
     uprightSpringStrength: 2000
     uprightSpringDamper: 30
-    jumpPower: 500
+    rotationSpeedMin: 4.68
+    rotationSpeedDampener: 0
+    jumpPower: 2000
   inputController: {fileID: 8061672132777080158}
   goalVelocity: {x: 0, y: 0, z: 0}
   isOnGround: 0
   jumpRecharge: 0
+  moveDirection: {x: 0, y: 0, z: 0}
 --- !u!54 &3768692104552035070
 Rigidbody:
   m_ObjectHideFlags: 0

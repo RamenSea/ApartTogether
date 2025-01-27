@@ -166,14 +166,16 @@ MonoBehaviour:
   - {fileID: 4580939275570515017}
   rigs:
   - {fileID: 8852695152441447852}
-  shootStepFrom: {fileID: 2198555566394749859}
-  baseRigidbody: {fileID: 0}
   forwardFrom: {fileID: 0}
   target: {fileID: 4216993257096698313}
   stepLength: 0.18
   stepHeight: 0.08
   findGroundHeight: 3
   minStepSpeed: 1
+  offAngleTrigger: 60
+  speedScale: 2
+  speedStepScale: 0
+  isDown: 0
 --- !u!1 &2149564492620911110
 GameObject:
   m_ObjectHideFlags: 0
