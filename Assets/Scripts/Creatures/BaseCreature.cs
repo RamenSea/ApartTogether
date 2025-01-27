@@ -1,5 +1,6 @@
 using System;
 using Player;
+using RamenSea.Foundation3D.Extensions;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,20 +19,14 @@ namespace Creatures {
         public float jumpPower;
     }
     public class BaseCreature: MonoBehaviour {
-        public static Quaternion ShortestRotation(Quaternion to, Quaternion from)
-        {
-            if (Quaternion.Dot(to, from) < 0)
-            {
+        public static Quaternion ShortestRotation(Quaternion to, Quaternion from) {
+            if (Quaternion.Dot(to, from) < 0) {
                 return to * Quaternion.Inverse(Multiply(from, -1));
+            } else {
+                return to * Quaternion.Inverse(from);
             }
-
-            else return to * Quaternion.Inverse(from);
         }
-
-
-
-        public static Quaternion Multiply(Quaternion input, float scalar)
-        {
+        public static Quaternion Multiply(Quaternion input, float scalar) {
             return new Quaternion(input.x * scalar, input.y * scalar, input.z * scalar, input.w * scalar);
         }
         
@@ -90,8 +85,10 @@ namespace Creatures {
         }
 
         public void CorrectRotation(float deltaTime) {
+            // var upRightRotation = Quaternion.Euler(new Vector3(0,this.inputController.moveInput.Angle(),0)); //todo
             var upRightRotation = Quaternion.identity; //todo
             var toGoal = BaseCreature.ShortestRotation(upRightRotation, this.transform.rotation);
+            print(toGoal.eulerAngles.magnitude);
 
             Vector3 rotAxis;
             float rotDegree;
@@ -113,10 +110,17 @@ namespace Creatures {
             
             var accelNeeded = (this.goalVelocity - this.rb.linearVelocity) / deltaTime;
             this.rb.AddForce(Vector3.Scale(accelNeeded, new Vector3(1,0,1)));
+            
+            var currentVelocity = this.rb.linearVelocity;
+            var currentVelocityVector2 = new Vector2(currentVelocity.x, currentVelocity.z);
+            if (currentVelocityVector2.magnitude > 0.01f) {
+                this.transform.eulerAngles = new Vector3(0, currentVelocityVector2.Angle(), 0);
+            }
+            
         }
         public void PhysicsUpdate(float deltaTime) {
             this.HandleGravity(deltaTime);
-            this.CorrectRotation(deltaTime);
+            // this.CorrectRotation(deltaTime);
             this.HandleMove(deltaTime);
         }
     }
