@@ -2,6 +2,7 @@ using System;
 using Creatures.Parts;
 using JetBrains.Annotations;
 using NaughtyAttributes;
+using Player;
 using Systems;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -99,6 +100,7 @@ namespace Creatures {
                         this.bodyPart.AttachPart(oldBody.attachedHeadPart);
                     }
 
+                    PlayerDriverController.Instance.cameraController.virtualCamera.Follow = this.bodyPart.followPoint;
                     if (oldBody != null) {
                         CreatureManager.Instance.DropPart(oldBody);
                     }

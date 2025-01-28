@@ -18,6 +18,7 @@ namespace Creatures.Parts.Limbs {
         private Vector3 lastPositionForStep;
         private Vector2 lastForward;
 
+        private bool isLeft = false;
         private void Start() {
             this.finalTargetPosition = this.target.position;
             this.currentTargetPosition = this.finalTargetPosition;
@@ -37,7 +38,11 @@ namespace Creatures.Parts.Limbs {
             this.finalTargetPosition = targetPosition;
             this.lastForward = new Vector2(forward.x, forward.z);
         }
-        
+
+        public override void OnAttachToBody(BaseBodyPart bodyPart, Transform toPoints) {
+            base.OnAttachToBody(bodyPart, toPoints);
+        }
+
         protected override void OnGameUpdate(float deltaTime) {
             var currentPositionForSpeed = this.transform.position;
             currentPositionForSpeed.y = 0;

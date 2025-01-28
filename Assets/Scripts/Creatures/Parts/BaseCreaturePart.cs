@@ -19,6 +19,10 @@ namespace Creatures.Parts {
         DogLegs = 10_3,
         
         CannonArms = 11_1,
+        
+        BeetleHead = 21_1,
+        BeetleBody = 21_2,
+        BeetleLegs = 21_3,
     }
     public class BaseCreaturePart: MonoBehaviour {
         public CreatureInterface creatureInterface;
