@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a2959aeba742b3a29ca47ef9514367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotType: 2
   limbPrefab: {fileID: 0}
   deactivateCollidersWhileAttached: 1
   _partId: 101

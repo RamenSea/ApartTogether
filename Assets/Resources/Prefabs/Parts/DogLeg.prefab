@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adbfec5cbb344a378baa0e3803a8a5b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotType: 1
   limbPrefab: {fileID: 3011002636692149245, guid: 0400ae8a35fa84bb5b4d7ed30f5a5570, type: 3}
   deactivateCollidersWhileAttached: 1
   _partId: 103
@@ -51,7 +52,7 @@ MonoBehaviour:
     weight: 3
     maxSpeed: 1.6
     acceleration: 3
-    height: 0.35
+    height: 0.3
     heightSpringForce: 2000
     heightSpringDamper: 200
     uprightSpringStrength: 0
@@ -59,5 +60,8 @@ MonoBehaviour:
     rotationSpeedMin: 1
     rotationSpeedDampener: 0
     jumpPower: 200
+    enableFlapFlight: 0
+    flapFlightPower: 0
+    flapDuration: 0
   limbs: []
   isAttached: 0

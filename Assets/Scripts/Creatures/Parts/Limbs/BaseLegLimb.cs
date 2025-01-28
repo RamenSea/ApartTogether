@@ -37,7 +37,7 @@ namespace Creatures.Parts.Limbs {
             this.currentStepLength = this.stepLength + Random.Range(-this.stepVariance, this.stepVariance) * this.stepLength;
         }
         private void SetStepPosition(Vector3 targetPosition) {
-            var forward = this.creatureInterface.transform.forward;
+            var forward = this.creature.transform.forward;
             this.finalTargetPosition = targetPosition;
             this.lastForward = new Vector2(forward.x, forward.z);
             this.SetStepLength();
@@ -94,8 +94,8 @@ namespace Creatures.Parts.Limbs {
         }
 
         private void OnDrawGizmos() {
-            if (this.creatureInterface != null) {
-                var forward = this.creatureInterface.transform.forward;
+            if (this.creature != null) {
+                var forward = this.creature.transform.forward;
                 forward.y = 0;
                 
                 if (Physics.SphereCast(this.transform.position + forward * (this.currentStepLength), 0.05f, new Vector3(forward.x, -1f, forward.y), out RaycastHit hit, this.findGroundHeight, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {

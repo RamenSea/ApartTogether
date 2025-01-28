@@ -20,6 +20,9 @@ namespace Creatures {
         public float rotationSpeedMin;
         public float rotationSpeedDampener;
         public float jumpPower;
+        public bool enableFlapFlight;
+        public float flapFlightPower;
+        public float flapDuration;
     }
 
 
@@ -59,6 +62,12 @@ namespace Creatures {
             traits.rotationSpeedMin += otherTrait.rotationSpeedMin;
             traits.rotationSpeedDampener += otherTrait.rotationSpeedDampener;
             traits.jumpPower += otherTrait.jumpPower;
+
+            if (otherTrait.enableFlapFlight) {
+                traits.enableFlapFlight = true;
+            }
+            traits.flapFlightPower += otherTrait.flapFlightPower;
+            traits.flapDuration += otherTrait.flapDuration;
             return traits;
         }
     }

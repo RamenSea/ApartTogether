@@ -23,11 +23,13 @@ namespace Creatures.Parts {
         BeetleHead = 21_1,
         BeetleBody = 21_2,
         BeetleLegs = 21_3,
+        
+        BirdArm = 31_4,
     }
     public class BaseCreaturePart: MonoBehaviour {
-        public CreatureInterface creatureInterface;
+        public BaseCreature creature;
         
-        public virtual PartSlotType slotType => PartSlotType.Body;
+        public PartSlotType slotType = PartSlotType.Body;
 
         [SerializeField] public BaseLimb limbPrefab; // only if u need it
         [SerializeField] protected bool deactivateCollidersWhileAttached = true;
@@ -49,9 +51,9 @@ namespace Creatures.Parts {
                 this.attachedToBody?.PartWillDeattach(this);
             }
             this.attachedToBody = bodyPart;
-            this.creatureInterface = bodyPart.creatureInterface;
+            this.creature = bodyPart.creature;
             this.isAttached = true;
-            this.transform.SetParent(this.creatureInterface.transform);
+            this.transform.SetParent(this.creature.transform);
             this.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             
             for (var i = toPoints.Length; i < this.limbs.Length; i++) {
@@ -67,7 +69,7 @@ namespace Creatures.Parts {
                 } else {
                     limb = this.limbPrefab.Instantiate(toPoints[i]);
                 }
-                limb.creatureInterface = this.creatureInterface;
+                limb.creature = this.creature;
                 updatedLimbs[i] = limb;
                 limb.OnAttachToBody(bodyPart, toPoints[i]);
             }
@@ -83,7 +85,7 @@ namespace Creatures.Parts {
             this.attachedToBody?.PartWillDeattach(this);
             this.attachedToBody = null;
             this.isAttached = false;
-            this.creatureInterface = null;
+            this.creature = null;
             this.transform.SetParent(null); //todo deattch
             for (var i = 1; i < this.limbs.Length; i++) {
                 this.limbs[i].OnDeattachBody();

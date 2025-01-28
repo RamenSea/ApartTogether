@@ -6,18 +6,17 @@ using UnityEngine;
 
 namespace Creatures.Parts {
     public class BaseBodyPart: BaseCreaturePart {
-        public override PartSlotType slotType => PartSlotType.Body;
         
         public Transform followPoint;
 
         [SerializeField] protected BaseBodyLimb bodyLimb;
         
-        [NonSerialized] public BaseHeadPart attachedHeadPart = null;
-        [NonSerialized] public BaseLegPart attachedLegPart = null;
-        [NonSerialized] public BaseArmPart attachedArmsPart = null;
+        [NonSerialized] public BaseCreaturePart attachedHeadPart = null;
+        [NonSerialized] public BaseCreaturePart attachedLegPart = null;
+        [NonSerialized] public BaseCreaturePart attachedArmsPart = null;
 
         public void AttachBody(BaseCreature creature) {
-            this.creatureInterface = creature;
+            this.creature = creature;
             this.bodyLimb.creatureCollider.creature = creature;
             this.bodyLimb.playerCollider.creature = creature;
 
@@ -34,7 +33,7 @@ namespace Creatures.Parts {
                         this.attachedHeadPart.OnDeattachToBody(true);
                     }
 
-                    this.attachedHeadPart = part as BaseHeadPart;
+                    this.attachedHeadPart = part;
                     part.OnAttachToBody(this, new Transform[]{this.bodyLimb.headAttachPoint});
                     break;
                 case PartSlotType.Legs:
@@ -43,7 +42,7 @@ namespace Creatures.Parts {
                         this.attachedLegPart.OnDeattachToBody(true);
                     }
 
-                    this.attachedLegPart = part as BaseLegPart;
+                    this.attachedLegPart = part;
                     part.OnAttachToBody(this, this.bodyLimb.legsAttachPoint);
                     break;
                 case PartSlotType.Arms:
@@ -52,7 +51,7 @@ namespace Creatures.Parts {
                         this.attachedArmsPart.OnDeattachToBody(true);
                     }
 
-                    this.attachedArmsPart = part as BaseArmPart;
+                    this.attachedArmsPart = part;
                     part.OnAttachToBody(this, this.bodyLimb.armsAttachPoint);
                     break;
                 case PartSlotType.Body:

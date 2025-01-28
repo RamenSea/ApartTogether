@@ -26,7 +26,7 @@ namespace Creatures.Parts.Limbs {
             this.FaceCannon(toPoints.forward);
         }
 
-        protected virtual bool ShouldFire() => this.creatureInterface?.doArmsAction ?? false;
+        protected virtual bool ShouldFire() => this.creature?.doArmsAction ?? false;
         protected override void OnGameUpdate(float deltaTime) {
             base.OnGameUpdate(deltaTime);
 

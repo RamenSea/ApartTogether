@@ -10,25 +10,8 @@ using UnityEngine.Animations.Rigging;
 
 
 namespace Creatures {
-    public interface CreatureInterface {
-        public Rigidbody rb { get; }
-        public Transform transform { get; }
-        public CreatureTraits compiledTraits { get; }
-        [CanBeNull] public BaseBodyPart bodyPart { get; set; }
-        [CanBeNull] public BaseLegPart legPart { get; }
-        [CanBeNull] public BaseHeadPart headPart { get; }
-        [CanBeNull] public BaseArmPart armPart { get; }
-        public bool isOnGround { get; }
-        public bool landedOnGroundThisFrame { get; }
-        public float timeInAirLast { get; }
-        public bool doLegAction { get; }
-        public bool doHeadAction { get; }
-        public bool doArmsAction { get; }
-        public Vector3 moveDirection { get; }
-        public int health { get; }
-    }
     
-    public class BaseCreature: MonoBehaviour, CreatureInterface {
+    public class BaseCreature: MonoBehaviour {
         public const int MAX_HEALTH = 10_000;
         public static Quaternion ShortestRotation(Quaternion to, Quaternion from) {
             if (Quaternion.Dot(to, from) < 0) {
@@ -47,10 +30,13 @@ namespace Creatures {
         public RigBuilder rigBuilder;
         public CreatureTraits compiledTraits => this._compiledTraits;
         public BaseBodyPart bodyPart { get; set; }
-        public BaseLegPart legPart => this.bodyPart?.attachedLegPart;
-        public BaseHeadPart headPart => this.bodyPart?.attachedHeadPart;
-        public BaseArmPart armPart => this.bodyPart?.attachedArmsPart;
+        public BaseCreaturePart legPart => this.bodyPart?.attachedLegPart;
+        public BaseCreaturePart headPart => this.bodyPart?.attachedHeadPart;
+        public BaseCreaturePart armPart => this.bodyPart?.attachedArmsPart;
 
+        /*
+         * States
+         */
         public Vector3 moveDirection { get; set; }
         public bool isOnGround { get; set; }
         public bool landedOnGroundThisFrame { get; set; }
@@ -62,6 +48,11 @@ namespace Creatures {
 
         [NonSerialized] public bool isPlayer = false;
         [NonSerialized] private float currentRotation;
+        [SerializeField] protected Vector3 goalVelocity;
+        [SerializeField] protected float jumpRecharge = 0;
+        [SerializeField] protected float flapRechargeTimer = 0;
+        [SerializeField] protected float flapTimer = 0;
+        [SerializeField] protected bool isFlapping = false;
 
         private bool wasOnGroundLastFrame = false;
         private void Update() {
@@ -94,7 +85,7 @@ namespace Creatures {
             return null;
         }
         public void SetCreaturePart(BaseCreaturePart creaturePart) {
-            creaturePart.creatureInterface = this;
+            creaturePart.creature = this;
             
             switch (creaturePart.slotType) {
                 case PartSlotType.Body: {
@@ -255,6 +246,9 @@ namespace Creatures {
         }
         public void PhysicsUpdate(float deltaTime) {
             this.HandleGravity(deltaTime);
+            this.PerformBasicMovement(deltaTime);
+            this.PerformBasicJumpCheck(deltaTime);
+            this.PerformBasicFlapCheck(deltaTime);
             this.CorrectRotation(deltaTime);
             
             this.bodyPart?.PhysicsUpdate(deltaTime);
@@ -263,6 +257,57 @@ namespace Creatures {
             this.legPart?.PhysicsUpdate(deltaTime);
         }
 
+
+        protected void PerformBasicMovement(float deltaTime) {
+            // if (!this.isOnGround) {
+            //     return;
+            // }
+            var worldDirection = this.moveDirection;
+            var targetGoalVelocity = worldDirection * this.compiledTraits.maxSpeed;
+            this.goalVelocity = Vector3.MoveTowards(this.goalVelocity, targetGoalVelocity, deltaTime * this.compiledTraits.acceleration);
+        
+            var accelNeeded = (this.goalVelocity - this.rb.linearVelocity) / deltaTime;
+            this.rb.AddForce(Vector3.Scale(accelNeeded, new Vector3(1,0,1)));
+        }
+        protected void PerformBasicJumpCheck(float deltaTime) {
+            if (this.jumpRecharge > 0) {
+                this.jumpRecharge -= Time.deltaTime;
+            }
+            if (this.doLegAction && this.isOnGround && this.jumpRecharge <= 0.0f) {
+                this.jumpRecharge = 0.2f;
+                this.rb.AddForce(Vector3.up * this.compiledTraits.jumpPower);
+            }
+        }
+        protected void PerformBasicFlapCheck(float deltaTime) {
+            if (this.flapRechargeTimer > 0) {
+                this.flapRechargeTimer -= Time.deltaTime;
+            }
+
+            var wasFlapping = this.isFlapping;
+
+            if (this.compiledTraits.enableFlapFlight && !this.isFlapping && this.flapRechargeTimer <= 0 && this.doLegAction) {
+                this.isFlapping = true;
+                this.flapTimer = this.compiledTraits.flapDuration;
+            }
+
+            if (this.isFlapping && !this.doLegAction) {
+                this.isFlapping = false;
+            }
+            if (this.isFlapping) {
+                var timeAmount = deltaTime;
+                this.flapTimer -= deltaTime;
+                if (this.flapTimer <= 0) {
+                    this.isFlapping = false;
+                    timeAmount = deltaTime + this.flapTimer;
+                }
+                this.rb.AddForce(Vector3.up * (this.compiledTraits.flapFlightPower * timeAmount));
+            }
+
+            if (wasFlapping && !this.isFlapping) {
+                this.flapTimer = 0;
+                this.flapRechargeTimer = 0.2f;
+            }
+        }
         public void TakeDamage(DealDamage damage) {
             Debug.Log("Took damage");
             this.health -= damage.amount;

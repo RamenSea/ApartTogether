@@ -377,7 +377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyPart: 102
   legPart: 103
-  armPart: 111
+  armPart: 314
   headPart: 101
   snapToGround: 1
   autoSpawnOnStart: 0
@@ -1475,6 +1475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allParts:
   - {fileID: 906200738527384754, guid: 36160e6924a474ea497351fc675cc619, type: 3}
+  - {fileID: 3077949266369454607, guid: 856ccf234492f47a7ad1964ecdd3352b, type: 3}
   - {fileID: 7809635722437888869, guid: 319a36684ee484d868b687273bd9e21d, type: 3}
   - {fileID: 3365389164841506606, guid: 1720ffce0f6e74b8182d1923ccafa03e, type: 3}
   - {fileID: 8335549735577111511, guid: 0b04519870357443ebc2becce24d9dfd, type: 3}
