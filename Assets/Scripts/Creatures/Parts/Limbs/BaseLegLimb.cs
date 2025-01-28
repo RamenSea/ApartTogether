@@ -2,8 +2,8 @@ using System;
 using RamenSea.Foundation3D.Extensions;
 using UnityEngine;
 
-namespace Creatures.Parts {
-    public class LegPartsIk: PartsIKCollection {
+namespace Creatures.Parts.Limbs {
+    public class BaseLegLimb: BaseLimb {
         public Transform forwardFrom;
         public Transform target;
         public float stepLength;
