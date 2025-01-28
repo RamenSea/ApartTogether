@@ -1,3 +1,4 @@
+using Creatures.Parts.Limbs;
 using UnityEngine;
 
 namespace Creatures.Parts {
@@ -7,7 +8,15 @@ namespace Creatures.Parts {
         protected Vector3 goalVelocity;
 
         protected float jumpRecharge = 0;
-        
+
+        protected override void OnGameUpdate(float deltaTime) {
+            base.OnGameUpdate(deltaTime);
+
+            if (this.creatureInterface.landedOnGroundThisFrame) {
+                this.ScrambleSteps();
+            }
+        }
+
         protected override void OnPhysicsUpdate(float deltaTime) {
             base.OnPhysicsUpdate(deltaTime);
             
@@ -27,6 +36,10 @@ namespace Creatures.Parts {
             this.creatureInterface.rb.AddForce(Vector3.Scale(accelNeeded, new Vector3(1,0,1)));
         }
 
+        public override void OnAttachToBody(BaseBodyPart bodyPart, Transform[] toPoints) {
+            base.OnAttachToBody(bodyPart, toPoints);
+            this.ScrambleSteps();
+        }
         protected void PerformBasicJumpCheck(float deltaTime) {
             if (this.jumpRecharge > 0) {
                 this.jumpRecharge -= Time.deltaTime;
@@ -34,6 +47,16 @@ namespace Creatures.Parts {
             if (this.creatureInterface.doLegAction && this.creatureInterface.isOnGround && this.jumpRecharge <= 0.0f) {
                 this.jumpRecharge = 0.2f;
                 this.creatureInterface.rb.AddForce(Vector3.up * this.creatureInterface.compiledTraits.jumpPower);
+            }
+        }
+
+        public void ScrambleSteps() {
+            for (var i = 0; i < this.limbs.Length; i++) {
+                var limb = this.limbs[i];
+                if (limb is BaseLegLimb leg) {
+                    var isForward = i % 2 == 0;
+                    leg.ScrambleIdleStep(isForward);
+                }
             }
         }
     }

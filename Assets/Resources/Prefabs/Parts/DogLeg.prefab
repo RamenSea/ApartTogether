@@ -51,7 +51,7 @@ MonoBehaviour:
     weight: 3
     maxSpeed: 1.6
     acceleration: 3
-    height: 0.2
+    height: 0.35
     heightSpringForce: 2000
     heightSpringDamper: 200
     uprightSpringStrength: 0

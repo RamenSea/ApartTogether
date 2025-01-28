@@ -3,6 +3,7 @@ using Creatures.Parts;
 using JetBrains.Annotations;
 using NaughtyAttributes;
 using Player;
+using RamenSea.Foundation3D.Extensions;
 using Systems;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -18,6 +19,8 @@ namespace Creatures {
         [CanBeNull] public BaseHeadPart headPart { get; }
         [CanBeNull] public BaseArmPart armPart { get; }
         public bool isOnGround { get; }
+        public bool landedOnGroundThisFrame { get; }
+        public float timeInAirLast { get; }
         public bool doLegAction { get; }
         public bool doHeadAction { get; }
         public bool doArmsAction { get; }
@@ -50,6 +53,8 @@ namespace Creatures {
 
         public Vector3 moveDirection { get; set; }
         public bool isOnGround { get; set; }
+        public bool landedOnGroundThisFrame { get; set; }
+        public float timeInAirLast { get; set; }
         public bool doLegAction { get; set; }
         public bool doHeadAction { get; set; }
         public bool doArmsAction { get; set; }
@@ -58,8 +63,15 @@ namespace Creatures {
         [NonSerialized] public bool isPlayer = false;
         [NonSerialized] private float currentRotation;
 
+        private bool wasOnGroundLastFrame = false;
         private void Update() {
             Debug.DrawLine(this.transform.position, this.transform.position + (this.compiledTraits.height * Vector3.down), Color.red);
+
+            this.landedOnGroundThisFrame = false;
+            if (this.isOnGround && this.wasOnGroundLastFrame != this.isOnGround) {
+                this.landedOnGroundThisFrame = true;
+            }
+            this.wasOnGroundLastFrame = this.isOnGround;
 
             this.bodyPart?.GameUpdate(Time.deltaTime);
             this.headPart?.GameUpdate(Time.deltaTime);
@@ -100,7 +112,9 @@ namespace Creatures {
                         this.bodyPart.AttachPart(oldBody.attachedHeadPart);
                     }
 
-                    PlayerDriverController.Instance.cameraController.virtualCamera.Follow = this.bodyPart.followPoint;
+                    if (this.isPlayer) {
+                        PlayerDriverController.Instance.cameraController.virtualCamera.Follow = this.bodyPart.followPoint;
+                    }
                     if (oldBody != null) {
                         CreatureManager.Instance.DropPart(oldBody);
                     }
@@ -160,9 +174,12 @@ namespace Creatures {
             if (resetCounters) {
                 this.moveDirection = Vector3.zero;
                 this.isOnGround = false;
+                this.wasOnGroundLastFrame = false;
+                this.landedOnGroundThisFrame = false;
                 this.doLegAction = false;
                 this.doHeadAction = false;
                 this.doArmsAction = false;
+                this.timeInAirLast = 0f;
                 this.health = MAX_HEALTH;
             }
         }
@@ -170,6 +187,7 @@ namespace Creatures {
             this.PhysicsUpdate(Time.fixedDeltaTime);
         }
         public void HandleGravity(float deltaTime) {
+            var wasOnGround = this.isOnGround;
             var usingDown = Vector3.down;
             RaycastHit hit;
             if (Physics.Raycast(this.transform.position, transform.TransformDirection(usingDown), out hit, this.compiledTraits.height, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
@@ -196,13 +214,23 @@ namespace Creatures {
             } else {
                 this.isOnGround = false;
             }
+
+            if (wasOnGround != this.isOnGround) {
+                this.timeInAirLast = 0f;
+            }
+            if (!this.isOnGround) {
+                this.timeInAirLast += deltaTime;
+            }
         }
 
         public void CorrectRotation(float deltaTime) {
-            // var upRightRotation = Quaternion.Euler(new Vector3(0,this.inputController.moveInput.Angle(),0)); //todo
-            // var upRightRotation = Quaternion.identity; //todo
-            // var toGoal = BaseCreature.ShortestRotation(upRightRotation, this.transform.rotation);
-            //
+            // var rot = Quaternion.FromToRotation(transform.up, Vector3.up);
+            // rb.AddTorque(new Vector3(rot.x, rot.y, rot.z) * (this.compiledTraits.uprightSpringStrength * deltaTime));
+            // var moveDirectionAngle = new Vector2(this.moveDirection.x, this.moveDirection.z);
+            // var upRightRotation = Quaternion.Euler(new Vector3(0, moveDirectionAngle.Angle(true), 0)); //todo
+            // // var upRightRotation = Quaternion.identity; //todo
+            // var toGoal = BaseCreature.ShortestRotation(upRightRotation, this.rb.rotation);
+            // //
             // Vector3 rotAxis;
             // float rotDegree;
             // toGoal.ToAngleAxis(out rotDegree, out rotAxis);
@@ -210,7 +238,10 @@ namespace Creatures {
             //
             // float rotRadians = rotDegree * Mathf.Deg2Rad;
             //
-            // this.rb.AddTorque((rotAxis * (rotRadians * this.compiledTraits.uprightSpringStrength)) - (this.rb.angularVelocity * this.compiledTraits.uprightSpringDamper));
+            // this.rb.AddTorque(
+            //     (rotAxis * (rotRadians *
+            //         this.compiledTraits
+            //             .uprightSpringStrength)) - (this.rb.angularVelocity * this.compiledTraits.uprightSpringDamper));
             //
             // var currentVelocity = this.rb.linearVelocity;
             // var currentVelocityVector2 = new Vector2(currentVelocity.x, currentVelocity.z);

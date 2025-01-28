@@ -45,8 +45,8 @@ namespace Creatures {
             traits.heightSpringForce = uprightPerWeight * traits.weight;
             traits.heightSpringDamper = traits.heightSpringForce * 0.1f;
             var rotationFixPerWeight = 200f;
-            traits.rotationSpeedMin = rotationFixPerWeight * traits.weight;
-            traits.rotationSpeedMin = traits.rotationSpeedMin * 0.1f;
+            traits.uprightSpringStrength = rotationFixPerWeight * traits.weight;
+            traits.uprightSpringDamper = traits.uprightSpringStrength * 0.1f;
             return traits;
         }
         

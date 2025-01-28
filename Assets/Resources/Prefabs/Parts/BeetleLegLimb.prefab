@@ -397,6 +397,31 @@ MonoBehaviour:
   minStepSpeed: 0.5
   offAngleTrigger: 60
   speedScale: 2
+  stepVariance: 0.1
+  stepHeightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.00000094855204
+      value: -0.0000015785918
+      inSlope: 1.1609439
+      outSlope: 1.1609439
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.16284506
+    - serializedVersion: 3
+      time: 0.99998856
+      value: 0.001373291
+      inSlope: -0.23548433
+      outSlope: -0.23548433
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.05274167
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7363230649303263196
 GameObject:
   m_ObjectHideFlags: 0
