@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creature: {fileID: 0}
+  collider: {fileID: 6722801258469941691}
 --- !u!1 &1735216069888752920
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,6 +250,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6b3ba1def9454ca343e10ccabdf7e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creature: {fileID: 0}
+  slotType: 0
   limbPrefab: {fileID: 0}
   deactivateCollidersWhileAttached: 0
   _partId: 102
@@ -264,6 +267,9 @@ MonoBehaviour:
     rotationSpeedMin: 0
     rotationSpeedDampener: 0
     jumpPower: 0
+    enableFlapFlight: 0
+    flapFlightPower: 0
+    flapDuration: 0
   limbs:
   - {fileID: 7068894137370827998}
   isAttached: 0
@@ -281,6 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b17760b87c84b63a1fdfaad0d5f71e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creature: {fileID: 0}
   bones: []
   rigs: []
   colliders:
@@ -469,6 +476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creature: {fileID: 0}
+  collider: {fileID: 5576344343850957016}
 --- !u!1 &3223447946615102203
 GameObject:
   m_ObjectHideFlags: 0

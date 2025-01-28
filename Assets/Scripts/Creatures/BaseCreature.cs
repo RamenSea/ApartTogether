@@ -1,4 +1,5 @@
 using System;
+using Creatures.Collision;
 using Creatures.Parts;
 using JetBrains.Annotations;
 using NaughtyAttributes;
@@ -34,6 +35,8 @@ namespace Creatures {
         public BaseCreaturePart headPart => this.bodyPart?.attachedHeadPart;
         public BaseCreaturePart armPart => this.bodyPart?.attachedArmsPart;
 
+        public WaterCreatureInfo waterInfo;
+        
         /*
          * States
          */
@@ -54,6 +57,8 @@ namespace Creatures {
         [SerializeField] protected float flapTimer = 0;
         [SerializeField] protected bool isFlapping = false;
 
+        public Vector3 gravity;
+        
         private bool wasOnGroundLastFrame = false;
         private void Update() {
             Debug.DrawLine(this.transform.position, this.transform.position + (this.compiledTraits.height * Vector3.down), Color.red);
@@ -68,6 +73,12 @@ namespace Creatures {
             this.headPart?.GameUpdate(Time.deltaTime);
             this.armPart?.GameUpdate(Time.deltaTime);
             this.legPart?.GameUpdate(Time.deltaTime);
+
+            if (this.waterInfo.isSwimming) {
+                this.gravity = Physics.gravity * 0.04f;
+            } else {
+                this.gravity = Physics.gravity;
+            }
         }
 
         public BaseCreaturePart GetSocket(PartSlotType slotType) {
@@ -173,6 +184,8 @@ namespace Creatures {
                 this.timeInAirLast = 0f;
                 this.health = MAX_HEALTH;
             }
+            
+            this.waterInfo.SetColliders(this);
         }
         private void FixedUpdate() {
             this.PhysicsUpdate(Time.fixedDeltaTime);
@@ -212,6 +225,8 @@ namespace Creatures {
             if (!this.isOnGround) {
                 this.timeInAirLast += deltaTime;
             }
+            
+            this.rb.AddForce(this.gravity * deltaTime, ForceMode.VelocityChange);
         }
 
         public void CorrectRotation(float deltaTime) {

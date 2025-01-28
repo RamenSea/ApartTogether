@@ -9,7 +9,7 @@ namespace Creatures.Parts {
         
         public Transform followPoint;
 
-        [SerializeField] protected BaseBodyLimb bodyLimb;
+        [SerializeField] public BaseBodyLimb bodyLimb;
         
         [NonSerialized] public BaseCreaturePart attachedHeadPart = null;
         [NonSerialized] public BaseCreaturePart attachedLegPart = null;
