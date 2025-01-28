@@ -1385,6 +1385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 9166004937101502953, guid: 2015ec9c6311d46ac8eeee50b217d30e, type: 3}
   parentingTransform: {fileID: 841662069}
+  partsWithinRange: []
 --- !u!1 &1192085824
 GameObject:
   m_ObjectHideFlags: 0
@@ -1799,6 +1800,8 @@ MonoBehaviour:
   didPressLegAction: 0
   didPressArmAction: 0
   didPressHeadAction: 0
+  didPressInteract: 0
+  didPressInteractThisTurn: 0
 --- !u!4 &1704226852
 Transform:
   m_ObjectHideFlags: 0
@@ -1827,6 +1830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b842b8d818244739b9f4efc1a9329a70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creature: {fileID: 0}
   inputController: {fileID: 1704226851}
   cameraController: {fileID: 330585549}
   playerSpawn: {fileID: 67039518}
@@ -1907,6 +1911,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b027ec444e64ce9b9300d2e1d9b90f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalCreatureMask: 6
+  worldPartsMask: 8
 --- !u!1 &2111587313
 GameObject:
   m_ObjectHideFlags: 0

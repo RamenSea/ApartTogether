@@ -48,7 +48,7 @@ namespace Creatures {
 
             creatureController.FinishSettingParts(true);
             if (this.snapToGround) {
-                if (Physics.SphereCast(this.transform.position, 0.2f, Vector3.down, out RaycastHit hit, 50)) {
+                if (Physics.SphereCast(this.transform.position, 0.2f, Vector3.down, out RaycastHit hit, 50, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
                     var ground = hit.point;
                     ground.y += creatureController.compiledTraits.height;
                     creatureController.transform.SetPositionAndRotation(ground, this.transform.rotation);

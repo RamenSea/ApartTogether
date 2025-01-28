@@ -494,7 +494,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2
@@ -776,8 +776,9 @@ MonoBehaviour:
   - {fileID: 6056820482733344511}
   rigs:
   - {fileID: 1245233704947539738}
-  colliders: []
-  forwardFrom: {fileID: 0}
+  colliders:
+  - {fileID: 4917689610545808064}
+  isAttachedToCreature: 0
   target: {fileID: 5843745032344097663}
   stepLength: 0.18
   stepHeight: 0.08

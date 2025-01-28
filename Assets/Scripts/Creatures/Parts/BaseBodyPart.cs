@@ -1,6 +1,7 @@
 using System;
 using Creatures.Parts.Limbs;
 using Systems;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Creatures.Parts {
@@ -18,6 +19,11 @@ namespace Creatures.Parts {
         public void AttachBody(BaseCreature creature) {
             this.creatureInterface = creature;
             this.bodyLimb.creatureCollider.creature = creature;
+            this.bodyLimb.playerCollider.creature = creature;
+
+            if (creature.isPlayer) {
+                this.bodyLimb.playerCollider.gameObject.SetActive(true);
+            }
         }
         public void AttachPart(BaseCreaturePart part) {
             Transform worldPartsTransform = null; // todo
@@ -52,6 +58,25 @@ namespace Creatures.Parts {
                 case PartSlotType.Body:
                     //todo transfer over parts, attach to main GO
                     break;
+            }
+        }
+
+        public override void OnDeattachToBody(bool isDropped) {
+            base.OnDeattachToBody(isDropped);
+            this.bodyLimb.creatureCollider.creature = null;
+            this.bodyLimb.playerCollider.creature = null;
+            this.bodyLimb.playerCollider.gameObject.SetActive(false);
+        }
+
+        public void PartWillDeattach(BaseCreaturePart part) {
+            if (part == this.attachedHeadPart) {
+                this.attachedHeadPart = null;
+            }
+            if (part == this.attachedLegPart) {
+                this.attachedLegPart = null;
+            }
+            if (part == this.attachedArmsPart) {
+                this.attachedArmsPart = null;
             }
         }
     }

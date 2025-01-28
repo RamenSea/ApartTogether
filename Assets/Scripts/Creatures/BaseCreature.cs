@@ -1,15 +1,8 @@
 using System;
-using System.Collections.Generic;
 using Creatures.Parts;
 using JetBrains.Annotations;
 using NaughtyAttributes;
-using Player;
-using RamenSea.Foundation.Extensions;
-using RamenSea.Foundation3D.Extensions;
 using Systems;
-using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -19,7 +12,7 @@ namespace Creatures {
         public Rigidbody rb { get; }
         public Transform transform { get; }
         public CreatureTraits compiledTraits { get; }
-        [CanBeNull] public BaseBodyPart bodyPart { get; }
+        [CanBeNull] public BaseBodyPart bodyPart { get; set; }
         [CanBeNull] public BaseLegPart legPart { get; }
         [CanBeNull] public BaseHeadPart headPart { get; }
         [CanBeNull] public BaseArmPart armPart { get; }
@@ -73,21 +66,52 @@ namespace Creatures {
             this.legPart?.GameUpdate(Time.deltaTime);
         }
 
+        public BaseCreaturePart GetSocket(PartSlotType slotType) {
+            switch (slotType) {
+                case PartSlotType.Head:
+                    return this.headPart;
+                case PartSlotType.Body:
+                    return this.bodyPart;
+                case PartSlotType.Arms:
+                    return this.armPart;
+                case PartSlotType.Legs:
+                    return this.legPart;
+            }
+
+            return null;
+        }
         public void SetCreaturePart(BaseCreaturePart creaturePart) {
             creaturePart.creatureInterface = this;
             
             switch (creaturePart.slotType) {
                 case PartSlotType.Body: {
-                    // todo
+                    var oldBody = this.bodyPart;
                     this.bodyPart = creaturePart as BaseBodyPart;
                     this.bodyPart.transform.SetParent(this.transform);
                     this.bodyPart.AttachBody(this);
+                    if (oldBody?.attachedArmsPart != null) {
+                        this.bodyPart.AttachPart(oldBody.attachedArmsPart);
+                    }
+                    if (oldBody?.attachedLegPart != null) {
+                        this.bodyPart.AttachPart(oldBody.attachedLegPart);
+                    }
+                    if (oldBody?.attachedHeadPart != null) {
+                        this.bodyPart.AttachPart(oldBody.attachedHeadPart);
+                    }
+
+                    if (oldBody != null) {
+                        CreatureManager.Instance.DropPart(oldBody);
+                    }
                     break;
                 }
                 default: {
                     if (this.bodyPart == null) {
                         Debug.LogError("You can't build a creature without a body");
                         return;
+                    }
+                    var oldBodyPart = this.GetSocket(creaturePart.slotType);
+                    if (oldBodyPart != null) {
+                        CreatureManager.Instance.DropPart(oldBodyPart);
                     }
                     this.bodyPart.AttachPart(creaturePart);
                     break;
@@ -146,7 +170,7 @@ namespace Creatures {
         public void HandleGravity(float deltaTime) {
             var usingDown = Vector3.down;
             RaycastHit hit;
-            if (Physics.Raycast(this.transform.position, transform.TransformDirection(usingDown), out hit, this.compiledTraits.height)) {
+            if (Physics.Raycast(this.transform.position, transform.TransformDirection(usingDown), out hit, this.compiledTraits.height, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
                 this.isOnGround = true;
                 var velocity = rb.linearVelocity;
                 var rayDir = usingDown;
@@ -214,6 +238,8 @@ namespace Creatures {
                 this.Die();
             }
         }
+        
+        [Button("Test death")]
         public void Die() {
             Debug.Log("Died");
             CreatureManager.Instance.CreatureDidDie(this);

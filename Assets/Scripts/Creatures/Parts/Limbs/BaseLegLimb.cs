@@ -31,8 +31,6 @@ namespace Creatures.Parts.Limbs {
             takingStep = takingStep.Abs();
             if (takingStep.magnitude > 0.001f) {
                 
-                Debug.Log(takingStep.magnitude);
-                
             }
 
             var forward = this.creatureInterface.transform.forward;
@@ -48,7 +46,7 @@ namespace Creatures.Parts.Limbs {
             // forward = this.baseRigidbody.linearVelocity.normalized;
             var forward = this.creatureInterface.transform.forward;
             forward.y = 0;
-            if (Physics.SphereCast(this.transform.position + forward * (this.stepLength), 0.05f, new Vector3(forward.x, -1f, forward.y), out RaycastHit hit, this.findGroundHeight)) {
+            if (Physics.SphereCast(this.transform.position + forward * (this.stepLength), 0.05f, new Vector3(forward.x, -1f, forward.y), out RaycastHit hit, this.findGroundHeight, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
                 var distance = this.finalTargetPosition.Distance(hit.point);
                 // if (this.isDown && distance > this.stepLength * 2) {
                 //     
@@ -90,8 +88,7 @@ namespace Creatures.Parts.Limbs {
                 var forward = this.creatureInterface.transform.forward;
                 forward.y = 0;
                 
-                if (Physics.SphereCast(this.transform.position + forward * (this.stepLength), 0.05f, new Vector3(forward.x, -1f, forward.y), out RaycastHit hit, this.findGroundHeight)) {
-                // if (Physics.Raycast(this.transform.position + forward * this.stepLength, Vector3.down, out RaycastHit hit, this.findGroundHeight)) {
+                if (Physics.SphereCast(this.transform.position + forward * (this.stepLength), 0.05f, new Vector3(forward.x, -1f, forward.y), out RaycastHit hit, this.findGroundHeight, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
                     Gizmos.color = Color.blue;
                     Gizmos.DrawWireSphere(hit.point, 0.05f);
                 }

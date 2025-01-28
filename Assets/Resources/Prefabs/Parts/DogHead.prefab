@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7762697482753910854}
   - component: {fileID: 1220159147691192644}
   - component: {fileID: 699818198117303833}
-  - component: {fileID: 7325635595229361826}
   m_Layer: 0
   m_Name: Mouth
   m_TagString: Untagged
@@ -87,27 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7325635595229361826
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 580921793474605463}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3007484542838102679
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,6 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   limbPrefab: {fileID: 0}
+  deactivateCollidersWhileAttached: 1
   _partId: 101
   _traits:
     weight: 1
@@ -326,4 +305,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bones: []
   rigs: []
-  colliders: []
+  colliders:
+  - {fileID: 8147995860704322604}
+  isAttachedToCreature: 0

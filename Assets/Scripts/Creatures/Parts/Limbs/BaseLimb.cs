@@ -21,9 +21,11 @@ namespace Creatures.Parts {
         
         public virtual void OnDroppedLimb() {
             this.isAttachedToCreature = false;
+            this.creatureInterface = null;
         }
         public virtual void OnDroppedLimbDestroy() {
             this.isAttachedToCreature = false;
+            this.creatureInterface = null;
             
         }
         public virtual void OnAttachToBody(BaseBodyPart bodyPart, Transform toPoints) {
@@ -34,6 +36,14 @@ namespace Creatures.Parts {
         public virtual void OnDeattachBody() {
             this.creatureInterface = null;
             this.isAttachedToCreature = false;
+            this.creatureInterface = null;
+        }
+
+        public void ChangeColliderActivations(bool shouldActivate, LayerMask layerMask) {
+            for (var i = 0; i < this.colliders.Length; i++) {
+                this.colliders[i].enabled = shouldActivate;
+                this.colliders[i].gameObject.layer = layerMask;
+            }
         }
     }
 }

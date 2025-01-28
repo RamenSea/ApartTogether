@@ -13,7 +13,7 @@ namespace Creatures.Collision {
     }
     public class CreatureCollisionDetection: MonoBehaviour {
         public ICreatureCollisionDetectionListener listener;
-        
+        public bool listenForJustPlayerCollider = false;
         private void OnCollisionEnter(UnityEngine.Collision other) {
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
@@ -31,6 +31,13 @@ namespace Creatures.Collision {
         }
 
         private void OnTriggerEnter(Collider other) {
+            if (this.listenForJustPlayerCollider) {
+                if (other.gameObject.CompareTag(GameTags.Player)) {
+                    var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
+                    this.listener?.OnCreatureTriggerEnter(creatureCollider.creature);
+                } 
+                return;
+            }
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
                 this.listener?.OnCreatureTriggerEnter(creatureCollider.creature);
@@ -40,6 +47,13 @@ namespace Creatures.Collision {
             
         }
         private void OnTriggerExit(Collider other) {
+            if (this.listenForJustPlayerCollider) {
+                if (other.gameObject.CompareTag(GameTags.Player)) {
+                    var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
+                    this.listener?.OnCreatureTriggerExit(creatureCollider.creature);
+                } 
+                return;
+            }
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
                 this.listener?.OnCreatureTriggerExit(creatureCollider.creature);

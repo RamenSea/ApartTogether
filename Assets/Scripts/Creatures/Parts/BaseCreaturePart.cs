@@ -1,4 +1,5 @@
 using System;
+using Player.PickUp;
 using RamenSea.Foundation3D.Extensions;
 using Systems;
 using UnityEngine;
@@ -25,6 +26,7 @@ namespace Creatures.Parts {
         public virtual PartSlotType slotType => PartSlotType.Body;
 
         [SerializeField] public BaseLimb limbPrefab; // only if u need it
+        [SerializeField] protected bool deactivateCollidersWhileAttached = true;
 
         [SerializeField] protected PartId _partId;
         [SerializeField] protected CreatureTraits _traits;
@@ -35,7 +37,14 @@ namespace Creatures.Parts {
 
         public bool isAttached = false;
 
+        protected BaseBodyPart attachedToBody;
+
+        [NonSerialized] public bool isPlayer = false;
         public virtual void OnAttachToBody(BaseBodyPart bodyPart, Transform[] toPoints) {
+            if (this.attachedToBody != null) {
+                this.attachedToBody?.PartWillDeattach(this);
+            }
+            this.attachedToBody = bodyPart;
             this.creatureInterface = bodyPart.creatureInterface;
             this.isAttached = true;
             this.transform.SetParent(this.creatureInterface.transform);
@@ -43,7 +52,7 @@ namespace Creatures.Parts {
             
             for (var i = toPoints.Length; i < this.limbs.Length; i++) {
                 this.limbs[i].OnDroppedLimbDestroy();
-                this.limbs[i].Destroy();
+                this.limbs[i].gameObject.Destroy();
             }
             var updatedLimbs = new BaseLimb[toPoints.Length];
             for (var i = 0; i < updatedLimbs.Length; i++) {
@@ -59,41 +68,56 @@ namespace Creatures.Parts {
                 limb.OnAttachToBody(bodyPart, toPoints[i]);
             }
             this.limbs = updatedLimbs;
+
+            var layerMaskToUse = CreatureManager.Instance.normalCreatureMask;
+            for (var i = 0; i < this.limbs.Length; i++) {
+                this.limbs[i].ChangeColliderActivations(!this.deactivateCollidersWhileAttached, layerMaskToUse);
+            }
         }
         public virtual void OnDeattachToBody(bool isDropped) {
+            this.isPlayer = false;
+            this.attachedToBody?.PartWillDeattach(this);
+            this.attachedToBody = null;
             this.isAttached = false;
             this.creatureInterface = null;
             this.transform.SetParent(null); //todo deattch
-            
             for (var i = 1; i < this.limbs.Length; i++) {
                 this.limbs[i].OnDeattachBody();
-                this.limbs[i].Destroy();
+                this.limbs[i].gameObject.Destroy();
             }
 
             if (isDropped) {
-                for (var i = 1; i < this.limbs.Length; i++) {
+                for (var i = 0; i < this.limbs.Length; i++) {
                     this.limbs[i].OnDeattachBody();
-                    this.limbs[i].Destroy();
+                    if (i > 0) {
+                        this.limbs[i].gameObject.Destroy();
+                    }
                 }
                 
                 BaseLimb limb;
                 if (this.limbs.Length > 0) {
                     limb = this.limbs[0];
+                    limb.transform.SetParent(this.transform);
                 } else {
                     limb = this.limbPrefab.Instantiate(this.transform);
                 }
-                limb.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-                var collector = WorldPartCollector.Instance.Get();
-                this.limbs = new BaseLimb[1] {limb};
-                this.limbs[0] = limb;
-                collector.AttachPart(this);
-                limb.OnDroppedLimb();
+                this.limbs = new[] {limb};
             } else {
                 for (var i = 0; i < this.limbs.Length; i++) {
                     this.limbs[i].OnDeattachBody();
-                    this.limbs[i].Destroy();
+                    this.limbs[i].gameObject.Destroy();
                 }
             }
+        }
+
+        public virtual void OnAttachToWorldContainer(PartPickUpHolder holder) {
+            var layerMaskToUse = CreatureManager.Instance.worldPartsMask;
+            for (var i = 0; i < this.limbs.Length; i++) {
+                this.limbs[i].ChangeColliderActivations(true, layerMaskToUse);
+            }
+        }
+
+        public virtual void OnDeattachToWorldContainer() {
         }
         public void GameUpdate(float deltaTime) {
             this.OnGameUpdate(deltaTime);

@@ -7,10 +7,10 @@ namespace Player {
     public class PlayerDriverController: MonoBehaviour {
         public static PlayerDriverController Instance { get; private set; }
         
-        private BaseCreature creature;
-        [SerializeField] private PlayerInputController inputController;
-        [SerializeField] private CameraController cameraController;
-        [SerializeField] private SpawnInCreature playerSpawn;
+        public BaseCreature creature;
+        [SerializeField] public PlayerInputController inputController;
+        [SerializeField] public CameraController cameraController;
+        [SerializeField] public SpawnInCreature playerSpawn;
 
         private void Awake() {
             PlayerDriverController.Instance = this;

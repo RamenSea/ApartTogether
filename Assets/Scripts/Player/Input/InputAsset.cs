@@ -58,18 +58,18 @@ namespace Player.Input
                 },
                 {
                     ""name"": ""Interact"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""852140f2-7766-474d-8707-702459ba45f3"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Analog"",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
-                    ""initialStateCheck"": false
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Crouch"",
                     ""type"": ""Button"",
                     ""id"": ""27c5f898-bc57-4ee1-8800-db469aca5fe3"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
