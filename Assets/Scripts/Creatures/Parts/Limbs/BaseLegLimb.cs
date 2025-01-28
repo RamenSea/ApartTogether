@@ -39,7 +39,8 @@ namespace Creatures.Parts.Limbs {
             this.finalTargetPosition = targetPosition;
             this.lastForward = new Vector2(forward.x, forward.z);
         }
-        private void Update() {
+        
+        protected override void OnGameUpdate(float deltaTime) {
             var currentPositionForSpeed = this.transform.position;
             currentPositionForSpeed.y = 0;
             var speed = this.lastPositionForSpeed.Distance(currentPositionForSpeed);
@@ -61,8 +62,6 @@ namespace Creatures.Parts.Limbs {
                 } else {
                     var angleDiff = Mathf.Abs(this.lastForward.Angle() - new Vector2(forward.x, forward.z).Angle());
                     if (angleDiff > this.offAngleTrigger) {
-                        Debug.Log("STEP");
-                        Debug.Log(angleDiff);
                         this.SetStepPosition(hit.point);
                     }
 
@@ -84,7 +83,6 @@ namespace Creatures.Parts.Limbs {
                 this.currentTargetPosition = this.finalTargetPosition;
                 this.target.position = this.currentTargetPosition;
             }
-            
         }
 
         private void OnDrawGizmos() {

@@ -41,9 +41,12 @@ namespace Creatures {
                 traits = BasicAddition(traits, otherTraits, creature.legPart.slotType);
             }
 
-            var uprightPerWeight = 200;
+            var uprightPerWeight = 200f;
             traits.heightSpringForce = uprightPerWeight * traits.weight;
             traits.heightSpringDamper = traits.heightSpringForce * 0.1f;
+            var rotationFixPerWeight = 200f;
+            traits.rotationSpeedMin = rotationFixPerWeight * traits.weight;
+            traits.rotationSpeedMin = traits.rotationSpeedMin * 0.1f;
             return traits;
         }
         

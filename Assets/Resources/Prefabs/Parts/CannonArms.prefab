@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3880025368679421514
+--- !u!1 &7647074039847565273
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1847945475959336548}
-  - component: {fileID: 906200738527384754}
+  - component: {fileID: 1242002780417011115}
+  - component: {fileID: 7809635722437888869}
   m_Layer: 0
-  m_Name: DogLeg
+  m_Name: CannonArms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1847945475959336548
+--- !u!4 &1242002780417011115
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3880025368679421514}
+  m_GameObject: {fileID: 7647074039847565273}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,31 +32,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &906200738527384754
+--- !u!114 &7809635722437888869
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3880025368679421514}
+  m_GameObject: {fileID: 7647074039847565273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adbfec5cbb344a378baa0e3803a8a5b6, type: 3}
+  m_Script: {fileID: 11500000, guid: aa5d9788409d4df7944c54072a39bd4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limbPrefab: {fileID: 3011002636692149245, guid: 0400ae8a35fa84bb5b4d7ed30f5a5570, type: 3}
-  _partId: 103
+  limbPrefab: {fileID: 1917579007265540604, guid: d018466ad29164086a4e6d14661bf382, type: 3}
+  _partId: 111
   _traits:
-    weight: 3
-    maxSpeed: 1.6
-    acceleration: 3
-    height: 0.1
-    heightSpringForce: 2000
-    heightSpringDamper: 200
+    weight: 0
+    maxSpeed: 0
+    acceleration: 0
+    height: 0
+    heightSpringForce: 0
+    heightSpringDamper: 0
     uprightSpringStrength: 0
     uprightSpringDamper: 0
-    rotationSpeedMin: 1
+    rotationSpeedMin: 0
     rotationSpeedDampener: 0
-    jumpPower: 200
+    jumpPower: 0
   limbs: []
   isAttached: 0

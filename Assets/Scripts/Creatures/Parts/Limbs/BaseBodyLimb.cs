@@ -1,3 +1,4 @@
+using Creatures.Collision;
 using UnityEngine;
 
 namespace Creatures.Parts.Limbs {
@@ -5,5 +6,6 @@ namespace Creatures.Parts.Limbs {
         public Transform headAttachPoint;
         public Transform[] armsAttachPoint;
         public Transform[] legsAttachPoint;
+        public CreatureCollider creatureCollider;
     }
 }

@@ -223,6 +223,7 @@ MonoBehaviour:
   - {fileID: 7441315736250966275}
   - {fileID: 4592446061610138129}
   - {fileID: 450024914137708099}
+  creatureCollider: {fileID: 6093898634879364006}
 --- !u!1 &2065700726399235728
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,9 +337,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3656950306249934310}
   - component: {fileID: 5576344343850957016}
-  m_Layer: 0
+  - component: {fileID: 6093898634879364006}
+  m_Layer: 6
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Creature
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -381,6 +383,19 @@ CapsuleCollider:
   m_Height: 0.6
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6093898634879364006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2773315591540926121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa1e680ba38f4abc90af341a1a380f67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: 0}
 --- !u!1 &3223447946615102203
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,10 @@ namespace Creatures.Parts {
         [NonSerialized] public BaseLegPart attachedLegPart = null;
         [NonSerialized] public BaseArmPart attachedArmsPart = null;
 
+        public void AttachBody(BaseCreature creature) {
+            this.creatureInterface = creature;
+            this.bodyLimb.creatureCollider.creature = creature;
+        }
         public void AttachPart(BaseCreaturePart part) {
             Transform worldPartsTransform = null; // todo
             switch (part.slotType) {

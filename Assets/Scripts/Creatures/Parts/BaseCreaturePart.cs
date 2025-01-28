@@ -16,6 +16,8 @@ namespace Creatures.Parts {
         DogHead = 10_1,
         DogBody = 10_2,
         DogLegs = 10_3,
+        
+        CannonArms = 11_1,
     }
     public class BaseCreaturePart: MonoBehaviour {
         public CreatureInterface creatureInterface;
@@ -32,6 +34,7 @@ namespace Creatures.Parts {
         public BaseLimb[] limbs;
 
         public bool isAttached = false;
+
         public virtual void OnAttachToBody(BaseBodyPart bodyPart, Transform[] toPoints) {
             this.creatureInterface = bodyPart.creatureInterface;
             this.isAttached = true;

@@ -47,9 +47,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a31391c865b4ad6af44078b7cf37546, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _compiledTraits:
+    weight: 0
+    maxSpeed: 0
+    acceleration: 0
+    height: 0
+    heightSpringForce: 0
+    heightSpringDamper: 0
+    uprightSpringStrength: 0
+    uprightSpringDamper: 0
+    rotationSpeedMin: 0
+    rotationSpeedDampener: 0
+    jumpPower: 0
   _rb: {fileID: 9123951281119718223}
   rigBuilder: {fileID: 6817320316588372538}
-  jumpRecharge: 0
 --- !u!54 &9123951281119718223
 Rigidbody:
   m_ObjectHideFlags: 0

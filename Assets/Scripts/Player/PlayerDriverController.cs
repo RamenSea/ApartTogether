@@ -29,7 +29,9 @@ namespace Player {
             inputGuide = inputGuide.normalized;
             // inputGuide = new Vector3(0,0,1f);
             this.creature.moveDirection = inputGuide;
-            this.creature.tryJumping = this.inputController.didPressJump;
+            this.creature.doLegAction = this.inputController.didPressLegAction;
+            this.creature.doArmsAction = this.inputController.didPressArmAction;
+            this.creature.doHeadAction = this.inputController.didPressHeadAction;
         }
 
         private void OnDestroy() {

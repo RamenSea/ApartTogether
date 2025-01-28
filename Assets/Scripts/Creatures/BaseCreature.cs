@@ -6,7 +6,9 @@ using NaughtyAttributes;
 using Player;
 using RamenSea.Foundation.Extensions;
 using RamenSea.Foundation3D.Extensions;
+using Systems;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -22,11 +24,15 @@ namespace Creatures {
         [CanBeNull] public BaseHeadPart headPart { get; }
         [CanBeNull] public BaseArmPart armPart { get; }
         public bool isOnGround { get; }
-        public bool tryJumping { get; }
+        public bool doLegAction { get; }
+        public bool doHeadAction { get; }
+        public bool doArmsAction { get; }
         public Vector3 moveDirection { get; }
+        public int health { get; }
     }
     
     public class BaseCreature: MonoBehaviour, CreatureInterface {
+        public const int MAX_HEALTH = 10_000;
         public static Quaternion ShortestRotation(Quaternion to, Quaternion from) {
             if (Quaternion.Dot(to, from) < 0) {
                 return to * Quaternion.Inverse(Multiply(from, -1));
@@ -47,12 +53,13 @@ namespace Creatures {
         public BaseLegPart legPart => this.bodyPart?.attachedLegPart;
         public BaseHeadPart headPart => this.bodyPart?.attachedHeadPart;
         public BaseArmPart armPart => this.bodyPart?.attachedArmsPart;
-        
-        [SerializeField] protected float jumpRecharge;
 
         public Vector3 moveDirection { get; set; }
-        public bool tryJumping { get; set; }
         public bool isOnGround { get; set; }
+        public bool doLegAction { get; set; }
+        public bool doHeadAction { get; set; }
+        public bool doArmsAction { get; set; }
+        public int health { get; set; }
 
         [NonSerialized] public bool isPlayer = false;
         [NonSerialized] private float currentRotation;
@@ -60,16 +67,10 @@ namespace Creatures {
         private void Update() {
             Debug.DrawLine(this.transform.position, this.transform.position + (this.compiledTraits.height * Vector3.down), Color.red);
 
-            if (this.jumpRecharge > 0) {
-                this.jumpRecharge -= Time.deltaTime;
-            }
-            if (this.tryJumping && this.isOnGround && this.jumpRecharge <= 0.0f) {
-                this.jumpRecharge = 0.2f;
-                this.rb.AddForce(Vector3.up * this.compiledTraits.jumpPower);
-            }
-            
-            this.CorrectRotation(Time.deltaTime);
-
+            this.bodyPart?.GameUpdate(Time.deltaTime);
+            this.headPart?.GameUpdate(Time.deltaTime);
+            this.armPart?.GameUpdate(Time.deltaTime);
+            this.legPart?.GameUpdate(Time.deltaTime);
         }
 
         public void SetCreaturePart(BaseCreaturePart creaturePart) {
@@ -80,6 +81,7 @@ namespace Creatures {
                     // todo
                     this.bodyPart = creaturePart as BaseBodyPart;
                     this.bodyPart.transform.SetParent(this.transform);
+                    this.bodyPart.AttachBody(this);
                     break;
                 }
                 default: {
@@ -130,13 +132,17 @@ namespace Creatures {
             this.rigBuilder.Build();
 
             if (resetCounters) {
-                this.tryJumping = false;
+                this.moveDirection = Vector3.zero;
+                this.isOnGround = false;
+                this.doLegAction = false;
+                this.doHeadAction = false;
+                this.doArmsAction = false;
+                this.health = MAX_HEALTH;
             }
         }
         private void FixedUpdate() {
             this.PhysicsUpdate(Time.fixedDeltaTime);
         }
-
         public void HandleGravity(float deltaTime) {
             var usingDown = Vector3.down;
             RaycastHit hit;
@@ -170,7 +176,6 @@ namespace Creatures {
             // var upRightRotation = Quaternion.Euler(new Vector3(0,this.inputController.moveInput.Angle(),0)); //todo
             // var upRightRotation = Quaternion.identity; //todo
             // var toGoal = BaseCreature.ShortestRotation(upRightRotation, this.transform.rotation);
-            // print(toGoal.eulerAngles.magnitude);
             //
             // Vector3 rotAxis;
             // float rotDegree;
@@ -180,24 +185,47 @@ namespace Creatures {
             // float rotRadians = rotDegree * Mathf.Deg2Rad;
             //
             // this.rb.AddTorque((rotAxis * (rotRadians * this.compiledTraits.uprightSpringStrength)) - (this.rb.angularVelocity * this.compiledTraits.uprightSpringDamper));
-            
-            var currentVelocity = this.rb.linearVelocity;
-            var currentVelocityVector2 = new Vector2(currentVelocity.x, currentVelocity.z);
-            var speed = currentVelocityVector2.magnitude;
-            if (speed > 0.01f) {
-                var targetAngle = currentVelocityVector2.normalized;
-                var rotationSpeed = speed * this.compiledTraits.rotationSpeedDampener;
-                // rotationSpeed = Mathf.Max(rotationSpeed, );
-                this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(new Vector3(currentVelocityVector2.x, 0, currentVelocityVector2.y)), this.compiledTraits.rotationSpeedMin * deltaTime);
-            }
+            //
+            // var currentVelocity = this.rb.linearVelocity;
+            // var currentVelocityVector2 = new Vector2(currentVelocity.x, currentVelocity.z);
+            // var speed = currentVelocityVector2.magnitude;
+            // if (speed > 0.01f) {
+            //     var targetAngle = currentVelocityVector2.normalized;
+            //     var rotationSpeed = speed * this.compiledTraits.rotationSpeedDampener;
+            //     // rotationSpeed = Mathf.Max(rotationSpeed, );
+            //     this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(new Vector3(currentVelocityVector2.x, 0, currentVelocityVector2.y)), this.compiledTraits.rotationSpeedMin * deltaTime);
+            // }
         }
         public void PhysicsUpdate(float deltaTime) {
             this.HandleGravity(deltaTime);
-
+            this.CorrectRotation(deltaTime);
+            
             this.bodyPart?.PhysicsUpdate(deltaTime);
             this.headPart?.PhysicsUpdate(deltaTime);
             this.armPart?.PhysicsUpdate(deltaTime);
             this.legPart?.PhysicsUpdate(deltaTime);
         }
+
+        public void TakeDamage(DealDamage damage) {
+            Debug.Log("Took damage");
+            this.health -= damage.amount;
+            if (this.health <= 0) {
+                this.health = 0;
+                this.Die();
+            }
+        }
+        public void Die() {
+            Debug.Log("Died");
+            CreatureManager.Instance.CreatureDidDie(this);
+        }
+    }
+
+    public struct DealDamage {
+        public int amount;
+        public DamageType damageType;
+    }
+    public enum DamageType {
+        Direct,
+        Physics,
     }
 }

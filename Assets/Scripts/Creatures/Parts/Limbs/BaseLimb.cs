@@ -7,7 +7,8 @@ namespace Creatures.Parts {
         public Transform[] bones;
         public Rig[] rigs;
         public Collider[] colliders;
-        
+
+        public bool isAttachedToCreature = false;
         public void GameUpdate(float deltaTime) {
             this.OnGameUpdate(deltaTime);
         }
@@ -19,17 +20,20 @@ namespace Creatures.Parts {
         
         
         public virtual void OnDroppedLimb() {
-            
+            this.isAttachedToCreature = false;
         }
         public virtual void OnDroppedLimbDestroy() {
+            this.isAttachedToCreature = false;
             
         }
         public virtual void OnAttachToBody(BaseBodyPart bodyPart, Transform toPoints) {
             this.transform.localPosition = Vector3.zero;
             this.transform.localRotation = Quaternion.identity;
+            this.isAttachedToCreature = true;
         }
         public virtual void OnDeattachBody() {
             this.creatureInterface = null;
+            this.isAttachedToCreature = false;
         }
     }
 }
