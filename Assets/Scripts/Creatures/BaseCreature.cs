@@ -1,28 +1,30 @@
 using System;
+using System.Collections.Generic;
+using Creatures.Parts;
+using JetBrains.Annotations;
 using Player;
 using RamenSea.Foundation.Extensions;
 using RamenSea.Foundation3D.Extensions;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 
 namespace Creatures {
-    
-    [Serializable]
-    public struct CreatureTraits {
-        public float maxSpeed;
-        public float acceleration;
-        public float height;
-        public float heightSpringForce;
-        public float heightSpringDamper;
-        public float uprightSpringStrength;
-        public float uprightSpringDamper;
-        public float rotationSpeedMin;
-        public float rotationSpeedDampener;
-        public float jumpPower;
+    public interface CreatureInterface {
+        public Rigidbody rb { get; }
+        public CreatureTraits compiledTraits { get; }
+        [CanBeNull] public BaseBodyPart bodyPart { get; }
+        [CanBeNull] public BaseLegPart legPart { get; }
+        [CanBeNull] public BaseHeadPart headPart { get; }
+        [CanBeNull] public BaseArmPart armPart { get; }
+        public bool isOnGround { get; }
+        public bool tryJumping { get; }
+        public Vector3 moveDirection { get; }
     }
-    public class BaseCreature: MonoBehaviour {
+    
+    public class BaseCreature: MonoBehaviour, CreatureInterface {
         public static Quaternion ShortestRotation(Quaternion to, Quaternion from) {
             if (Quaternion.Dot(to, from) < 0) {
                 return to * Quaternion.Inverse(Multiply(from, -1));
@@ -34,24 +36,37 @@ namespace Creatures {
             return new Quaternion(input.x * scalar, input.y * scalar, input.z * scalar, input.w * scalar);
         }
         
-        [SerializeField] protected Rigidbody rb;
-        [SerializeField] protected CreatureTraits compiledTraits;
-        [SerializeField] protected PlayerInputController inputController;
+        protected CreatureTraits _compiledTraits;
+        public Rigidbody rb { get; set; }
+        public RigBuilder rigBuilder { get; set; }
+        public CreatureTraits compiledTraits => this._compiledTraits;
+        public BaseBodyPart bodyPart { get; set; }
+        public BaseLegPart legPart => this.bodyPart?.attachedLegPart;
+        public BaseHeadPart headPart => this.bodyPart?.attachedHeadPart;
+        public BaseArmPart armPart => this.bodyPart?.attachedArmsPart;
         
-        [SerializeField] protected Vector3 goalVelocity;
-        [SerializeField] protected bool isOnGround;
         [SerializeField] protected float jumpRecharge;
 
-        public Vector3 moveDirection;
-        private float currentRotation;
+        public Vector3 moveDirection { get; set; }
+        public bool tryJumping { get; set; }
+        public bool isOnGround { get; set; }
+
+        [NonSerialized] public bool isPlayer = false;
+        [NonSerialized] private float currentRotation;
+
         
+        private void Start() {
+            this.rb = GetComponent<Rigidbody>();
+            this.rigBuilder = GetComponent<RigBuilder>();
+        }
+
         private void Update() {
             Debug.DrawLine(this.transform.position, this.transform.position + (this.compiledTraits.height * Vector3.down), Color.red);
 
             if (this.jumpRecharge > 0) {
                 this.jumpRecharge -= Time.deltaTime;
             }
-            if (this.inputController.didPressJump && this.isOnGround && this.jumpRecharge <= 0.0f) {
+            if (this.tryJumping && this.isOnGround && this.jumpRecharge <= 0.0f) {
                 this.jumpRecharge = 0.2f;
                 this.rb.AddForce(Vector3.up * this.compiledTraits.jumpPower);
             }
@@ -60,6 +75,44 @@ namespace Creatures {
 
         }
 
+        public void SetCreaturePart(BaseCreaturePart bodyPart) {
+            bodyPart.creatureInterface = this;
+        }
+        public void FinishSettingParts(bool resetCounters) {
+            this._compiledTraits = CreatureTraitHelper.CreateTraits(this.isPlayer, this);
+            
+            // build rig graph
+            this.rigBuilder.layers.Clear();
+            if (this.bodyPart != null) {
+                for (var i = 0; i < this.bodyPart.limbs.Length; i++) {
+                    for (var limbIndex = 0; limbIndex < this.bodyPart.limbs[i].rigs.Length; limbIndex++) {
+                        this.rigBuilder.layers.Add(new RigLayer(this.bodyPart.limbs[i].rigs[limbIndex]));
+                    }
+                }
+            }
+            if (this.legPart != null) {
+                for (var i = 0; i < this.legPart.limbs.Length; i++) {
+                    for (var limbIndex = 0; limbIndex < this.legPart.limbs[i].rigs.Length; limbIndex++) {
+                        this.rigBuilder.layers.Add(new RigLayer(this.legPart.limbs[i].rigs[limbIndex]));
+                    }
+                }
+            }
+            if (this.armPart != null) {
+                for (var i = 0; i < this.armPart.limbs.Length; i++) {
+                    for (var limbIndex = 0; limbIndex < this.armPart.limbs[i].rigs.Length; limbIndex++) {
+                        this.rigBuilder.layers.Add(new RigLayer(this.armPart.limbs[i].rigs[limbIndex]));
+                    }
+                }
+            }
+            if (this.headPart != null) {
+                for (var i = 0; i < this.headPart.limbs.Length; i++) {
+                    for (var limbIndex = 0; limbIndex < this.headPart.limbs[i].rigs.Length; limbIndex++) {
+                        this.rigBuilder.layers.Add(new RigLayer(this.headPart.limbs[i].rigs[limbIndex]));
+                    }
+                }
+            }
+            this.rigBuilder.Build();
+        }
         private void FixedUpdate() {
             this.PhysicsUpdate(Time.fixedDeltaTime);
         }
@@ -118,22 +171,13 @@ namespace Creatures {
                 this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(new Vector3(currentVelocityVector2.x, 0, currentVelocityVector2.y)), this.compiledTraits.rotationSpeedMin * deltaTime);
             }
         }
-        public void HandleMove(float deltaTime) {
-            // if (!this.isOnGround) {
-            //     return;
-            // }
-            var worldDirection = this.moveDirection;
-            var targetGoalVelocity = worldDirection * this.compiledTraits.maxSpeed;
-            this.goalVelocity = Vector3.MoveTowards(this.goalVelocity, targetGoalVelocity, deltaTime * this.compiledTraits.acceleration);
-            
-            var accelNeeded = (this.goalVelocity - this.rb.linearVelocity) / deltaTime;
-            this.rb.AddForce(Vector3.Scale(accelNeeded, new Vector3(1,0,1)));
-            
-            
-        }
         public void PhysicsUpdate(float deltaTime) {
             this.HandleGravity(deltaTime);
-            this.HandleMove(deltaTime);
+
+            this.bodyPart?.PhysicsUpdate(deltaTime);
+            this.headPart?.PhysicsUpdate(deltaTime);
+            this.armPart?.PhysicsUpdate(deltaTime);
+            this.legPart?.PhysicsUpdate(deltaTime);
         }
     }
 }

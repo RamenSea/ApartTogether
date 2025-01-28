@@ -5,12 +5,13 @@ using UnityEngine;
 namespace Creatures.Parts {
     public class BaseBodyPart: BaseCreaturePart {
         public override PartSlotType slotType => PartSlotType.Body;
+        
 
         [SerializeField] protected BaseBodyLimb bodyLimb;
         
-        [NonSerialized] public BaseCreaturePart attachedHeadPart = null;
-        [NonSerialized] public BaseCreaturePart attachedLegPart = null;
-        [NonSerialized] public BaseCreaturePart attachedArmsPart = null;
+        [NonSerialized] public BaseHeadPart attachedHeadPart = null;
+        [NonSerialized] public BaseLegPart attachedLegPart = null;
+        [NonSerialized] public BaseArmPart attachedArmsPart = null;
 
         public void AttachPart(BaseCreaturePart part) {
             Transform worldPartsTransform = null;
@@ -21,7 +22,7 @@ namespace Creatures.Parts {
                         this.attachedHeadPart.OnDeattachToBody(true);
                     }
 
-                    this.attachedHeadPart = part;
+                    this.attachedHeadPart = part as BaseHeadPart;
                     part.OnAttachToBody(this, new Transform[]{this.bodyLimb.headAttachPoint});
                     break;
                 case PartSlotType.Legs:
@@ -30,7 +31,7 @@ namespace Creatures.Parts {
                         this.attachedLegPart.OnDeattachToBody(true);
                     }
 
-                    this.attachedLegPart = part;
+                    this.attachedLegPart = part as BaseLegPart;
                     part.OnAttachToBody(this, this.bodyLimb.legsAttachPoint);
                     break;
                 case PartSlotType.Arms:
@@ -39,7 +40,7 @@ namespace Creatures.Parts {
                         this.attachedArmsPart.OnDeattachToBody(true);
                     }
 
-                    this.attachedArmsPart = part;
+                    this.attachedArmsPart = part as BaseArmPart;
                     part.OnAttachToBody(this, this.bodyLimb.armsAttachPoint);
                     break;
                 case PartSlotType.Body:

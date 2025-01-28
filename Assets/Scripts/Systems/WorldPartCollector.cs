@@ -9,5 +9,11 @@ namespace Systems {
             base.Awake();
             WorldPartCollector.Instance = this; // bad;
         }
+        
+        private void OnDestroy() {
+            if (WorldPartCollector.Instance == this) {
+                WorldPartCollector.Instance = null;
+            }
+        }
     }
 }

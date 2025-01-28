@@ -3,6 +3,7 @@ using UnityEngine.Animations.Rigging;
 
 namespace Creatures.Parts {
     public class BaseLimb: MonoBehaviour {
+        public CreatureInterface creatureInterface;
         public Transform[] bones;
         public Rig[] rigs;
         public Collider[] colliders;
@@ -27,8 +28,8 @@ namespace Creatures.Parts {
             this.transform.localPosition = Vector3.zero;
             this.transform.localRotation = Quaternion.identity;
         }
-        public virtual void OnDeattachToBody() {
-            
+        public virtual void OnDeattachBody() {
+            this.creatureInterface = null;
         }
     }
 }

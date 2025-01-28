@@ -11,22 +11,28 @@ namespace Creatures.Parts {
         Arms,
     }
     public enum PartId {
+        None = 0,
         DogHead,
         DogBody,
         DogLegs,
     }
     public class BaseCreaturePart: MonoBehaviour {
+        public CreatureInterface creatureInterface;
+        
         public virtual PartSlotType slotType => PartSlotType.Body;
 
         [SerializeField] public BaseLimb limbPrefab; // only if u need it
 
         [SerializeField] protected PartId _partId;
+        protected CreatureTraits _traits;
+        public CreatureTraits traits => this._traits;
         public PartId partId => _partId;
 
         public BaseLimb[] limbs;
 
         public bool isAttached = false;
         public virtual void OnAttachToBody(BaseBodyPart bodyPart, Transform[] toPoints) {
+            this.creatureInterface = bodyPart.creatureInterface;
             this.isAttached = true;
             for (var i = toPoints.Length; i < this.limbs.Length; i++) {
                 this.limbs[i].OnDroppedLimbDestroy();
@@ -40,6 +46,7 @@ namespace Creatures.Parts {
                 } else {
                     limb = this.limbPrefab.Instantiate(toPoints[i]);
                 }
+                limb.creatureInterface = this.creatureInterface;
                 updatedLimbs[i] = limb;
                 limb.OnAttachToBody(bodyPart, toPoints[i]);
             }
@@ -47,14 +54,15 @@ namespace Creatures.Parts {
         }
         public virtual void OnDeattachToBody(bool isDropped) {
             this.isAttached = false;
+            this.creatureInterface = null;
             for (var i = 1; i < this.limbs.Length; i++) {
-                this.limbs[i].OnDeattachToBody();
+                this.limbs[i].OnDeattachBody();
                 this.limbs[i].Destroy();
             }
 
             if (isDropped) {
                 for (var i = 1; i < this.limbs.Length; i++) {
-                    this.limbs[i].OnDeattachToBody();
+                    this.limbs[i].OnDeattachBody();
                     this.limbs[i].Destroy();
                 }
                 
@@ -72,7 +80,7 @@ namespace Creatures.Parts {
                 limb.OnDroppedLimb();
             } else {
                 for (var i = 0; i < this.limbs.Length; i++) {
-                    this.limbs[i].OnDeattachToBody();
+                    this.limbs[i].OnDeattachBody();
                     this.limbs[i].Destroy();
                 }
             }
