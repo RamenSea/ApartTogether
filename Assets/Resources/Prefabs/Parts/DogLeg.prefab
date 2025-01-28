@@ -44,8 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adbfec5cbb344a378baa0e3803a8a5b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limbPrefab: {fileID: 3011002636692149245, guid: 98b5903c4a7d242f297d7ca9266f1fc5, type: 3}
-  _partId: 2
-  limbs:
-  - {fileID: 0}
+  limbPrefab: {fileID: 3011002636692149245, guid: 0400ae8a35fa84bb5b4d7ed30f5a5570, type: 3}
+  _partId: 103
+  _traits:
+    weight: 3
+    maxSpeed: 1.6
+    acceleration: 3
+    height: 0.1
+    heightSpringForce: 2000
+    heightSpringDamper: 200
+    uprightSpringStrength: 0
+    uprightSpringDamper: 0
+    rotationSpeedMin: 1
+    rotationSpeedDampener: 0
+    jumpPower: 0
+  limbs: []
   isAttached: 0

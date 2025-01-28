@@ -12,9 +12,10 @@ namespace Creatures.Parts {
     }
     public enum PartId {
         None = 0,
-        DogHead,
-        DogBody,
-        DogLegs,
+        
+        DogHead = 10_1,
+        DogBody = 10_2,
+        DogLegs = 10_3,
     }
     public class BaseCreaturePart: MonoBehaviour {
         public CreatureInterface creatureInterface;
@@ -24,7 +25,7 @@ namespace Creatures.Parts {
         [SerializeField] public BaseLimb limbPrefab; // only if u need it
 
         [SerializeField] protected PartId _partId;
-        protected CreatureTraits _traits;
+        [SerializeField] protected CreatureTraits _traits;
         public CreatureTraits traits => this._traits;
         public PartId partId => _partId;
 
@@ -34,6 +35,9 @@ namespace Creatures.Parts {
         public virtual void OnAttachToBody(BaseBodyPart bodyPart, Transform[] toPoints) {
             this.creatureInterface = bodyPart.creatureInterface;
             this.isAttached = true;
+            this.transform.SetParent(this.creatureInterface.transform);
+            this.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            
             for (var i = toPoints.Length; i < this.limbs.Length; i++) {
                 this.limbs[i].OnDroppedLimbDestroy();
                 this.limbs[i].Destroy();
@@ -43,6 +47,7 @@ namespace Creatures.Parts {
                 BaseLimb limb;
                 if (i < this.limbs.Length) {
                     limb = this.limbs[i];
+                    limb.transform.SetParent(toPoints[i]);
                 } else {
                     limb = this.limbPrefab.Instantiate(toPoints[i]);
                 }
@@ -55,6 +60,8 @@ namespace Creatures.Parts {
         public virtual void OnDeattachToBody(bool isDropped) {
             this.isAttached = false;
             this.creatureInterface = null;
+            this.transform.SetParent(null); //todo deattch
+            
             for (var i = 1; i < this.limbs.Length; i++) {
                 this.limbs[i].OnDeattachBody();
                 this.limbs[i].Destroy();

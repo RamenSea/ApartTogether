@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Creatures.Parts;
 using JetBrains.Annotations;
+using NaughtyAttributes;
 using Player;
 using RamenSea.Foundation.Extensions;
 using RamenSea.Foundation3D.Extensions;
@@ -14,6 +15,7 @@ using UnityEngine.Animations.Rigging;
 namespace Creatures {
     public interface CreatureInterface {
         public Rigidbody rb { get; }
+        public Transform transform { get; }
         public CreatureTraits compiledTraits { get; }
         [CanBeNull] public BaseBodyPart bodyPart { get; }
         [CanBeNull] public BaseLegPart legPart { get; }
@@ -36,9 +38,10 @@ namespace Creatures {
             return new Quaternion(input.x * scalar, input.y * scalar, input.z * scalar, input.w * scalar);
         }
         
-        protected CreatureTraits _compiledTraits;
-        public Rigidbody rb { get; set; }
-        public RigBuilder rigBuilder { get; set; }
+        [SerializeField] protected CreatureTraits _compiledTraits; //isn't actually serialized
+        [SerializeField] private Rigidbody _rb;
+        public Rigidbody rb => _rb;
+        public RigBuilder rigBuilder;
         public CreatureTraits compiledTraits => this._compiledTraits;
         public BaseBodyPart bodyPart { get; set; }
         public BaseLegPart legPart => this.bodyPart?.attachedLegPart;
@@ -53,12 +56,6 @@ namespace Creatures {
 
         [NonSerialized] public bool isPlayer = false;
         [NonSerialized] private float currentRotation;
-
-        
-        private void Start() {
-            this.rb = GetComponent<Rigidbody>();
-            this.rigBuilder = GetComponent<RigBuilder>();
-        }
 
         private void Update() {
             Debug.DrawLine(this.transform.position, this.transform.position + (this.compiledTraits.height * Vector3.down), Color.red);
@@ -75,11 +72,30 @@ namespace Creatures {
 
         }
 
-        public void SetCreaturePart(BaseCreaturePart bodyPart) {
-            bodyPart.creatureInterface = this;
+        public void SetCreaturePart(BaseCreaturePart creaturePart) {
+            creaturePart.creatureInterface = this;
+            
+            switch (creaturePart.slotType) {
+                case PartSlotType.Body: {
+                    // todo
+                    this.bodyPart = creaturePart as BaseBodyPart;
+                    this.bodyPart.transform.SetParent(this.transform);
+                    break;
+                }
+                default: {
+                    if (this.bodyPart == null) {
+                        Debug.LogError("You can't build a creature without a body");
+                        return;
+                    }
+                    this.bodyPart.AttachPart(creaturePart);
+                    break;
+                }
+            }
         }
         public void FinishSettingParts(bool resetCounters) {
             this._compiledTraits = CreatureTraitHelper.CreateTraits(this.isPlayer, this);
+
+            this.rb.mass = this.compiledTraits.weight;
             
             // build rig graph
             this.rigBuilder.layers.Clear();
@@ -112,6 +128,10 @@ namespace Creatures {
                 }
             }
             this.rigBuilder.Build();
+
+            if (resetCounters) {
+                this.tryJumping = false;
+            }
         }
         private void FixedUpdate() {
             this.PhysicsUpdate(Time.fixedDeltaTime);

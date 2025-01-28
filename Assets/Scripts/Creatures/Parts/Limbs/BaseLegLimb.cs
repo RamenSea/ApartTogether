@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Creatures.Parts.Limbs {
     public class BaseLegLimb: BaseLimb {
-        public Transform forwardFrom;
         public Transform target;
         public float stepLength;
         public float stepHeight;
@@ -36,7 +35,7 @@ namespace Creatures.Parts.Limbs {
                 
             }
 
-            var forward = this.forwardFrom.forward;
+            var forward = this.creatureInterface.transform.forward;
             this.finalTargetPosition = targetPosition;
             this.lastForward = new Vector2(forward.x, forward.z);
         }
@@ -46,7 +45,7 @@ namespace Creatures.Parts.Limbs {
             var speed = this.lastPositionForSpeed.Distance(currentPositionForSpeed);
             this.lastPositionForSpeed = currentPositionForSpeed;
             // forward = this.baseRigidbody.linearVelocity.normalized;
-            var forward = this.forwardFrom.forward;
+            var forward = this.creatureInterface.transform.forward;
             forward.y = 0;
             if (Physics.SphereCast(this.transform.position + forward * (this.stepLength), 0.05f, new Vector3(forward.x, -1f, forward.y), out RaycastHit hit, this.findGroundHeight)) {
                 var distance = this.finalTargetPosition.Distance(hit.point);
@@ -89,8 +88,8 @@ namespace Creatures.Parts.Limbs {
         }
 
         private void OnDrawGizmos() {
-            if (this.forwardFrom != null) {
-                var forward = this.forwardFrom.forward;
+            if (this.creatureInterface != null) {
+                var forward = this.creatureInterface.transform.forward;
                 forward.y = 0;
                 
                 if (Physics.SphereCast(this.transform.position + forward * (this.stepLength), 0.05f, new Vector3(forward.x, -1f, forward.y), out RaycastHit hit, this.findGroundHeight)) {

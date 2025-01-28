@@ -29,23 +29,33 @@ namespace Creatures {
             //base traits come from the body
 
             if (creature.headPart != null) {
-                var headTraits = creature.headPart.traits;
-                traits = BasicAddition(traits, headTraits, creature.headPart.slotType);
+                var otherTraits = creature.headPart.traits;
+                traits = BasicAddition(traits, otherTraits, creature.headPart.slotType);
             }
             if (creature.armPart != null) {
-                var headTraits = creature.headPart.traits;
-                traits = BasicAddition(traits, headTraits, creature.headPart.slotType);
+                var otherTraits = creature.armPart.traits;
+                traits = BasicAddition(traits, otherTraits, creature.armPart.slotType);
             }
-            if (creature.headPart != null) {
-                var headTraits = creature.headPart.traits;
-                traits = BasicAddition(traits, headTraits, creature.headPart.slotType);
+            if (creature.legPart != null) {
+                var otherTraits = creature.legPart.traits;
+                traits = BasicAddition(traits, otherTraits, creature.legPart.slotType);
             }
 
+            var uprightPerWeight = 200;
+            traits.heightSpringForce = uprightPerWeight * traits.weight;
+            traits.heightSpringDamper = traits.heightSpringForce * 0.1f;
             return traits;
         }
         
         public static CreatureTraits BasicAddition(CreatureTraits bodyTrait, CreatureTraits otherTrait, PartSlotType partSlotType) {
             var traits = bodyTrait;
+            traits.weight += otherTrait.weight;
+            traits.maxSpeed += otherTrait.maxSpeed;
+            traits.acceleration += otherTrait.acceleration;
+            traits.height += otherTrait.height;
+            traits.rotationSpeedMin += otherTrait.rotationSpeedMin;
+            traits.rotationSpeedDampener += otherTrait.rotationSpeedDampener;
+            traits.jumpPower += otherTrait.jumpPower;
             return traits;
         }
     }

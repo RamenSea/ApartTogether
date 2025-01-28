@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a31391c865b4ad6af44078b7cf37546, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rb: {fileID: 9123951281119718223}
+  rigBuilder: {fileID: 6817320316588372538}
   jumpRecharge: 0
 --- !u!54 &9123951281119718223
 Rigidbody:
