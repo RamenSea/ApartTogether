@@ -34,7 +34,7 @@ namespace Creatures.Parts {
                     }
 
                     this.attachedHeadPart = part;
-                    part.OnAttachToBody(this, new Transform[]{this.bodyLimb.headAttachPoint});
+                    part.OnAttachToBody(this, new []{this.bodyLimb.headAttachPoint});
                     break;
                 case PartSlotType.Legs:
                     if (this.attachedLegPart != null) {

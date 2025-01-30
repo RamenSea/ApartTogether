@@ -12,7 +12,6 @@ namespace Creatures.Parts.Limbs {
         [SerializeField] protected float projectileSpeed;
         [SerializeField] protected int damageAmount;
 
-
         protected float fireCooldown;
         
         protected PrefabRecycler<BaseProjectile> prefabRecycler;
@@ -21,9 +20,9 @@ namespace Creatures.Parts.Limbs {
             this.prefabRecycler = new PrefabRecycler<BaseProjectile>(this.projectilePrefab);
         }
 
-        public override void OnAttachToBody(BaseBodyPart bodyPart, Transform toPoints) {
+        public override void OnAttachToBody(BaseBodyPart bodyPart, LimbAttachPoint toPoints) {
             base.OnAttachToBody(bodyPart, toPoints);
-            this.FaceCannon(toPoints.forward);
+            this.FaceCannon(toPoints.transform.forward);
         }
 
         protected virtual bool ShouldFire() => this.creature?.doArmsAction ?? false;

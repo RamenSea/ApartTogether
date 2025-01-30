@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Creatures.Parts.Limbs {
     public class BaseBodyLimb: BaseLimb {
-        public Transform headAttachPoint;
-        public Transform[] armsAttachPoint;
-        public Transform[] legsAttachPoint;
+        public LimbAttachPoint headAttachPoint;
+        public LimbAttachPoint[] armsAttachPoint;
+        public LimbAttachPoint[] legsAttachPoint;
         public CreatureCollider creatureCollider;
         public CreatureCollider playerCollider;
     }

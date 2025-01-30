@@ -1,4 +1,5 @@
 using System;
+using Creatures.Parts.Limbs;
 using Player.PickUp;
 using RamenSea.Foundation3D.Extensions;
 using Systems;
@@ -37,6 +38,10 @@ namespace Creatures.Parts {
         BunHead = 61_1,
         BunBody = 61_2,
         BunLegs = 61_3,
+        
+        SpiderHead = 71_1,
+        SpiderBody = 71_2,
+        SpiderLegs = 71_3,
     }
     public class BaseCreaturePart: MonoBehaviour {
         public BaseCreature creature;
@@ -58,7 +63,7 @@ namespace Creatures.Parts {
         protected BaseBodyPart attachedToBody;
 
         [NonSerialized] public bool isPlayer = false;
-        public virtual void OnAttachToBody(BaseBodyPart bodyPart, Transform[] toPoints) {
+        public virtual void OnAttachToBody(BaseBodyPart bodyPart, LimbAttachPoint[] toPoints) {
             if (this.attachedToBody != null) {
                 this.attachedToBody?.PartWillDeattach(this);
             }
@@ -77,9 +82,9 @@ namespace Creatures.Parts {
                 BaseLimb limb;
                 if (i < this.limbs.Length) {
                     limb = this.limbs[i];
-                    limb.transform.SetParent(toPoints[i]);
+                    limb.transform.SetParent(toPoints[i].transform);
                 } else {
-                    limb = this.limbPrefab.Instantiate(toPoints[i]);
+                    limb = this.limbPrefab.Instantiate(toPoints[i].transform);
                 }
                 limb.creature = this.creature;
                 updatedLimbs[i] = limb;

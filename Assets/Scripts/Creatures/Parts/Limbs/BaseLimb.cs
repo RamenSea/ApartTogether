@@ -1,3 +1,4 @@
+using Creatures.Parts.Limbs;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -7,7 +8,7 @@ namespace Creatures.Parts {
         public Transform[] bones;
         public Rig[] rigs;
         public Collider[] colliders;
-
+        public LimbAttachPoint attachPoint;
         public bool isAttachedToCreature = false;
         public void GameUpdate(float deltaTime) {
             this.OnGameUpdate(deltaTime);
@@ -18,23 +19,25 @@ namespace Creatures.Parts {
         }
         protected virtual void OnPhysicsUpdate(float deltaTime) { }
         
-        
         public virtual void OnDroppedLimb() {
             this.isAttachedToCreature = false;
             this.creature = null;
+            this.attachPoint = null;
         }
         public virtual void OnDroppedLimbDestroy() {
             this.isAttachedToCreature = false;
             this.creature = null;
-            
+            this.attachPoint = null;
         }
-        public virtual void OnAttachToBody(BaseBodyPart bodyPart, Transform toPoints) {
+        public virtual void OnAttachToBody(BaseBodyPart bodyPart, LimbAttachPoint toPoint) {
             this.transform.localPosition = Vector3.zero;
             this.transform.localRotation = Quaternion.identity;
             this.isAttachedToCreature = true;
+            this.attachPoint = toPoint;
         }
         public virtual void OnDeattachBody() {
             this.creature = null;
+            this.attachPoint = null;
             this.isAttachedToCreature = false;
         }
 

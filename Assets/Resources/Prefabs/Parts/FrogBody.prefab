@@ -126,6 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1611683181793404834}
   - component: {fileID: 1113806566312603644}
+  - component: {fileID: 6169509875355104311}
   m_Layer: 0
   m_Name: FrontLeftLeg
   m_TagString: Untagged
@@ -165,6 +166,19 @@ MonoBehaviour:
   size: {x: 0.05, y: 0.05, z: 0.05}
   color: {r: 0.24614507, g: 0.9528302, b: 0, a: 1}
   pyramidMesh1: {fileID: -5495902117074765545, guid: 7a4838a1260f944bf9bbe122ac15be00, type: 3}
+--- !u!114 &6169509875355104311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094428323247853446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368695a1183147bca681d6b7a09bfa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 1
 --- !u!1 &3569233186322486796
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +189,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2619293868537668742}
   - component: {fileID: 2793575017666760335}
+  - component: {fileID: 9043934502750130859}
   m_Layer: 0
   m_Name: FrontRightLeg
   m_TagString: Untagged
@@ -214,6 +229,19 @@ MonoBehaviour:
   size: {x: 0.05, y: 0.05, z: 0.05}
   color: {r: 0.24614507, g: 0.9528302, b: 0, a: 1}
   pyramidMesh1: {fileID: -5495902117074765545, guid: 7a4838a1260f944bf9bbe122ac15be00, type: 3}
+--- !u!114 &9043934502750130859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3569233186322486796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368695a1183147bca681d6b7a09bfa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 0
 --- !u!1 &3890283705975632420
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,6 +323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3579701159163639499}
   - component: {fileID: 7961997527407024463}
+  - component: {fileID: 4144311522252039674}
   m_Layer: 0
   m_Name: arms
   m_TagString: Untagged
@@ -334,6 +363,19 @@ MonoBehaviour:
   size: {x: 0.05, y: 0.05, z: 0.05}
   color: {r: 0.24614507, g: 0.9528302, b: 0, a: 1}
   pyramidMesh1: {fileID: -5495902117074765545, guid: 7a4838a1260f944bf9bbe122ac15be00, type: 3}
+--- !u!114 &4144311522252039674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4153913060821301078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368695a1183147bca681d6b7a09bfa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 0
 --- !u!1 &4306537499359686208
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2120857259942192194}
   - component: {fileID: 5361252934134206849}
+  - component: {fileID: 191580230237524698}
   m_Layer: 0
   m_Name: HeadAttach
   m_TagString: Untagged
@@ -383,6 +426,19 @@ MonoBehaviour:
   size: {x: 0.05, y: 0.05, z: 0.05}
   color: {r: 0.24614507, g: 0.9528302, b: 0, a: 1}
   pyramidMesh1: {fileID: -5495902117074765545, guid: 7a4838a1260f944bf9bbe122ac15be00, type: 3}
+--- !u!114 &191580230237524698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4306537499359686208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368695a1183147bca681d6b7a09bfa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 0
 --- !u!1 &4574822697888374001
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,13 +615,14 @@ MonoBehaviour:
   rigs: []
   colliders:
   - {fileID: 9033369478305964851}
+  attachPoint: {fileID: 0}
   isAttachedToCreature: 0
-  headAttachPoint: {fileID: 2120857259942192194}
+  headAttachPoint: {fileID: 191580230237524698}
   armsAttachPoint:
-  - {fileID: 3579701159163639499}
+  - {fileID: 4144311522252039674}
   legsAttachPoint:
-  - {fileID: 2619293868537668742}
-  - {fileID: 1611683181793404834}
+  - {fileID: 9043934502750130859}
+  - {fileID: 6169509875355104311}
   creatureCollider: {fileID: 106050893957819396}
   playerCollider: {fileID: 106050893957819396}
 --- !u!1 &5758564882821925272

@@ -1,3 +1,4 @@
+using Creatures.AI;
 using Creatures.Parts;
 using RamenSea.Foundation3D.Extensions;
 using Systems;
@@ -13,6 +14,7 @@ namespace Creatures {
         public bool snapToGround = true;
         public bool autoSpawnOnStart = true;
 
+        public GameObject aiAgentGo;
         private void Start() {
             if (this.autoSpawnOnStart) {
                 this.Spawn();
@@ -59,6 +61,20 @@ namespace Creatures {
                 creatureController.transform.SetPositionAndRotation(this.transform);
             }
 
+            if (this.aiAgentGo != null) {
+                var agentGo = this.aiAgentGo.Instantiate(creatureController.transform);
+                var agents = agentGo.GetComponents<BaseAIAgent>();
+                for (int i = 0; i < agents.Length; i++) {
+                    var agent = agents[i];
+                    agent.creature = creatureController;
+                }
+            }
+            // var agents = this.gameObject.GetComponents<BaseAIAgent>();
+            // for (int i = 0; i < agents.Length; i++) {
+            //     var agent = agents[i];
+            //     var addAgent = agent.Instantiate(creatureController.transform);
+            //     addAgent.creature = creatureController;
+            // }
             return creatureController;
         }
     }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3893359936013315386
+--- !u!1 &4044227996098349024
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2223696933847242650}
-  - component: {fileID: 4393009356331879802}
+  - component: {fileID: 4455097327280633780}
+  - component: {fileID: -3692387932307318782}
   m_Layer: 0
-  m_Name: CowLeg
+  m_Name: SpiderLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2223696933847242650
+--- !u!4 &4455097327280633780
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3893359936013315386}
+  m_GameObject: {fileID: 4044227996098349024}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,13 +32,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4393009356331879802
+--- !u!114 &-3692387932307318782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3893359936013315386}
+  m_GameObject: {fileID: 4044227996098349024}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adbfec5cbb344a378baa0e3803a8a5b6, type: 3}
@@ -46,14 +46,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creature: {fileID: 0}
   slotType: 1
-  limbPrefab: {fileID: 3727609617726374543, guid: 82b1d246b63024dabace298cf2967821, type: 3}
+  limbPrefab: {fileID: 3328466609514791040, guid: 21624db0db7e64100bf20bb498a103e3, type: 3}
   deactivateCollidersWhileAttached: 1
-  _partId: 413
+  _partId: 713
   _traits:
-    weight: 15
-    maxSpeed: 0.6
-    acceleration: 1
-    height: 0.3
+    weight: 2
+    maxSpeed: 0.4
+    acceleration: 0.2
+    height: 0.05
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0

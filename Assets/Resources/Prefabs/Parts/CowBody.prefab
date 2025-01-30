@@ -128,6 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 525025716878224392}
   - component: {fileID: 1716666342481954409}
+  - component: {fileID: 3092092047144627337}
   m_Layer: 0
   m_Name: HeadAttach
   m_TagString: Untagged
@@ -167,6 +168,19 @@ MonoBehaviour:
   size: {x: 0.05, y: 0.05, z: 0.05}
   color: {r: 0.24614507, g: 0.9528302, b: 0, a: 1}
   pyramidMesh1: {fileID: -5495902117074765545, guid: 7a4838a1260f944bf9bbe122ac15be00, type: 3}
+--- !u!114 &3092092047144627337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783829462021656325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368695a1183147bca681d6b7a09bfa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 0
 --- !u!1 &1059239767860270706
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,6 +191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3408898873223019560}
   - component: {fileID: 6515791552400167964}
+  - component: {fileID: 5102323740987349210}
   m_Layer: 0
   m_Name: arms1
   m_TagString: Untagged
@@ -216,6 +231,19 @@ MonoBehaviour:
   size: {x: 0.05, y: 0.05, z: 0.05}
   color: {r: 0.24614507, g: 0.9528302, b: 0, a: 1}
   pyramidMesh1: {fileID: -5495902117074765545, guid: 7a4838a1260f944bf9bbe122ac15be00, type: 3}
+--- !u!114 &5102323740987349210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059239767860270706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368695a1183147bca681d6b7a09bfa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 0
 --- !u!1 &1801863965135441955
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,6 +451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4458947898836340003}
   - component: {fileID: 699749297642977216}
+  - component: {fileID: 4838937277248773409}
   m_Layer: 0
   m_Name: BackLeftLeg
   m_TagString: Untagged
@@ -440,7 +469,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.1432, y: 0, z: -0.2753959}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6932255315872823420}
@@ -462,6 +491,19 @@ MonoBehaviour:
   size: {x: 0.05, y: 0.05, z: 0.05}
   color: {r: 0.24614507, g: 0.9528302, b: 0, a: 1}
   pyramidMesh1: {fileID: -5495902117074765545, guid: 7a4838a1260f944bf9bbe122ac15be00, type: 3}
+--- !u!114 &4838937277248773409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2449045662708598833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368695a1183147bca681d6b7a09bfa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 1
 --- !u!1 &2749985646695478186
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,7 +561,7 @@ MonoBehaviour:
     weight: 20
     maxSpeed: 0
     acceleration: 0
-    height: 0.4
+    height: 0.45
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0
@@ -551,16 +593,17 @@ MonoBehaviour:
   rigs: []
   colliders:
   - {fileID: 1920040331037028481}
+  attachPoint: {fileID: 0}
   isAttachedToCreature: 0
-  headAttachPoint: {fileID: 525025716878224392}
+  headAttachPoint: {fileID: 3092092047144627337}
   armsAttachPoint:
-  - {fileID: 3408898873223019560}
-  - {fileID: 6566799521004611411}
+  - {fileID: 5102323740987349210}
+  - {fileID: 6779137502529848075}
   legsAttachPoint:
-  - {fileID: 1791911614171272993}
-  - {fileID: 3523839817016701685}
-  - {fileID: 2947351378366054921}
-  - {fileID: 4458947898836340003}
+  - {fileID: 8494977451713896862}
+  - {fileID: 5881780399746210220}
+  - {fileID: 1859303849661305206}
+  - {fileID: 4838937277248773409}
   creatureCollider: {fileID: 3570951402760557257}
   playerCollider: {fileID: 3570951402760557257}
 --- !u!1 &2966932954500020626
@@ -659,6 +702,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2947351378366054921}
   - component: {fileID: 4210715420913064170}
+  - component: {fileID: 1859303849661305206}
   m_Layer: 0
   m_Name: BackRightLeg
   m_TagString: Untagged
@@ -698,6 +742,19 @@ MonoBehaviour:
   size: {x: 0.05, y: 0.05, z: 0.05}
   color: {r: 0.24614507, g: 0.9528302, b: 0, a: 1}
   pyramidMesh1: {fileID: -5495902117074765545, guid: 7a4838a1260f944bf9bbe122ac15be00, type: 3}
+--- !u!114 &1859303849661305206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3264287814108050686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368695a1183147bca681d6b7a09bfa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 0
 --- !u!1 &3490318838649716569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,6 +1185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1791911614171272993}
   - component: {fileID: 6323009112892500173}
+  - component: {fileID: 8494977451713896862}
   m_Layer: 0
   m_Name: FrontRightLeg
   m_TagString: Untagged
@@ -1167,6 +1225,19 @@ MonoBehaviour:
   size: {x: 0.05, y: 0.05, z: 0.05}
   color: {r: 0.24614507, g: 0.9528302, b: 0, a: 1}
   pyramidMesh1: {fileID: -5495902117074765545, guid: 7a4838a1260f944bf9bbe122ac15be00, type: 3}
+--- !u!114 &8494977451713896862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5196031445296155576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368695a1183147bca681d6b7a09bfa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 0
 --- !u!1 &5323742910126540339
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,6 +1297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6566799521004611411}
   - component: {fileID: 7363272714125372019}
+  - component: {fileID: 6779137502529848075}
   m_Layer: 0
   m_Name: arms2
   m_TagString: Untagged
@@ -1265,6 +1337,19 @@ MonoBehaviour:
   size: {x: 0.05, y: 0.05, z: 0.05}
   color: {r: 0.24614507, g: 0.9528302, b: 0, a: 1}
   pyramidMesh1: {fileID: -5495902117074765545, guid: 7a4838a1260f944bf9bbe122ac15be00, type: 3}
+--- !u!114 &6779137502529848075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6260293636682809260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368695a1183147bca681d6b7a09bfa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 0
 --- !u!1 &6770355329759761589
 GameObject:
   m_ObjectHideFlags: 0
@@ -1773,6 +1858,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3523839817016701685}
   - component: {fileID: 6945569319240493896}
+  - component: {fileID: 5881780399746210220}
   m_Layer: 0
   m_Name: FrontLeftLeg
   m_TagString: Untagged
@@ -1790,7 +1876,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.1432, y: 0, z: 0.30960453}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6932255315872823420}
@@ -1812,6 +1898,19 @@ MonoBehaviour:
   size: {x: 0.05, y: 0.05, z: 0.05}
   color: {r: 0.24614507, g: 0.9528302, b: 0, a: 1}
   pyramidMesh1: {fileID: -5495902117074765545, guid: 7a4838a1260f944bf9bbe122ac15be00, type: 3}
+--- !u!114 &5881780399746210220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8972510442845616219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368695a1183147bca681d6b7a09bfa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 1
 --- !u!1 &9181321622417317562
 GameObject:
   m_ObjectHideFlags: 0

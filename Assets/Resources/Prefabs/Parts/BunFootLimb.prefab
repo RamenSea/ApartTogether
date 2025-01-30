@@ -230,7 +230,34 @@ MonoBehaviour:
   stepVariance: 0.1
   stepHeightCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7.7906585
+      outSlope: 7.7906585
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.013286115
+    - serializedVersion: 3
+      time: 0.49639934
+      value: 1.0003583
+      inSlope: 0.015296698
+      outSlope: 0.015296698
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.0008945465
+      inSlope: -5.869619
+      outSlope: -5.869619
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.016370188
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

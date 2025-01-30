@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6063121606081152825}
   - component: {fileID: 8210615165018640980}
+  - component: {fileID: 1579558415277482363}
   m_Layer: 0
   m_Name: arms
   m_TagString: Untagged
@@ -49,6 +50,19 @@ MonoBehaviour:
   size: {x: 0.05, y: 0.05, z: 0.05}
   color: {r: 0.24614507, g: 0.9528302, b: 0, a: 1}
   pyramidMesh1: {fileID: -5495902117074765545, guid: 7a4838a1260f944bf9bbe122ac15be00, type: 3}
+--- !u!114 &1579558415277482363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615915999967698696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368695a1183147bca681d6b7a09bfa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 0
 --- !u!1 &883260067111226905
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,6 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2706164052299930787}
   - component: {fileID: 2505245912417790629}
+  - component: {fileID: 7310067572690083392}
   m_Layer: 0
   m_Name: FrontLeftLeg
   m_TagString: Untagged
@@ -98,6 +113,19 @@ MonoBehaviour:
   size: {x: 0.05, y: 0.05, z: 0.05}
   color: {r: 0.24614507, g: 0.9528302, b: 0, a: 1}
   pyramidMesh1: {fileID: -5495902117074765545, guid: 7a4838a1260f944bf9bbe122ac15be00, type: 3}
+--- !u!114 &7310067572690083392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883260067111226905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368695a1183147bca681d6b7a09bfa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 1
 --- !u!1 &1688589399624194021
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,6 +136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1626944572306152642}
   - component: {fileID: 1879908271730344452}
+  - component: {fileID: 1958187653697823950}
   m_Layer: 0
   m_Name: HeadAttach
   m_TagString: Untagged
@@ -147,6 +176,19 @@ MonoBehaviour:
   size: {x: 0.05, y: 0.05, z: 0.05}
   color: {r: 0.24614507, g: 0.9528302, b: 0, a: 1}
   pyramidMesh1: {fileID: -5495902117074765545, guid: 7a4838a1260f944bf9bbe122ac15be00, type: 3}
+--- !u!114 &1958187653697823950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688589399624194021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368695a1183147bca681d6b7a09bfa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 0
 --- !u!1 &3269893794234645125
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,13 +490,14 @@ MonoBehaviour:
   rigs: []
   colliders:
   - {fileID: 8587496421060150648}
+  attachPoint: {fileID: 0}
   isAttachedToCreature: 0
-  headAttachPoint: {fileID: 1626944572306152642}
+  headAttachPoint: {fileID: 1958187653697823950}
   armsAttachPoint:
-  - {fileID: 6063121606081152825}
+  - {fileID: 1579558415277482363}
   legsAttachPoint:
-  - {fileID: 6750780718173352241}
-  - {fileID: 2706164052299930787}
+  - {fileID: 2817435315675176452}
+  - {fileID: 7310067572690083392}
   creatureCollider: {fileID: 5255897665106392179}
   playerCollider: {fileID: 5255897665106392179}
 --- !u!1 &6367566051495283954
@@ -633,6 +676,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6750780718173352241}
   - component: {fileID: 8476902083007948659}
+  - component: {fileID: 2817435315675176452}
   m_Layer: 0
   m_Name: FrontRightLeg
   m_TagString: Untagged
@@ -672,6 +716,19 @@ MonoBehaviour:
   size: {x: 0.05, y: 0.05, z: 0.05}
   color: {r: 0.24614507, g: 0.9528302, b: 0, a: 1}
   pyramidMesh1: {fileID: -5495902117074765545, guid: 7a4838a1260f944bf9bbe122ac15be00, type: 3}
+--- !u!114 &2817435315675176452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7033067257521951214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368695a1183147bca681d6b7a09bfa06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeft: 0
 --- !u!1 &7461642690311897624
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,9 @@ namespace Creatures.Parts.Limbs {
         public float offAngleTrigger;
         public float speedScale;
         public float stepVariance = 0.1f;
+        public float biasCreatureForward = 0f;
         public AnimationCurve stepHeightCurve;
+        public float forwardTilt = 90f;
         
         private Vector3 finalTargetPosition;
         private Vector3 currentTargetPosition;
@@ -37,21 +39,38 @@ namespace Creatures.Parts.Limbs {
             this.currentStepLength = this.stepLength + Random.Range(-this.stepVariance, this.stepVariance) * this.stepLength;
         }
         private void SetStepPosition(Vector3 targetPosition) {
-            var forward = this.creature.transform.forward;
+            var forward = this.GetStepForward();
             this.finalTargetPosition = targetPosition;
             this.lastForward = new Vector2(forward.x, forward.z);
             this.SetStepLength();
         }
+
+        private Vector3 GetStepForward() {
+            var myForward = this.transform.forward;
+            var updatedDir = forwardTilt.DegreeToDirection();
+            if (!this.attachPoint.isLeft) {
+                updatedDir = -updatedDir;
+            }
+            Debug.Log(updatedDir);
+            myForward.x += updatedDir.x;
+            myForward.z += updatedDir.y;
+            myForward = myForward.normalized;
+            var creatureForward = this.creature.transform.forward;
+
+            var amountMyForward = 1.0f - this.biasCreatureForward;
+            var f = myForward * amountMyForward + creatureForward * this.biasCreatureForward;
+            return f.normalized;
+        }
         public void ScrambleIdleStep(bool goingForward) {
             this.SetStepLength();
-            var forward = this.transform.forward;
+            var forward = this.GetStepForward();
             forward.y = 0;
             if (!goingForward) {
                 forward *= -1f;
             }
 
             var usingStepLength = this.currentStepLength * 0.5f;
-            if (Physics.SphereCast(this.transform.position + forward * usingStepLength, 0.05f, new Vector3(forward.x, -1f, forward.y), out RaycastHit hit, this.findGroundHeight, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+            if (Physics.SphereCast(this.transform.position + forward * usingStepLength, 0.05f, new Vector3(forward.x, -1f, forward.z), out RaycastHit hit, this.findGroundHeight, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
                 this.SetStepPosition(hit.point);
             }
         }
@@ -60,9 +79,9 @@ namespace Creatures.Parts.Limbs {
             currentPositionForSpeed.y = 0;
             var speed = this.lastPositionForSpeed.Distance(currentPositionForSpeed);
             this.lastPositionForSpeed = currentPositionForSpeed;
-            var forward = this.transform.forward;
+            var forward = this.GetStepForward();
             forward.y = 0;
-            if (Physics.SphereCast(this.transform.position + forward * (this.currentStepLength), 0.05f, new Vector3(forward.x, -1f, forward.y), out RaycastHit hit, this.findGroundHeight, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+            if (Physics.SphereCast(this.transform.position + forward * (this.currentStepLength), 0.05f, new Vector3(forward.x, -1f, forward.z), out RaycastHit hit, this.findGroundHeight, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
                 var distance = this.finalTargetPosition.Distance(hit.point);
                 
                 if (distance> this.currentStepLength * 2) {
@@ -95,10 +114,10 @@ namespace Creatures.Parts.Limbs {
 
         private void OnDrawGizmos() {
             if (this.creature != null) {
-                var forward = this.creature.transform.forward;
+                var forward = this.GetStepForward();
                 forward.y = 0;
                 
-                if (Physics.SphereCast(this.transform.position + forward * (this.currentStepLength), 0.05f, new Vector3(forward.x, -1f, forward.y), out RaycastHit hit, this.findGroundHeight, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+                if (Physics.SphereCast(this.transform.position + forward * (this.currentStepLength), 0.05f, new Vector3(forward.x, -1f, forward.z), out RaycastHit hit, this.findGroundHeight, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
                     Gizmos.color = Color.blue;
                     Gizmos.DrawWireSphere(hit.point, 0.05f);
                 }

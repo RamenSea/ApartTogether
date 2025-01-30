@@ -12,7 +12,7 @@ namespace Creatures.Parts {
             }
         }
 
-        public override void OnAttachToBody(BaseBodyPart bodyPart, Transform[] toPoints) {
+        public override void OnAttachToBody(BaseBodyPart bodyPart, LimbAttachPoint[] toPoints) {
             base.OnAttachToBody(bodyPart, toPoints);
             this.ScrambleSteps();
         }
