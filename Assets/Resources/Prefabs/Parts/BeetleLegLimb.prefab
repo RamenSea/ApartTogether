@@ -380,6 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d8228fd048c467d8e0d5e5ab7e22da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creature: {fileID: 0}
   bones:
   - {fileID: 65803961688014515}
   - {fileID: 6369815170317543115}

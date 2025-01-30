@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adbfec5cbb344a378baa0e3803a8a5b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creature: {fileID: 0}
   slotType: 1
   limbPrefab: {fileID: 3011002636692149245, guid: ae66d786c1d0842868faeb0c9026797b, type: 3}
   deactivateCollidersWhileAttached: 1
@@ -60,5 +61,8 @@ MonoBehaviour:
     rotationSpeedMin: 1
     rotationSpeedDampener: 0
     jumpPower: 200
+    enableFlapFlight: 0
+    flapFlightPower: 0
+    flapDuration: 0
   limbs: []
   isAttached: 0

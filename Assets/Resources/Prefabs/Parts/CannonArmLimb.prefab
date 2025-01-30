@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c80001c674543138684c17168b40faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creature: {fileID: 0}
   bones: []
   rigs: []
   colliders:

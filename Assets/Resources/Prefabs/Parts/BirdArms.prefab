@@ -62,7 +62,7 @@ MonoBehaviour:
     rotationSpeedDampener: 0
     jumpPower: 30
     enableFlapFlight: 1
-    flapFlightPower: 500
-    flapDuration: 0.3
+    flapFlightPower: 2000
+    flapDuration: 0.8
   limbs: []
   isAttached: 0

@@ -25,6 +25,18 @@ namespace Creatures.Parts {
         BeetleLegs = 21_3,
         
         BirdArm = 31_4,
+        
+        CowHead = 41_1,
+        CowBody = 41_2,
+        CowLegs = 41_3,
+        
+        FrogHead = 51_1,
+        FrogBody = 51_2,
+        FrogLegs = 51_3,
+        
+        BunHead = 61_1,
+        BunBody = 61_2,
+        BunLegs = 61_3,
     }
     public class BaseCreaturePart: MonoBehaviour {
         public BaseCreature creature;

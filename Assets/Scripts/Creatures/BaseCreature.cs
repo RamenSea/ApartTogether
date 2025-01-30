@@ -249,15 +249,15 @@ namespace Creatures {
             //         this.compiledTraits
             //             .uprightSpringStrength)) - (this.rb.angularVelocity * this.compiledTraits.uprightSpringDamper));
             //
-            // var currentVelocity = this.rb.linearVelocity;
-            // var currentVelocityVector2 = new Vector2(currentVelocity.x, currentVelocity.z);
-            // var speed = currentVelocityVector2.magnitude;
-            // if (speed > 0.01f) {
-            //     var targetAngle = currentVelocityVector2.normalized;
-            //     var rotationSpeed = speed * this.compiledTraits.rotationSpeedDampener;
-            //     // rotationSpeed = Mathf.Max(rotationSpeed, );
-            //     this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(new Vector3(currentVelocityVector2.x, 0, currentVelocityVector2.y)), this.compiledTraits.rotationSpeedMin * deltaTime);
-            // }
+            var currentVelocity = this.rb.linearVelocity;
+            var currentVelocityVector2 = new Vector2(currentVelocity.x, currentVelocity.z);
+            var speed = currentVelocityVector2.magnitude;
+            if (speed > 0.01f) {
+                var targetAngle = currentVelocityVector2.normalized;
+                var rotationSpeed = speed * this.compiledTraits.rotationSpeedDampener;
+                // rotationSpeed = Mathf.Max(rotationSpeed, );
+                this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(new Vector3(currentVelocityVector2.x, 0, currentVelocityVector2.y)), this.compiledTraits.rotationSpeedMin * deltaTime);
+            }
         }
         public void PhysicsUpdate(float deltaTime) {
             this.HandleGravity(deltaTime);

@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adbfec5cbb344a378baa0e3803a8a5b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creature: {fileID: 0}
   slotType: 1
   limbPrefab: {fileID: 3011002636692149245, guid: 0400ae8a35fa84bb5b4d7ed30f5a5570, type: 3}
   deactivateCollidersWhileAttached: 1
