@@ -20,6 +20,7 @@ namespace Creatures.Parts {
         DogLegs = 10_3,
         
         CannonArms = 11_1,
+        BlasterArm = 11_2,
         
         BeetleHead = 21_1,
         BeetleBody = 21_2,
@@ -66,7 +67,6 @@ namespace Creatures.Parts {
 
         protected BaseBodyPart attachedToBody;
 
-        [NonSerialized] public bool isPlayer = false;
         public virtual void OnAttachToBody(BaseBodyPart bodyPart, LimbAttachPoint[] toPoints) {
             if (this.attachedToBody != null) {
                 this.attachedToBody?.PartWillDeattach(this);
@@ -96,13 +96,12 @@ namespace Creatures.Parts {
             }
             this.limbs = updatedLimbs;
 
-            var layerMaskToUse = CreatureManager.Instance.normalCreatureMask;
+            var layerMaskToUse = CreatureManager.Instance.defaultLayerMask;
             for (var i = 0; i < this.limbs.Length; i++) {
                 this.limbs[i].ChangeColliderActivations(!this.deactivateCollidersWhileAttached, layerMaskToUse);
             }
         }
         public virtual void OnDeattachToBody(bool isDropped) {
-            this.isPlayer = false;
             this.attachedToBody?.PartWillDeattach(this);
             this.attachedToBody = null;
             this.isAttached = false;

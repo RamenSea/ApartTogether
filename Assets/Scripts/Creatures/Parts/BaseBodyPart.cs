@@ -18,10 +18,11 @@ namespace Creatures.Parts {
         public void AttachBody(BaseCreature creature) {
             this.creature = creature;
             this.bodyLimb.creatureCollider.creature = creature;
-            this.bodyLimb.playerCollider.creature = creature;
 
             if (creature.isPlayer) {
-                this.bodyLimb.playerCollider.gameObject.SetActive(true);
+                this.bodyLimb.creatureCollider.gameObject.layer = CreatureManager.Instance.playerMask;
+            } else {
+                this.bodyLimb.creatureCollider.gameObject.layer = CreatureManager.Instance.normalCreatureMask;
             }
         }
         public void AttachPart(BaseCreaturePart part) {
@@ -63,8 +64,6 @@ namespace Creatures.Parts {
         public override void OnDeattachToBody(bool isDropped) {
             base.OnDeattachToBody(isDropped);
             this.bodyLimb.creatureCollider.creature = null;
-            this.bodyLimb.playerCollider.creature = null;
-            this.bodyLimb.playerCollider.gameObject.SetActive(false);
         }
 
         public void PartWillDeattach(BaseCreaturePart part) {

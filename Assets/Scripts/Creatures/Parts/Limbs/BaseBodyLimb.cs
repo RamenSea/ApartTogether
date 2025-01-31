@@ -7,6 +7,5 @@ namespace Creatures.Parts.Limbs {
         public LimbAttachPoint[] armsAttachPoint;
         public LimbAttachPoint[] legsAttachPoint;
         public CreatureCollider creatureCollider;
-        public CreatureCollider playerCollider;
     }
 }

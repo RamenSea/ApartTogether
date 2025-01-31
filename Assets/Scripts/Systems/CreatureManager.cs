@@ -9,6 +9,8 @@ namespace Systems {
 
         public static CreatureManager Instance;
         
+        [Layer] public int playerMask;
+        [Layer] public int defaultLayerMask;
         [Layer] public int normalCreatureMask;
         [Layer] public int worldPartsMask;
         

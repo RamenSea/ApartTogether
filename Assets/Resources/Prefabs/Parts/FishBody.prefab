@@ -240,7 +240,6 @@ MonoBehaviour:
   legsAttachPoint:
   - {fileID: 1730053136075940296}
   creatureCollider: {fileID: 4084936925074508439}
-  playerCollider: {fileID: 4084936925074508439}
 --- !u!1 &1609225270323374069
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,7 +673,7 @@ GameObject:
   - component: {fileID: 2293738226056688712}
   - component: {fileID: 5700917616213383261}
   - component: {fileID: 4084936925074508439}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Capsule
   m_TagString: Creature
   m_Icon: {fileID: 0}

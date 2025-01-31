@@ -52,7 +52,6 @@ namespace Creatures.Collision {
         }
 
         public void OnDetectWater(Collider waterCollider, WaterDetector waterDetector) {
-            Debug.Log("OnDetectWater");
             var l = this.swimmingColliders;
             if (waterDetector == this.waterDetector) {
                 l = this.waterColliders;

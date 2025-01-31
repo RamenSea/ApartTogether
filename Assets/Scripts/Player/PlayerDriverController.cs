@@ -17,7 +17,7 @@ namespace Player {
         }
 
         private void Start() {
-            this.creature = this.playerSpawn.Spawn();
+            this.creature = this.playerSpawn.Spawn(true);
             creature.gameObject.name = "Player Creature";
             CameraController.Instance.virtualCamera.Follow = this.creature.bodyPart?.followPoint;
         }

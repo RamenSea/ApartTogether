@@ -343,7 +343,6 @@ GameObject:
   - component: {fileID: 6243870765392516147}
   - component: {fileID: 5499736881245454724}
   - component: {fileID: 2269362153919164490}
-  - component: {fileID: 2338498714412576155}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -420,29 +419,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &2338498714412576155
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1967150832312416084}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &2449045662708598833
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,7 +493,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6218380043821847067}
   - component: {fileID: 2007686483242716588}
-  - component: {fileID: 2452157996904022617}
   m_Layer: 0
   m_Name: CowBody
   m_TagString: Untagged
@@ -581,6 +556,8 @@ MonoBehaviour:
     enableFlapFlight: 0
     flapFlightPower: 0
     flapDuration: 0
+    outOfWaterDamage: 0
+    inWaterDamage: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0
@@ -588,37 +565,7 @@ MonoBehaviour:
   limbs: []
   isAttached: 0
   followPoint: {fileID: 4333567618856416239}
-  bodyLimb: {fileID: 2452157996904022617}
---- !u!114 &2452157996904022617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2749985646695478186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b17760b87c84b63a1fdfaad0d5f71e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creature: {fileID: 0}
-  bones: []
-  rigs: []
-  colliders:
-  - {fileID: 1920040331037028481}
-  attachPoint: {fileID: 0}
-  isAttachedToCreature: 0
-  headAttachPoint: {fileID: 3092092047144627337}
-  armsAttachPoint:
-  - {fileID: 5102323740987349210}
-  - {fileID: 6779137502529848075}
-  legsAttachPoint:
-  - {fileID: 8494977451713896862}
-  - {fileID: 5881780399746210220}
-  - {fileID: 1859303849661305206}
-  - {fileID: 4838937277248773409}
-  creatureCollider: {fileID: 3570951402760557257}
-  playerCollider: {fileID: 3570951402760557257}
+  bodyLimb: {fileID: 8886131537567370675}
 --- !u!1 &2966932954500020626
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,7 +727,6 @@ GameObject:
   - component: {fileID: 4775001701999911769}
   - component: {fileID: 649756279465715882}
   - component: {fileID: 2859802666882399515}
-  - component: {fileID: 989674117752822072}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -856,29 +802,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &989674117752822072
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3490318838649716569}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4081806481670835886
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,7 +881,7 @@ GameObject:
   - component: {fileID: 8065252006205639707}
   - component: {fileID: 1920040331037028481}
   - component: {fileID: 3570951402760557257}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Capsule
   m_TagString: Creature
   m_Icon: {fileID: 0}
@@ -1670,7 +1593,6 @@ GameObject:
   - component: {fileID: 9022530939435484077}
   - component: {fileID: 601571235032764996}
   - component: {fileID: 1549440571782714763}
-  - component: {fileID: 6960818563496861567}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -1755,29 +1677,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6960818563496861567
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8304617446591300738}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8413130778742764025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1937,6 +1836,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5065158324260187568}
+  - component: {fileID: 8886131537567370675}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -1961,3 +1861,32 @@ Transform:
   - {fileID: 6243870765392516147}
   m_Father: {fileID: 6218380043821847067}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8886131537567370675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9181321622417317562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b17760b87c84b63a1fdfaad0d5f71e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: 0}
+  bones: []
+  rigs: []
+  colliders:
+  - {fileID: 1920040331037028481}
+  attachPoint: {fileID: 0}
+  isAttachedToCreature: 0
+  headAttachPoint: {fileID: 3092092047144627337}
+  armsAttachPoint:
+  - {fileID: 5102323740987349210}
+  - {fileID: 6779137502529848075}
+  legsAttachPoint:
+  - {fileID: 8494977451713896862}
+  - {fileID: 5881780399746210220}
+  - {fileID: 1859303849661305206}
+  - {fileID: 4838937277248773409}
+  creatureCollider: {fileID: 3570951402760557257}

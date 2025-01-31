@@ -21,7 +21,7 @@ namespace Creatures {
             }
         }
 
-        public BaseCreature Spawn() {
+        public BaseCreature Spawn(bool asPlayer = false) {
             if (this.bodyPart == PartId.None) {
                 Debug.LogWarning("Body part not specified");
                 return null;
@@ -30,6 +30,7 @@ namespace Creatures {
             var partSystem = CreaturePartIndex.Instance;
             
             var creatureController = partSystem.basePrefab.Instantiate();
+            creatureController.isPlayer = asPlayer;
 
             var body = partSystem.recycler.Get(this.bodyPart);
             creatureController.SetCreaturePart(body);

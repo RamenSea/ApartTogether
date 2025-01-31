@@ -316,6 +316,8 @@ MonoBehaviour:
     enableFlapFlight: 0
     flapFlightPower: 0
     flapDuration: 0
+    outOfWaterDamage: 0
+    inWaterDamage: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0
@@ -466,7 +468,7 @@ GameObject:
   - component: {fileID: 4293235366522242717}
   - component: {fileID: 9033369478305964851}
   - component: {fileID: 106050893957819396}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Capsule
   m_TagString: Creature
   m_Icon: {fileID: 0}
@@ -638,7 +640,6 @@ MonoBehaviour:
   - {fileID: 9043934502750130859}
   - {fileID: 6169509875355104311}
   creatureCollider: {fileID: 106050893957819396}
-  playerCollider: {fileID: 106050893957819396}
 --- !u!1 &5758564882821925272
 GameObject:
   m_ObjectHideFlags: 0
