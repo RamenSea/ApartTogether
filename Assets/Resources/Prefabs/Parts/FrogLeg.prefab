@@ -66,7 +66,7 @@ MonoBehaviour:
     rotationSpeedMin: 1
     rotationSpeedDampener: 0
     jumpPower: 1600
-    jumpPowerHold: 0.3
+    jumpPowerHold: 0.25
     enableFlapFlight: 0
     flapFlightPower: 0
     flapDuration: 0

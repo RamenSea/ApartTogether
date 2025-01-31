@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5559164474368518324}
   m_Layer: 4
   m_Name: WaterDetector
-  m_TagString: Creature
+  m_TagString: WaterFloat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,28 +119,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _compiledTraits:
-    weight: 0
-    maxSpeed: 0
-    acceleration: 0
     height: 0
+    weight: 0
+    maxSpeedGround: 0
+    accelerationGround: 0
+    decelerationGround: 0
+    maxSpeedAir: 0
+    accelerationAir: 0
+    decelerationAir: 0
+    maxSpeedWater: 0
+    accelerationWater: 0
+    decelerationWater: 0
+    effectsGravity: 0
+    effectsWaterGravity: 0
+    rotationSpeedMin: 0
+    rotationSpeedDampener: 0
+    jumpPower: 0
+    jumpPowerHold: 0
+    enableFlapFlight: 0
+    flapFlightPower: 0
+    flapDuration: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0
     uprightSpringDamper: 0
-    rotationSpeedMin: 0
-    rotationSpeedDampener: 0
-    jumpPower: 0
-    enableFlapFlight: 0
-    flapFlightPower: 0
-    flapDuration: 0
   _rb: {fileID: 9123951281119718223}
   rigBuilder: {fileID: 6817320316588372538}
   waterInfo: {fileID: 3709195950680773417}
+  moveDirection: {x: 0, y: 0, z: 0}
+  isOnGround: 0
+  landedOnGroundThisFrame: 0
+  timeInAirLast: 0
+  doLegAction: 0
+  doHeadAction: 0
+  doArmsAction: 0
+  health: 0
   goalVelocity: {x: 0, y: 0, z: 0}
   jumpRecharge: 0
   flapRechargeTimer: 0
   flapTimer: 0
   isFlapping: 0
+  isJumping: 0
+  jumpTimer: 0
   gravity: {x: 0, y: 0, z: 0}
 --- !u!54 &9123951281119718223
 Rigidbody:
@@ -238,7 +258,7 @@ GameObject:
   - component: {fileID: 3651167918250705461}
   m_Layer: 4
   m_Name: SwimDetector
-  m_TagString: Creature
+  m_TagString: WaterFloat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

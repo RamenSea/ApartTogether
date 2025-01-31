@@ -35,7 +35,7 @@ namespace Creatures {
         public BaseCreaturePart headPart => this.bodyPart?.attachedHeadPart;
         public BaseCreaturePart armPart => this.bodyPart?.attachedArmsPart;
 
-        public WaterCreatureInfo waterInfo;
+        public WaterInfo waterInfo;
         
         /*
          * States
