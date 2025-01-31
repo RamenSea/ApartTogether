@@ -624,6 +624,7 @@ MonoBehaviour:
   colliders:
   - {fileID: 8334146902734587156}
   - {fileID: 1226316388370910445}
+  attachPoint: {fileID: 0}
   isAttachedToCreature: 0
   target: {fileID: 7012549164250372271}
   stepLength: 0.4425
@@ -633,6 +634,7 @@ MonoBehaviour:
   offAngleTrigger: 60
   speedScale: 2
   stepVariance: 0.1
+  biasCreatureForward: 0
   stepHeightCurve:
     serializedVersion: 2
     m_Curve:
@@ -666,6 +668,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  forwardTilt: 90
+  useForwardTilt: 0
 --- !u!114 &6283810061293213508
 MonoBehaviour:
   m_ObjectHideFlags: 0

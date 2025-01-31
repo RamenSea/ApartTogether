@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3880025368679421514
+--- !u!1 &5313993422813305071
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1847945475959336548}
-  - component: {fileID: 906200738527384754}
+  - component: {fileID: 7943847441094825427}
+  - component: {fileID: 8547252109985989660}
   m_Layer: 0
-  m_Name: BeetleLegs
+  m_Name: FishTail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1847945475959336548
+--- !u!4 &7943847441094825427
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3880025368679421514}
+  m_GameObject: {fileID: 5313993422813305071}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,46 +32,48 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &906200738527384754
+--- !u!114 &8547252109985989660
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3880025368679421514}
+  m_GameObject: {fileID: 5313993422813305071}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adbfec5cbb344a378baa0e3803a8a5b6, type: 3}
+  m_Script: {fileID: 11500000, guid: df6d34a72824407f98cc6d549f1a5cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   creature: {fileID: 0}
   slotType: 1
-  limbPrefab: {fileID: 3011002636692149245, guid: ae66d786c1d0842868faeb0c9026797b, type: 3}
+  limbPrefab: {fileID: 5413401962798212517, guid: ee4f783f17e354160982a41beb967dca, type: 3}
   deactivateCollidersWhileAttached: 1
-  _partId: 213
+  _partId: 813
   _traits:
-    height: 0.05
-    weight: 3
+    height: 0
+    weight: 0.5
     maxSpeedGround: 0
     accelerationGround: 0
     decelerationGround: 0
-    maxSpeedAir: 0
-    accelerationAir: 0
-    decelerationAir: 0
-    maxSpeedWater: 0
-    accelerationWater: 0
-    decelerationWater: 0
-    effectsGravity: 0
-    effectsWaterGravity: 0
-    rotationSpeedMin: 1
-    rotationSpeedDampener: 0
-    jumpPower: 200
-    jumpPowerHold: 0
+    maxSpeedAir: 2
+    accelerationAir: 2
+    decelerationAir: 2
+    maxSpeedWater: 3
+    accelerationWater: 3
+    decelerationWater: 3
+    effectsGravity: 1
+    effectsWaterGravity: 0.4
+    rotationSpeedMin: 3
+    rotationSpeedDampener: 3
+    jumpPower: 800
+    jumpPowerHold: 0.4
     enableFlapFlight: 0
     flapFlightPower: 0
     flapDuration: 0
-    heightSpringForce: 2000
-    heightSpringDamper: 200
+    outOfWaterDamage: 250
+    inWaterDamage: 0
+    heightSpringForce: 0
+    heightSpringDamper: 0
     uprightSpringStrength: 0
     uprightSpringDamper: 0
   limbs: []

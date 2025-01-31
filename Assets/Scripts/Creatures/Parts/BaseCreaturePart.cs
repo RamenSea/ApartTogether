@@ -42,6 +42,10 @@ namespace Creatures.Parts {
         SpiderHead = 71_1,
         SpiderBody = 71_2,
         SpiderLegs = 71_3,
+        
+        FishHead = 81_1,
+        FishBody = 81_2,
+        FishLegs = 81_3,
     }
     public class BaseCreaturePart: MonoBehaviour {
         public BaseCreature creature;

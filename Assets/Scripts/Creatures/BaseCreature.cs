@@ -44,6 +44,7 @@ namespace Creatures {
         public bool isOnGround;
         public bool landedOnGroundThisFrame;
         public float timeInAirLast;
+        public float timeOutOfWaterLast;
         public bool doLegAction;
         public bool doHeadAction;
         public bool doArmsAction;
@@ -77,9 +78,23 @@ namespace Creatures {
             this.legPart?.GameUpdate(Time.deltaTime);
 
             if (this.waterInfo.isSwimming) {
+                this.timeOutOfWaterLast = 0;
                 this.gravity = Physics.gravity * this.compiledTraits.effectsWaterGravity;
             } else {
+                this.timeOutOfWaterLast += Time.deltaTime;
                 this.gravity = Physics.gravity * this.compiledTraits.effectsGravity;
+            }
+
+            if (this.waterInfo.isSwimming && this.compiledTraits.inWaterDamage > 0.001f) {
+                this.TakeDamage(new DealDamage() {
+                    amount = this.compiledTraits.inWaterDamage * Time.deltaTime,
+                    damageType = DamageType.InWater,
+                });
+            } else if (!this.waterInfo.isSwimming && (this.timeOutOfWaterLast > 1f|| this.isOnGround) && this.compiledTraits.outOfWaterDamage > 0.001f) {
+                this.TakeDamage(new DealDamage() {
+                    amount = this.compiledTraits.outOfWaterDamage * Time.deltaTime,
+                    damageType = DamageType.OutOfWater,
+                });
             }
         }
 
@@ -314,8 +329,9 @@ namespace Creatures {
             }
 
             var wasJumping = this.isJumping;
+            var inSpaceThatCanJump = this.isOnGround || this.waterInfo.isSwimming;
             
-            if (!this.isJumping && this.doLegAction && this.isOnGround && this.jumpRecharge <= 0.0f) {
+            if (!this.isJumping && this.doLegAction && inSpaceThatCanJump && this.jumpRecharge <= 0.0f) {
                 this.isJumping = true;
                 this.jumpTimer = this.compiledTraits.jumpPowerHold;
             }
@@ -347,7 +363,7 @@ namespace Creatures {
 
             var wasFlapping = this.isFlapping;
 
-            if (this.compiledTraits.enableFlapFlight && !this.isFlapping && this.flapRechargeTimer <= 0 && this.doLegAction) {
+            if (this.compiledTraits.enableFlapFlight && !this.waterInfo.isSwimming && !this.isFlapping && this.flapRechargeTimer <= 0 && this.doLegAction) {
                 this.isFlapping = true;
                 this.flapTimer = this.compiledTraits.flapDuration;
             }
@@ -387,11 +403,12 @@ namespace Creatures {
     }
 
     public struct DealDamage {
-        public int amount;
+        public float amount;
         public DamageType damageType;
     }
     public enum DamageType {
         Direct,
-        Physics,
+        OutOfWater,
+        InWater,
     }
 }

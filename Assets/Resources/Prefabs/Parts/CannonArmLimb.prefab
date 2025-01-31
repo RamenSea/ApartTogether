@@ -170,6 +170,7 @@ MonoBehaviour:
   rigs: []
   colliders:
   - {fileID: 8539612306607533253}
+  attachPoint: {fileID: 0}
   isAttachedToCreature: 0
   projectilePrefab: {fileID: 2514010629840128279, guid: 49e9160f5626b41849e97667fb083c37, type: 3}
   fireRate: 5

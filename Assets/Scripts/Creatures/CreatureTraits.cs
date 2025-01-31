@@ -30,6 +30,9 @@ namespace Creatures {
         public float flapFlightPower;
         public float flapDuration;
         
+        public float outOfWaterDamage;
+        public float inWaterDamage;
+        
         // All post calculated
         // 2000 based off of 10 weight is good
         public float heightSpringForce;
@@ -91,8 +94,12 @@ namespace Creatures {
             traits.jumpPower += otherTrait.jumpPower;
             traits.jumpPowerHold += otherTrait.jumpPowerHold;
             
+            traits.outOfWaterDamage += otherTrait.outOfWaterDamage;
+            traits.inWaterDamage += otherTrait.inWaterDamage;
+
             traits.effectsGravity *= otherTrait.effectsGravity;
             traits.effectsWaterGravity *= otherTrait.effectsWaterGravity;
+            
 
             if (otherTrait.enableFlapFlight) {
                 traits.enableFlapFlight = true;

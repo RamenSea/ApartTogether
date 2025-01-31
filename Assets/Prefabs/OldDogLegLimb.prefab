@@ -655,6 +655,7 @@ MonoBehaviour:
   - {fileID: 2285985302795273941}
   - {fileID: 591851226060975671}
   - {fileID: 7585565121758446253}
+  attachPoint: {fileID: 0}
   isAttachedToCreature: 0
   target: {fileID: 9117411719766150090}
   stepLength: 0.295
@@ -664,6 +665,7 @@ MonoBehaviour:
   offAngleTrigger: 60
   speedScale: 2
   stepVariance: 0.15
+  biasCreatureForward: 0
   stepHeightCurve:
     serializedVersion: 2
     m_Curve:
@@ -697,6 +699,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  forwardTilt: 90
+  useForwardTilt: 0
 --- !u!1 &7922009921470535845
 GameObject:
   m_ObjectHideFlags: 0

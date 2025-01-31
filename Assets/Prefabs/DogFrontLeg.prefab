@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 817981828654799495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.2066557, y: 2.61, z: -0.31251284}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -159,6 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d8228fd048c467d8e0d5e5ab7e22da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creature: {fileID: 0}
   bones:
   - {fileID: 3213442901740110200}
   - {fileID: 7313646502264191869}
@@ -166,7 +167,9 @@ MonoBehaviour:
   - {fileID: 4580939275570515017}
   rigs:
   - {fileID: 8852695152441447852}
-  forwardFrom: {fileID: 0}
+  colliders: []
+  attachPoint: {fileID: 0}
+  isAttachedToCreature: 0
   target: {fileID: 4216993257096698313}
   stepLength: 0.18
   stepHeight: 0.08
@@ -174,6 +177,16 @@ MonoBehaviour:
   minStepSpeed: 1
   offAngleTrigger: 60
   speedScale: 2
+  stepVariance: 0.1
+  biasCreatureForward: 0
+  stepHeightCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  forwardTilt: 90
+  useForwardTilt: 0
 --- !u!1 &2149564492620911110
 GameObject:
   m_ObjectHideFlags: 0
