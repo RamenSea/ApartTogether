@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5118223885091478288
+--- !u!1 &4208602126020704889
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4330894563427276206}
-  - component: {fileID: 3077949266369454607}
+  - component: {fileID: 7406823567836462622}
+  - component: {fileID: -2595918700508408848}
   m_Layer: 0
-  m_Name: BirdArms
+  m_Name: DogLegs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4330894563427276206
+--- !u!4 &7406823567836462622
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5118223885091478288}
+  m_GameObject: {fileID: 4208602126020704889}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,44 +32,44 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3077949266369454607
+--- !u!114 &-2595918700508408848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5118223885091478288}
+  m_GameObject: {fileID: 4208602126020704889}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a8b60ae70d348c38834ac1731c73dbf, type: 3}
+  m_Script: {fileID: 11500000, guid: adbfec5cbb344a378baa0e3803a8a5b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   creature: {fileID: 0}
-  slotType: 3
-  limbPrefab: {fileID: 3154271623751209612, guid: 9b680d7663b904a9f97b46df4682908e, type: 3}
+  slotType: 1
+  limbPrefab: {fileID: 441051427002715389, guid: c431aee1170ea47f5bfa7ab1fd085a93, type: 3}
   deactivateCollidersWhileAttached: 1
-  _partId: 314
+  _partId: 103
   _traits:
-    height: 0
-    weight: 1
-    maxSpeedGround: 0
-    accelerationGround: 0
-    decelerationGround: 0
-    maxSpeedAir: 0
-    accelerationAir: 0
-    decelerationAir: 0
-    maxSpeedWater: 0
-    accelerationWater: 0
-    decelerationWater: 0
+    height: 0.25
+    weight: 4
+    maxSpeedGround: 1.9
+    accelerationGround: 1.4
+    decelerationGround: 1.9
+    maxSpeedAir: 1
+    accelerationAir: 0.3
+    decelerationAir: 0.1
+    maxSpeedWater: 1
+    accelerationWater: 0.2
+    decelerationWater: 1
     effectsGravity: 1
     effectsWaterGravity: 1
-    rotationSpeedMin: 0
+    rotationSpeedMin: 1
     rotationSpeedDampener: 0
-    jumpPower: 30
-    jumpPowerHold: 0
-    enableFlapFlight: 1
-    flapFlightPower: 2000
-    flapDuration: 0.8
+    jumpPower: 1000
+    jumpPowerHold: 0.1
+    enableFlapFlight: 0
+    flapFlightPower: 0
+    flapDuration: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0

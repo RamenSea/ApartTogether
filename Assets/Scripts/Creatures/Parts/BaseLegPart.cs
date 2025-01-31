@@ -21,8 +21,7 @@ namespace Creatures.Parts {
             for (var i = 0; i < this.limbs.Length; i++) {
                 var limb = this.limbs[i];
                 if (limb is BaseLegLimb leg) {
-                    var isForward = i % 2 == 0;
-                    leg.ScrambleIdleStep(isForward);
+                    leg.ScrambleIdleStep(!limb.attachPoint.isLeft);
                 }
             }
         }

@@ -645,6 +645,7 @@ MonoBehaviour:
   - {fileID: 7958963949700319682}
   - {fileID: 2453057871799945047}
   - {fileID: 7908699060236482807}
+  attachPoint: {fileID: 0}
   isAttachedToCreature: 0
 --- !u!1 &7615605389076502844
 GameObject:
@@ -697,20 +698,30 @@ MonoBehaviour:
   deactivateCollidersWhileAttached: 1
   _partId: 611
   _traits:
-    weight: 0
-    maxSpeed: 0
-    acceleration: 0
     height: 0
+    weight: 0
+    maxSpeedGround: 0
+    accelerationGround: 0
+    decelerationGround: 0
+    maxSpeedAir: 0
+    accelerationAir: 0
+    decelerationAir: 0
+    maxSpeedWater: 0
+    accelerationWater: 0
+    decelerationWater: 0
+    effectsGravity: 1
+    effectsWaterGravity: 1
+    rotationSpeedMin: 0
+    rotationSpeedDampener: 0
+    jumpPower: 0
+    jumpPowerHold: 0
+    enableFlapFlight: 0
+    flapFlightPower: 0
+    flapDuration: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0
     uprightSpringDamper: 0
-    rotationSpeedMin: 0
-    rotationSpeedDampener: 0
-    jumpPower: 0
-    enableFlapFlight: 0
-    flapFlightPower: 0
-    flapDuration: 0
   limbs:
   - {fileID: 1221923492796647160}
   isAttached: 0

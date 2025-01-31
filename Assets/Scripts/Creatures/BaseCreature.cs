@@ -40,14 +40,14 @@ namespace Creatures {
         /*
          * States
          */
-        public Vector3 moveDirection { get; set; }
-        public bool isOnGround { get; set; }
-        public bool landedOnGroundThisFrame { get; set; }
-        public float timeInAirLast { get; set; }
-        public bool doLegAction { get; set; }
-        public bool doHeadAction { get; set; }
-        public bool doArmsAction { get; set; }
-        public int health { get; set; }
+        public Vector3 moveDirection;
+        public bool isOnGround;
+        public bool landedOnGroundThisFrame;
+        public float timeInAirLast;
+        public bool doLegAction;
+        public bool doHeadAction;
+        public bool doArmsAction;
+        public float health;
 
         [NonSerialized] public bool isPlayer = false;
         [NonSerialized] private float currentRotation;
@@ -56,6 +56,8 @@ namespace Creatures {
         [SerializeField] protected float flapRechargeTimer = 0;
         [SerializeField] protected float flapTimer = 0;
         [SerializeField] protected bool isFlapping = false;
+        [SerializeField] protected bool isJumping = false;
+        [SerializeField] protected float jumpTimer = 0f;
 
         public Vector3 gravity;
         
@@ -75,9 +77,9 @@ namespace Creatures {
             this.legPart?.GameUpdate(Time.deltaTime);
 
             if (this.waterInfo.isSwimming) {
-                this.gravity = Physics.gravity * 0.04f;
+                this.gravity = Physics.gravity * this.compiledTraits.effectsWaterGravity;
             } else {
-                this.gravity = Physics.gravity;
+                this.gravity = Physics.gravity * this.compiledTraits.effectsGravity;
             }
         }
 
@@ -178,10 +180,13 @@ namespace Creatures {
                 this.isOnGround = false;
                 this.wasOnGroundLastFrame = false;
                 this.landedOnGroundThisFrame = false;
+                this.isJumping = false;
+                this.isFlapping = false;
                 this.doLegAction = false;
                 this.doHeadAction = false;
                 this.doArmsAction = false;
                 this.timeInAirLast = 0f;
+                this.jumpTimer = 0f;
                 this.health = MAX_HEALTH;
             }
             
@@ -274,13 +279,32 @@ namespace Creatures {
 
 
         protected void PerformBasicMovement(float deltaTime) {
-            // if (!this.isOnGround) {
-            //     return;
-            // }
-            var worldDirection = this.moveDirection;
-            var targetGoalVelocity = worldDirection * this.compiledTraits.maxSpeed;
-            this.goalVelocity = Vector3.MoveTowards(this.goalVelocity, targetGoalVelocity, deltaTime * this.compiledTraits.acceleration);
-        
+            var usingDirection = this.moveDirection;
+            
+            var maxSpeed = this.compiledTraits.maxSpeedGround;
+            var acceleration = this.compiledTraits.accelerationGround;
+            var deceleration = this.compiledTraits.decelerationGround;
+            if (this.waterInfo.isSwimming && !this.isOnGround) {
+                maxSpeed = this.compiledTraits.maxSpeedWater; 
+                acceleration = this.compiledTraits.accelerationWater;
+                deceleration = this.compiledTraits.decelerationWater;
+            } else if (!this.isOnGround) {
+                maxSpeed = this.compiledTraits.maxSpeedAir; 
+                acceleration = this.compiledTraits.accelerationAir;
+                deceleration = this.compiledTraits.decelerationAir;
+            }
+            
+            var usingAccel = Mathf.Approximately(usingDirection.x, 0f) ? deceleration : acceleration;
+            if (usingDirection.x < -0.001f) {
+                usingAccel *= 0.5f;
+            }
+            if (Mathf.Approximately(usingAccel, 0f)) {
+                usingDirection.x = 0f;
+                usingAccel = deceleration;
+            }
+            
+            var targetGoalVelocity = usingDirection * maxSpeed;
+            this.goalVelocity = Vector3.MoveTowards(this.goalVelocity, targetGoalVelocity, deltaTime * usingAccel);
             var accelNeeded = (this.goalVelocity - this.rb.linearVelocity) / deltaTime;
             this.rb.AddForce(Vector3.Scale(accelNeeded, new Vector3(1,0,1)));
         }
@@ -288,11 +312,34 @@ namespace Creatures {
             if (this.jumpRecharge > 0) {
                 this.jumpRecharge -= Time.deltaTime;
             }
-            if (this.doLegAction && this.isOnGround && this.jumpRecharge <= 0.0f) {
+
+            var wasJumping = this.isJumping;
+            
+            if (!this.isJumping && this.doLegAction && this.isOnGround && this.jumpRecharge <= 0.0f) {
+                this.isJumping = true;
+                this.jumpTimer = this.compiledTraits.jumpPowerHold;
+            }
+
+            if (this.isJumping && !this.doLegAction) {
+                this.isJumping = false;
+            }
+
+            if (this.isJumping) {
+                var timeAmount = deltaTime;
+                this.jumpTimer -= deltaTime;
+                if (this.jumpTimer <= 0) {
+                    this.isJumping = false;
+                    timeAmount = deltaTime + this.jumpTimer;
+                }
+                this.rb.AddForce(Vector3.up * (this.compiledTraits.jumpPower * timeAmount));
+            }
+
+            if (wasJumping && !this.isJumping) {
+                this.jumpTimer = 0;
                 this.jumpRecharge = 0.2f;
-                this.rb.AddForce(Vector3.up * this.compiledTraits.jumpPower);
             }
         }
+        
         protected void PerformBasicFlapCheck(float deltaTime) {
             if (this.flapRechargeTimer > 0) {
                 this.flapRechargeTimer -= Time.deltaTime;

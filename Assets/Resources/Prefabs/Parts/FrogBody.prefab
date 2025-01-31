@@ -142,13 +142,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2094428323247853446}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.05, y: 0.02, z: 0.0175}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3157620543968723763}
-  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1113806566312603644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 1
+  isFront: 0
 --- !u!1 &3569233186322486796
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,13 +206,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3569233186322486796}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.05, y: 0.02, z: 0.0175}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3157620543968723763}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2793575017666760335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,6 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 0
+  isFront: 0
 --- !u!1 &3890283705975632420
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,20 +296,30 @@ MonoBehaviour:
   deactivateCollidersWhileAttached: 0
   _partId: 512
   _traits:
-    weight: 0
-    maxSpeed: 0
-    acceleration: 0
-    height: 0
+    height: 0.1
+    weight: 1
+    maxSpeedGround: 0
+    accelerationGround: 0
+    decelerationGround: 0
+    maxSpeedAir: 0
+    accelerationAir: 0
+    decelerationAir: 0
+    maxSpeedWater: 0
+    accelerationWater: 0
+    decelerationWater: 0
+    effectsGravity: 1
+    effectsWaterGravity: 1
+    rotationSpeedMin: 0
+    rotationSpeedDampener: 0
+    jumpPower: 0
+    jumpPowerHold: 0
+    enableFlapFlight: 0
+    flapFlightPower: 0
+    flapDuration: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0
     uprightSpringDamper: 0
-    rotationSpeedMin: 0
-    rotationSpeedDampener: 0
-    jumpPower: 0
-    enableFlapFlight: 0
-    flapFlightPower: 0
-    flapDuration: 0
   limbs:
   - {fileID: 741784999982071953}
   isAttached: 0
@@ -376,6 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 0
+  isFront: 0
 --- !u!1 &4306537499359686208
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,6 +452,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 0
+  isFront: 0
 --- !u!1 &4574822697888374001
 GameObject:
   m_ObjectHideFlags: 0

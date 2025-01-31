@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 1
+  isFront: 0
 --- !u!1 &1345169777699589344
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 0
+  isFront: 0
 --- !u!1 &2642572787462193718
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 1
+  isFront: 0
 --- !u!1 &3448548685333772379
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,6 +354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 1
+  isFront: 0
 --- !u!1 &5766017428783478537
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,20 +407,30 @@ MonoBehaviour:
   deactivateCollidersWhileAttached: 0
   _partId: 712
   _traits:
-    weight: 2
-    maxSpeed: 0
-    acceleration: 0
     height: 0.3
+    weight: 2
+    maxSpeedGround: 0
+    accelerationGround: 0
+    decelerationGround: 0
+    maxSpeedAir: 0
+    accelerationAir: 0
+    decelerationAir: 0
+    maxSpeedWater: 0
+    accelerationWater: 0
+    decelerationWater: 0
+    effectsGravity: 1
+    effectsWaterGravity: 1
+    rotationSpeedMin: 0
+    rotationSpeedDampener: 0
+    jumpPower: 0
+    jumpPowerHold: 0
+    enableFlapFlight: 0
+    flapFlightPower: 0
+    flapDuration: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0
     uprightSpringDamper: 0
-    rotationSpeedMin: 0
-    rotationSpeedDampener: 0
-    jumpPower: 0
-    enableFlapFlight: 0
-    flapFlightPower: 0
-    flapDuration: 0
   limbs:
   - {fileID: 3802774708798920725}
   isAttached: 0
@@ -516,6 +530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 0
+  isFront: 0
 --- !u!1 &6133339882283263450
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,6 +594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 0
+  isFront: 0
 --- !u!1 &6428416294011159247
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,6 +692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 1
+  isFront: 0
 --- !u!1 &6551472427132870112
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,6 +789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 0
+  isFront: 0
 --- !u!1 &7279740157868794038
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,6 +853,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 0
+  isFront: 0
 --- !u!1 &7828863046032071372
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,6 +917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLeft: 0
+  isFront: 0
 --- !u!1 &7952083984996434468
 GameObject:
   m_ObjectHideFlags: 0

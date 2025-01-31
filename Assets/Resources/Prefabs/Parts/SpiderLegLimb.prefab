@@ -405,6 +405,7 @@ MonoBehaviour:
   rigs:
   - {fileID: 1456968132616974539}
   colliders: []
+  attachPoint: {fileID: 0}
   isAttachedToCreature: 0
   target: {fileID: 3411619451319458474}
   stepLength: 0.3
@@ -449,6 +450,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   forwardTilt: 0
+  useForwardTilt: 1
 --- !u!114 &1456968132616974539
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1847945475959336548}
   - component: {fileID: 906200738527384754}
   m_Layer: 0
-  m_Name: DogLeg
+  m_Name: OldDogLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
