@@ -52,24 +52,26 @@ MonoBehaviour:
   _traits:
     height: 0.25
     weight: 4
-    maxSpeedGround: 1.9
-    accelerationGround: 1.4
-    decelerationGround: 1.9
-    maxSpeedAir: 1
-    accelerationAir: 0.3
-    decelerationAir: 0.1
+    maxSpeedGround: 5
+    accelerationGround: 9
+    decelerationGround: 9
+    maxSpeedAir: 2
+    accelerationAir: 2
+    decelerationAir: 5
     maxSpeedWater: 1
-    accelerationWater: 0.2
+    accelerationWater: 0.3
     decelerationWater: 1
     effectsGravity: 1
     effectsWaterGravity: 1
-    rotationSpeedMin: 1
+    rotationSpeedMin: 1.5
     rotationSpeedDampener: 0
-    jumpPower: 1000
-    jumpPowerHold: 0.1
+    jumpPower: 20000
+    jumpPowerHold: 0.24
     enableFlapFlight: 0
     flapFlightPower: 0
     flapDuration: 0
+    outOfWaterDamage: 0
+    inWaterDamage: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0

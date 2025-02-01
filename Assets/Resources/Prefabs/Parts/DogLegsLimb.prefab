@@ -545,12 +545,12 @@ MonoBehaviour:
   attachPoint: {fileID: 0}
   isAttachedToCreature: 0
   target: {fileID: 1811781412708677789}
-  stepLength: 0.3
-  stepHeight: 0.08
+  stepLength: 0.35
+  stepHeight: 0.1
   findGroundHeight: 4
   minStepSpeed: 1
   offAngleTrigger: 50
-  speedScale: 2
+  speedScale: 1
   stepVariance: 0.3
   biasCreatureForward: 0
   stepHeightCurve:

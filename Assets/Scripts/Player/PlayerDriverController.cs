@@ -11,6 +11,7 @@ namespace Player {
         [SerializeField] public PlayerInputController inputController;
         [SerializeField] public CameraController cameraController;
         [SerializeField] public SpawnInCreature playerSpawn;
+        [SerializeField] public Transform cameraAimAt;
 
         private void Awake() {
             PlayerDriverController.Instance = this;
@@ -19,7 +20,12 @@ namespace Player {
         private void Start() {
             this.creature = this.playerSpawn.Spawn(true);
             creature.gameObject.name = "Player Creature";
-            CameraController.Instance.virtualCamera.Follow = this.creature.bodyPart?.followPoint;
+            CameraController.Instance.virtualCamera.Follow = this.transform;
+            CameraController.Instance.virtualCamera.LookAt = this.cameraAimAt;
+        }
+
+        public void PlayerCreatureDidChangeParts() {
+            
         }
 
         private void Update() {
