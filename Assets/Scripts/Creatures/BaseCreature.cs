@@ -36,11 +36,13 @@ namespace Creatures {
         public BaseCreaturePart armPart => this.bodyPart?.attachedArmsPart;
 
         public WaterInfo waterInfo;
-        
+        public Transform movingPlatformTransform;
+
         /*
          * States
          */
         public Vector3 moveDirection;
+        public Vector3 moveInput;
         public bool isOnGround;
         public bool landedOnGroundThisFrame;
         public float timeInAirLast;
@@ -131,9 +133,6 @@ namespace Creatures {
                         this.bodyPart.AttachPart(oldBody.attachedHeadPart);
                     }
 
-                    if (this.isPlayer) {
-                        PlayerDriverController.Instance.cameraController.virtualCamera.Follow = this.bodyPart.followPoint;
-                    }
                     if (oldBody != null) {
                         CreatureManager.Instance.DropPart(oldBody);
                     }
@@ -206,15 +205,21 @@ namespace Creatures {
             }
             
             this.waterInfo.SetColliders(this);
+
+            if (this.isPlayer) {
+                PlayerDriverController.Instance.PlayerCreatureDidChangeParts();
+            }
         }
         private void FixedUpdate() {
             this.PhysicsUpdate(Time.fixedDeltaTime);
         }
+        
         public void HandleGravity(float deltaTime) {
             var wasOnGround = this.isOnGround;
             var usingDown = Vector3.down;
             RaycastHit hit;
-            if (Physics.Raycast(this.transform.position, transform.TransformDirection(usingDown), out hit, this.compiledTraits.height, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+            var radius = (this.bodyPart.bodyLimb.creatureCollider.collider as SphereCollider).radius * 0.6f;
+            if (Physics.SphereCast(this.transform.position, radius, transform.TransformDirection(usingDown), out hit, this.compiledTraits.height, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
                 this.isOnGround = true;
                 var velocity = rb.linearVelocity;
                 var rayDir = usingDown;
@@ -226,6 +231,11 @@ namespace Creatures {
                 if (hitBody) {
                     otherVel = hitBody.linearVelocity;
                 }
+
+                if (hit.collider.gameObject.CompareTag(GameTags.MovingPlatform) && this.movingPlatformTransform != hit.collider.transform) {
+                    this.movingPlatformTransform = hit.collider.transform;
+                    this.transform.parent = this.movingPlatformTransform;
+                }
                 
                 var rayDirVel = Vector3.Dot(rayDir, velocity);
                 var otherDirVel = Vector3.Dot(rayDir, otherVel);
@@ -236,6 +246,10 @@ namespace Creatures {
                 
                 this.rb.AddForce(rayDir * springForce);
             } else {
+                if (this.movingPlatformTransform != null) {
+                    this.transform.SetParent(null);
+                    this.movingPlatformTransform = null;
+                }
                 this.isOnGround = false;
             }
 
@@ -250,34 +264,23 @@ namespace Creatures {
         }
 
         public void CorrectRotation(float deltaTime) {
-            // var rot = Quaternion.FromToRotation(transform.up, Vector3.up);
-            // rb.AddTorque(new Vector3(rot.x, rot.y, rot.z) * (this.compiledTraits.uprightSpringStrength * deltaTime));
-            // var moveDirectionAngle = new Vector2(this.moveDirection.x, this.moveDirection.z);
-            // var upRightRotation = Quaternion.Euler(new Vector3(0, moveDirectionAngle.Angle(true), 0)); //todo
-            // // var upRightRotation = Quaternion.identity; //todo
-            // var toGoal = BaseCreature.ShortestRotation(upRightRotation, this.rb.rotation);
-            // //
-            // Vector3 rotAxis;
-            // float rotDegree;
-            // toGoal.ToAngleAxis(out rotDegree, out rotAxis);
-            // rotAxis.Normalize();
+            // if (this.isPlayer) {
+            //     var y = this.transform
+            //     var e = this.rb.rotation.eulerAngles;
+            //     e.y = y;
+            //     this.transform.rotation = PlayerDriverController.Instance.transform.rotation;
             //
-            // float rotRadians = rotDegree * Mathf.Deg2Rad;
-            //
-            // this.rb.AddTorque(
-            //     (rotAxis * (rotRadians *
-            //         this.compiledTraits
-            //             .uprightSpringStrength)) - (this.rb.angularVelocity * this.compiledTraits.uprightSpringDamper));
-            //
-            var currentVelocity = this.rb.linearVelocity;
-            var currentVelocityVector2 = new Vector2(currentVelocity.x, currentVelocity.z);
-            var speed = currentVelocityVector2.magnitude;
-            if (speed > 0.01f) {
-                // var targetAngle = currentVelocityVector2.normalized;
-                // var rotationSpeed = speed * this.compiledTraits.rotationSpeedDampener;
-                // rotationSpeed = Mathf.Max(rotationSpeed, );
-                this.rb.MoveRotation(Quaternion.Slerp(this.rb.rotation, Quaternion.LookRotation(new Vector3(currentVelocityVector2.x, 0, currentVelocityVector2.y)), this.compiledTraits.rotationSpeedMin * deltaTime));
-            }
+            //     this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.Euler(e),
+            //                                                        this.compiledTraits.rotationSpeedMin * deltaTime);
+            //                                                        this.rb.MoveRotation();
+            // } else {
+                var currentVelocity = this.rb.linearVelocity;
+                var currentVelocityVector2 = new Vector2(currentVelocity.x, currentVelocity.z);
+                var speed = currentVelocityVector2.magnitude;
+                if (speed > 0.01f) {
+                    this.rb.MoveRotation(Quaternion.Slerp(this.rb.rotation, Quaternion.LookRotation(new Vector3(currentVelocityVector2.x, 0, currentVelocityVector2.y)), this.compiledTraits.rotationSpeedMin * deltaTime));
+                }
+            // }
         }
         public void PhysicsUpdate(float deltaTime) {
             this.HandleGravity(deltaTime);
@@ -295,7 +298,7 @@ namespace Creatures {
 
         protected void PerformBasicMovement(float deltaTime) {
             var usingDirection = this.moveDirection;
-            
+
             var maxSpeed = this.compiledTraits.maxSpeedGround;
             var acceleration = this.compiledTraits.accelerationGround;
             var deceleration = this.compiledTraits.decelerationGround;
@@ -309,8 +312,8 @@ namespace Creatures {
                 deceleration = this.compiledTraits.decelerationAir;
             }
             
-            var usingAccel = Mathf.Approximately(usingDirection.x, 0f) ? deceleration : acceleration;
-            if (usingDirection.x < -0.001f) {
+            var usingAccel = Mathf.Approximately(this.moveInput.x, 0f) ? deceleration : acceleration;
+            if (this.moveInput.x < -0.001f) {
                 usingAccel *= 0.5f;
             }
             if (Mathf.Approximately(usingAccel, 0f)) {

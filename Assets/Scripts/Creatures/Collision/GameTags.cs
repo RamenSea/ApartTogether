@@ -3,5 +3,6 @@ namespace Creatures.Collision {
         public const string Player = "Player";
         public const string Creature = "Creature";
         public const string WaterFloat = "WaterFloat";
+        public const string MovingPlatform = "MovingPlatform";
     }
 }

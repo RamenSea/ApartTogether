@@ -1,4 +1,5 @@
 using System;
+using Player;
 using RamenSea.Foundation3D.Extensions;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -35,11 +36,26 @@ namespace Creatures.Parts.Limbs {
             this.lastStepLength = this.currentStepLength;
         }
 
+        private bool hasSetLastMovingPlatformPosition = false;
+        private Vector3 lastMovingPlatformPosition;
+        // public Vector3 GetPlatformOffset() {
+        //     if (this.creature.movingPlatformTransform != null) {
+        //         return this.creature.movingPlatformTransform.position - this.platformPositionAtStep;
+        //     }
+        //     return Vector3.zero;
+        // }
         private void SetStepLength() {
             this.lastStepLength = this.currentStepLength;
             this.currentStepLength = this.stepLength + Random.Range(-this.stepVariance, this.stepVariance) * this.stepLength;
         }
         private void SetStepPosition(Vector3 targetPosition) {
+            if (this.creature.movingPlatformTransform != null) {
+                this.lastMovingPlatformPosition = this.creature.movingPlatformTransform.position;
+                this.hasSetLastMovingPlatformPosition = true;
+            } else {
+                this.hasSetLastMovingPlatformPosition = false;
+            }
+            
             var forward = this.GetStepForward();
             
             this.currentTargetPosition = this.finalTargetPosition;
@@ -47,9 +63,11 @@ namespace Creatures.Parts.Limbs {
             
             this.finalTargetPosition = targetPosition;
             this.lastForward = new Vector2(forward.x, forward.z);
+            this.actualStepLenght = this.transform.position.Distance(this.finalTargetPosition);
             this.SetStepLength();
         }
 
+        private float actualStepLenght;
         private Vector3 GetStepForward() {
             var myForward = this.transform.forward;
             myForward.y = 0;
@@ -85,16 +103,38 @@ namespace Creatures.Parts.Limbs {
             }
         }
         protected override void OnGameUpdate(float deltaTime) {
+            var movingPlatformAddition = Vector3.zero;
+            if (this.creature.movingPlatformTransform != null) {
+                if (this.hasSetLastMovingPlatformPosition) {
+                    movingPlatformAddition = this.creature.movingPlatformTransform.position - this.lastMovingPlatformPosition;
+                }
+
+                this.currentTargetPosition += movingPlatformAddition;
+                this.finalTargetPosition += movingPlatformAddition;
+                this.hasSetLastMovingPlatformPosition = true;
+                this.lastMovingPlatformPosition = this.creature.movingPlatformTransform.position;
+            } else if (this.hasSetLastMovingPlatformPosition) {
+                this.hasSetLastMovingPlatformPosition = false;
+            }
+            
             var currentPositionForSpeed = this.transform.position;
             currentPositionForSpeed.y = 0;
-            var speed = this.lastPositionForSpeed.Distance(currentPositionForSpeed);
+            var speed = this.creature.rb.linearVelocity.magnitude * deltaTime;
             this.lastPositionForSpeed = currentPositionForSpeed;
             var forward = this.GetStepForward();
             forward.y = 0;
+            // if (PlayerDriverController.Instance.inputController.moveInput.x < -0.001f) {
+            //     forward *= -1;
+            // }
+            //
+            var currentActualStepDistance = this.transform.position.Distance(this.finalTargetPosition);
             if (Physics.Raycast(this.transform.position + forward * this.currentStepLength, Vector3.down, out RaycastHit hit, this.findGroundHeight, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
                 var distance = this.finalTargetPosition.Distance(hit.point);
                 
                 if (distance> this.currentStepLength * 2) {
+                    this.SetStepPosition(hit.point);
+                } else if (currentActualStepDistance > this.actualStepLenght) {
+                    Debug.Log("broken position");
                     this.SetStepPosition(hit.point);
                 } else {
                     var angleDiff = Mathf.Abs(this.lastForward.Angle() - new Vector2(forward.x, forward.z).Angle());

@@ -139,6 +139,8 @@ MonoBehaviour:
     enableFlapFlight: 0
     flapFlightPower: 0
     flapDuration: 0
+    outOfWaterDamage: 0
+    inWaterDamage: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0
@@ -146,10 +148,13 @@ MonoBehaviour:
   _rb: {fileID: 9123951281119718223}
   rigBuilder: {fileID: 6817320316588372538}
   waterInfo: {fileID: 3709195950680773417}
+  characterController: {fileID: 0}
   moveDirection: {x: 0, y: 0, z: 0}
+  playerLookDirection: {x: 0, y: 0, z: 0}
   isOnGround: 0
   landedOnGroundThisFrame: 0
   timeInAirLast: 0
+  timeOutOfWaterLast: 0
   doLegAction: 0
   doHeadAction: 0
   doArmsAction: 0
