@@ -4,10 +4,14 @@ using UnityEngine;
 
 namespace Creatures.Collision {
     public class MovingPlatforms: MonoBehaviour {
-        public Vector3 moveBy;
-        public float speed;
-        
+        public float timeSitAtStart;
+        public float timeSitAtEnd;
+        public float waitingTime;
+        public float timer;
+        public float timeToMove;
+
         public Vector3 originalPosition;
+        public Vector3 moveTo;
 
 
         public bool isMovingTo;
@@ -16,16 +20,29 @@ namespace Creatures.Collision {
         }
 
         private void Update() {
-
-            var targetDestination = this.originalPosition;
-            if (isMovingTo) {
-                targetDestination += this.moveBy;
+            if (this.waitingTime > 0) {
+                this.waitingTime -= Time.deltaTime;
+                if (this.waitingTime > 0) {
+                    return;
+                }
             }
-            this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, targetDestination, this.speed * Time.deltaTime);
+            
+            this.timer += Time.deltaTime;
+            var fromDestination = this.originalPosition;
+            var targetDestination = this.moveTo;
+            if (isMovingTo) {
+                fromDestination = this.moveTo;
+                targetDestination = this.originalPosition;
+            }
+            this.transform.localPosition = Vector3.Lerp(fromDestination, targetDestination, this.timer / this.timeToMove);
 
-            if (this.transform.localPosition.Distance(targetDestination) <= 0.0001f) {
+            if (this.timer >= this.timeToMove) {
                 this.isMovingTo = !this.isMovingTo;
+                this.waitingTime = this.isMovingTo ? this.timeSitAtEnd : this.timeSitAtStart;
+                this.timer = 0f;
             }
         }
+
     }
+    
 }

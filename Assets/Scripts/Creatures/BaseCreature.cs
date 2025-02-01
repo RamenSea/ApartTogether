@@ -61,12 +61,22 @@ namespace Creatures {
         [SerializeField] protected bool isFlapping = false;
         [SerializeField] protected bool isJumping = false;
         [SerializeField] protected float jumpTimer = 0f;
+        [SerializeField] protected float jumpSavingGrace = 0.1f;
 
         public Vector3 gravity;
         
         private bool wasOnGroundLastFrame = false;
+        private Vector3[] raycastPositions;
         private void Update() {
-            Debug.DrawLine(this.transform.position, this.transform.position + (this.compiledTraits.height * Vector3.down), Color.red);
+            
+            this.raycastPositions[0] = this.transform.position;
+            for (var i = 0; i < this.bodyPart.bodyLimb.legsAttachPoint.Length; i++) {
+                this.raycastPositions[i + 1] = this.bodyPart.bodyLimb.legsAttachPoint[i].transform.position;
+                this.raycastPositions[i + 1].y = this.raycastPositions[0].y;
+            }
+            for (var i = 0; i < this.raycastPositions.Length; i++) {
+                Debug.DrawLine(this.raycastPositions[i], this.raycastPositions[i] + (this.compiledTraits.height * Vector3.down), Color.red);
+            }
 
             this.landedOnGroundThisFrame = false;
             if (this.isOnGround && this.wasOnGroundLastFrame != this.isOnGround) {
@@ -155,6 +165,7 @@ namespace Creatures {
         public void FinishSettingParts(bool resetCounters) {
             this._compiledTraits = CreatureTraitHelper.CreateTraits(this.isPlayer, this);
 
+            this.raycastPositions = new Vector3[1 + this.bodyPart.bodyLimb.legsAttachPoint.Length];
             this.rb.mass = this.compiledTraits.weight;
             
             // build rig graph
@@ -215,11 +226,38 @@ namespace Creatures {
         }
         
         public void HandleGravity(float deltaTime) {
+            
+            // var usingDown = Vector3.down;
+            // this.raycastPositions[0] = this.transform.position;
+            // for (var i = 0; i < this.bodyPart.bodyLimb.legsAttachPoint.Length; i++) {
+            //     this.raycastPositions[i + 1] = this.bodyPart.bodyLimb.legsAttachPoint[i].transform.position;
+            //     this.raycastPositions[i + 1].y = this.raycastPositions[0].y;
+            // }
+            // RaycastHit hit = new RaycastHit();
+            // RaycastHit usingHit = new RaycastHit();
+            // bool hasHit = false;
+            // bool hitIsPlatform = false;
+            // for (var i = 0; i < this.raycastPositions.Length; i++) {
+            //     if (Physics.Raycast(this.raycastPositions[i], Vector3.down, out hit, this.compiledTraits.height, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+            //         var currentHitIsPlatform = hit.collider.gameObject.CompareTag(GameTags.MovingPlatform);
+            //         if (!hasHit) {
+            //             usingHit = hit;
+            //             hitIsPlatform = currentHitIsPlatform;
+            //         } else if (hit.rigidbody != null && usingHit.rigidbody == null) {
+            //             usingHit = hit;
+            //         }
+            //         hasHit = true;
+            //
+            //         if (hitIsPlatform) {
+            //             break;
+            //         }
+            //     }
+            // }
+            //
             var wasOnGround = this.isOnGround;
             var usingDown = Vector3.down;
             RaycastHit hit;
-            var radius = (this.bodyPart.bodyLimb.creatureCollider.collider as SphereCollider).radius * 0.6f;
-            if (Physics.SphereCast(this.transform.position, radius, transform.TransformDirection(usingDown), out hit, this.compiledTraits.height, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+            if (Physics.Raycast(this.transform.position, Vector3.down, out hit, this.compiledTraits.height, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
                 this.isOnGround = true;
                 var velocity = rb.linearVelocity;
                 var rayDir = usingDown;
@@ -232,7 +270,7 @@ namespace Creatures {
                     otherVel = hitBody.linearVelocity;
                 }
 
-                if (hit.collider.gameObject.CompareTag(GameTags.MovingPlatform) && this.movingPlatformTransform != hit.collider.transform) {
+                if (hit.collider != null && hit.collider.gameObject.CompareTag(GameTags.MovingPlatform) && this.movingPlatformTransform != hit.collider.transform) {
                     this.movingPlatformTransform = hit.collider.transform;
                     this.transform.parent = this.movingPlatformTransform;
                 }
@@ -332,7 +370,7 @@ namespace Creatures {
             }
 
             var wasJumping = this.isJumping;
-            var inSpaceThatCanJump = this.isOnGround || this.waterInfo.isSwimming;
+            var inSpaceThatCanJump = (this.isOnGround || this.timeInAirLast < this.jumpSavingGrace) || this.waterInfo.isSwimming;
             
             if (!this.isJumping && this.doLegAction && inSpaceThatCanJump && this.jumpRecharge <= 0.0f) {
                 this.isJumping = true;

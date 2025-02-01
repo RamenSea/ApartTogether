@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &356497473337371698
 Transform:
   m_ObjectHideFlags: 0
@@ -251,7 +251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6553869601900734510
 Transform:
   m_ObjectHideFlags: 0
@@ -1096,7 +1096,7 @@ MonoBehaviour:
   bones: []
   rigs: []
   colliders:
-  - {fileID: 921348114590103491}
+  - {fileID: 4800265884569494292}
   attachPoint: {fileID: 0}
   isAttachedToCreature: 0
   headAttachPoint: {fileID: 916181516849216322}
@@ -1108,7 +1108,7 @@ MonoBehaviour:
   - {fileID: 7090502383526965021}
   - {fileID: 4098654351955190731}
   - {fileID: 1566922363914713223}
-  creatureCollider: {fileID: 4448404283625787651}
+  creatureCollider: {fileID: 943027118186040070}
 --- !u!1 &8197923909497567907
 GameObject:
   m_ObjectHideFlags: 0
