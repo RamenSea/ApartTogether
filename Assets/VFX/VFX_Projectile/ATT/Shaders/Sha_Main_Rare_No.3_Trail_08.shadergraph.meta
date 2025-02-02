@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 7c36f7efcc75c3647bc6acd19f070059
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/ATT/Shaders/Sha_Main_Rare_No.3_Trail_08.shadergraph
+  uploadId: 566715

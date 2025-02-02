@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fc774cdbba7071e46816803f94100bd1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/DEX/Materials/M_MainEdge_21.mat
+  uploadId: 566715

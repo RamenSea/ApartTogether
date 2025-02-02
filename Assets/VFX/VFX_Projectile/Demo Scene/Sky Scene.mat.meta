@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d8235d13f669d0c4288dd9f8a552b132
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/Demo Scene/Sky Scene.mat
+  uploadId: 566715

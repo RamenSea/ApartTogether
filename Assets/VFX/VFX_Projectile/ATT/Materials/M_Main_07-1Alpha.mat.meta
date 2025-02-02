@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5b9d7b7436c9acb4f9aaf70bfef9fea7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/ATT/Materials/M_Main_07-1Alpha.mat
+  uploadId: 566715

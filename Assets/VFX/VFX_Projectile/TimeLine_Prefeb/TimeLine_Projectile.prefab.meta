@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b4ba51ab5b4d1d748ae9739949504e8e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/TimeLine_Prefeb/TimeLine_Projectile.prefab
+  uploadId: 566715

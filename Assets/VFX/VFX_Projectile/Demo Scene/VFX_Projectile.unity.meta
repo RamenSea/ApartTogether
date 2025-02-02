@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 01b97e47a9196f743a8ab1d851282dca
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/Demo Scene/VFX_Projectile.unity
+  uploadId: 566715

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e8fd843a9ead4a848adcbfa42743a302
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/DEX/Materials/M_Middle_22.mat
+  uploadId: 566715

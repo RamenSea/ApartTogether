@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5f68c804a1165734a8363f410d45e797
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/ATT/Materials/M_Rare_Purple_Trail.mat
+  uploadId: 566715

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1d62aa3606e21984fa57b02364ee97be
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/ATT/Materials/M_Sub_Fire.mat
+  uploadId: 566715

@@ -13,8 +13,8 @@ namespace Creatures.Collision {
     }
     public class CreatureCollisionDetection: MonoBehaviour {
         public ICreatureCollisionDetectionListener listener;
-        public bool listenForJustPlayerCollider = false;
-        private void OnCollisionEnter(UnityEngine.Collision other) {
+        
+        public virtual void OnCollisionEnter(UnityEngine.Collision other) {
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
                 this.listener?.OnCreatureCollisionEnter(creatureCollider.creature, other);
@@ -22,22 +22,14 @@ namespace Creatures.Collision {
                 this.listener?.OnOtherCollisionEnter(other);
             }
         }
-        private void OnCollisionExit(UnityEngine.Collision other) {
+        public virtual void OnCollisionExit(UnityEngine.Collision other) {
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
                 this.listener?.OnCreatureCollisionExit(creatureCollider.creature, other);
             }
             
         }
-
-        private void OnTriggerEnter(Collider other) {
-            if (this.listenForJustPlayerCollider) {
-                if (other.gameObject.CompareTag(GameTags.Player)) {
-                    var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
-                    this.listener?.OnCreatureTriggerEnter(creatureCollider.creature);
-                } 
-                return;
-            }
+        public virtual void OnTriggerEnter(Collider other) {
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
                 this.listener?.OnCreatureTriggerEnter(creatureCollider.creature);
@@ -46,14 +38,7 @@ namespace Creatures.Collision {
             }
             
         }
-        private void OnTriggerExit(Collider other) {
-            if (this.listenForJustPlayerCollider) {
-                if (other.gameObject.CompareTag(GameTags.Player)) {
-                    var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
-                    this.listener?.OnCreatureTriggerExit(creatureCollider.creature);
-                } 
-                return;
-            }
+        public virtual void OnTriggerExit(Collider other) {
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
                 this.listener?.OnCreatureTriggerExit(creatureCollider.creature);

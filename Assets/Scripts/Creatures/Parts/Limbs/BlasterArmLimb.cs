@@ -31,10 +31,8 @@ namespace Creatures.Parts.Limbs {
         public override void OnAttachToBody(BaseBodyPart bodyPart, LimbAttachPoint toPoints) {
             base.OnAttachToBody(bodyPart, toPoints);
             if (this.creature.isPlayer) {
-                Debug.Log("Player");
                 this.lookingForType = 1 << CreatureManager.Instance.normalCreatureMask;
             } else {
-                Debug.Log("creature");
                 this.lookingForType = 1 << CreatureManager.Instance.playerMask;
             }
         }

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 94f1fdf7b7c6f5f45b889919b08bd0cf
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/ATT/Materials/M_Tornado_01_Alpha.mat
+  uploadId: 566715

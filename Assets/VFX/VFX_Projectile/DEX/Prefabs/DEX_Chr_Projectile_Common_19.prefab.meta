@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d2df2d9cd85c32a48b28f8f6d9f09696
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/DEX/Prefabs/DEX_Chr_Projectile_Common_19.prefab
+  uploadId: 566715

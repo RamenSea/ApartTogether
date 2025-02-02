@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e5d4ccd250f555b41a10548ede54e56c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/DEF/Materials/M_Yellow Flare_DEF_12.mat
+  uploadId: 566715

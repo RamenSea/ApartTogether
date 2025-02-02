@@ -1,4 +1,5 @@
 using Creatures.Projectiles;
+using JetBrains.Annotations;
 using RamenSea.Foundation3D.Components.Recyclers;
 using UnityEngine;
 
@@ -10,7 +11,11 @@ namespace Creatures.Parts.Limbs {
         [SerializeField] protected Transform targetPivot;
         [SerializeField] protected Transform fireFrom;
         [SerializeField] protected float projectileSpeed;
-        [SerializeField] protected int damageAmount;
+        [SerializeField] protected float damageAmount;
+        [SerializeField] protected float pushForce;
+        [SerializeField] protected float pushRadius;
+        [SerializeField] protected float bulletActivateTime;
+        [SerializeField] protected Vector3 bulletGravity;
 
         protected float fireCooldown;
         
@@ -48,16 +53,32 @@ namespace Creatures.Parts.Limbs {
             projectile.recycler = this.prefabRecycler;
             projectile.listener = this;
             projectile.speed = this.projectileSpeed;
-            projectile.FireStraight(this.fireFrom.position, this.fireFrom.forward);
+            projectile.FireStraight(this.fireFrom.position, this.fireFrom.forward, this.bulletActivateTime, this.bulletGravity);
         }
 
-        public void DidHitCreature(BaseProjectile projectile, BaseCreature creature) {
-            this.prefabRecycler.Recycle(projectile);
-            creature.TakeDamage(new DealDamage(){ damageType = DamageType.Direct, amount = this.damageAmount});
+        public void DidHit(BaseProjectile projectile, [CanBeNull] BaseCreature creature) {
+            var damage = new DealDamage() {
+                damageType = DamageType.Direct,
+                fromLocation = projectile.transform.position,
+                amount = this.damageAmount,
+            };
+            if (projectile.collectorCollider != null) {
+                for (var i = 0; i < projectile.collectorCollider.targets.Count; i++) {
+                    var c = projectile.collectorCollider.targets[i];
+                    c.TakeDamage(damage);
+                    if (this.pushForce > 0.001f) {
+                        c.rb.AddExplosionForce(this.pushForce, projectile.transform.position, this.pushRadius);
+                    }
+                }
+            } else if (creature != null) {
+                if (this.pushForce > 0.001f) {
+                    Debug.Log($"HITTING Player${creature.gameObject.name}");
+                    creature.rb.AddExplosionForce(this.pushForce, projectile.transform.position, this.pushRadius, 0.4f);
+                }
+                creature.TakeDamage(damage);
+            }
+            projectile.Explode();
         }
 
-        public void DidHitOther(BaseProjectile projectile, Collider other) {
-            this.prefabRecycler.Recycle(projectile);
-        }
     }
 }

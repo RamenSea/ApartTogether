@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 8d8e0de1192689b49b9b024d84a45f7c
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _TextureSample0: {fileID: 2800000, guid: 11cc394fde9b0354ebf2eb337b0d5599, type: 3}
+  - _TextureSample1: {fileID: 2800000, guid: 1f69055388a5954459e2f90b3a0233d9, type: 3}
+  - _TextureSample2: {fileID: 2800000, guid: 5f0dd1aea95f3254b94b77f4b9c18977, type: 3}
+  - _texcoord: {instanceID: 0}
+  - unity_Lightmaps: {instanceID: 0}
+  - unity_LightmapsInd: {instanceID: 0}
+  - unity_ShadowMasks: {instanceID: 0}
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/ATT/Shaders/Sha_Rare_Attack_13.shader
+  uploadId: 566715

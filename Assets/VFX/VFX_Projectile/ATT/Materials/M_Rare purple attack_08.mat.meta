@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8dfeebdb7dc149542b8625c70db8aa9f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/ATT/Materials/M_Rare purple attack_08.mat
+  uploadId: 566715

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 2d68dde553d708b4ca506c13d1fe32ef
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/ATT/Shaders/Sha_Main_Purple_Speed_Trail_07.shadergraph
+  uploadId: 566715

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e4f40dab9f8f3dc479923896864a6e26
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/DEX/Materials/M_Triangle_Main_19.mat
+  uploadId: 566715

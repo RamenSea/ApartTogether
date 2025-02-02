@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 55fe6eaf8be51bf43839bbc155e42e80
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/DEF/Materials/M_Blue_DEF_09.mat
+  uploadId: 566715

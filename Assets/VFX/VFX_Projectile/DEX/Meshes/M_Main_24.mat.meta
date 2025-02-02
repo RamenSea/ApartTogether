@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 51977029ca430c043a96072d7080cd69
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/DEX/Meshes/M_Main_24.mat
+  uploadId: 566715

@@ -683,15 +683,19 @@ MonoBehaviour:
   fireFrom: {fileID: 1741117752518120290}
   projectileSpeed: 5
   damageAmount: 5
+  pushForce: 5000
+  pushRadius: 0.2
+  bulletActivateTime: 0.1
+  bulletGravity: {x: 0, y: 0.3, z: 0}
   defaultTarget: {fileID: 8382305300139086107}
   lookingForType: 0
-  timeTilLookForNewTarget: 0
+  timeTilLookForNewTarget: 1
   targetCreature: {fileID: 0}
   targeter: {fileID: 9151468699570256665}
   turretAimer: {fileID: 1741117752518120290}
   armRange: 0.34
-  range: 5
-  targetSpeed: 0.3
+  range: 8
+  targetSpeed: 0.2
   rotationSpeed: 1
   minHeight: 0
 --- !u!1 &7713637532007680856

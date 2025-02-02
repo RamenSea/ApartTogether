@@ -458,6 +458,7 @@ namespace Creatures {
 
     public struct DealDamage {
         public float amount;
+        public Vector3 fromLocation;
         public DamageType damageType;
     }
     public enum DamageType {

@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: de0983e7b32a6064f96109ddc40bfd4a
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _TextureNo1: {fileID: 2800000, guid: 63912e60329a55c4d9192c7529dcf247, type: 3}
+  - _TextureNo2Distort: {fileID: 2800000, guid: 39f4e83c585a2b3428c8ba3d57f801ca,
+      type: 3}
+  - _TextureSpeedTrail: {fileID: 2800000, guid: 6c669ccdd4e701045b6473f2bb1f8c65,
+      type: 3}
+  - _TextureCenterTrail: {fileID: 2800000, guid: 05bd8c44842f23548b35664fe0756c93,
+      type: 3}
+  - _TextureSample0: {fileID: 2800000, guid: b55bfa4ea1eea294d854cde15eaca337, type: 3}
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/ATT/Shaders/Sha_Fire_Trail_03.shader
+  uploadId: 566715

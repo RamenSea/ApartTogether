@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1ff7f1c304382ad4aaa07931b6704ce6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/DEX/Materials/M_Center_22.mat
+  uploadId: 566715

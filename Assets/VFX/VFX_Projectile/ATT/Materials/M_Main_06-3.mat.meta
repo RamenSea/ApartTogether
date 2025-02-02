@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6a9f75f17d6928f46a516dd81220bcb3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/ATT/Materials/M_Main_06-3.mat
+  uploadId: 566715

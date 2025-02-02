@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 08646c127b0e4bd40a1d27c855f5deb0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/DEF/Materials/M_Epic_Spark_15.mat
+  uploadId: 566715

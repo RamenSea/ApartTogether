@@ -141,7 +141,7 @@ namespace Creatures.Parts.Limbs {
                 if (distance> this.currentStepLength * 2) {
                     this.SetStepPosition(hit.point);
                 } else if (currentActualStepDistance > this.actualStepLenght * this.brokenLinkCheckPercent) {
-                    Debug.Log("broken position");
+                    // Debug.Log("broken position");
                     this.SetStepPosition(hit.point);
                 } else {
                     var angleDiff = Mathf.Abs(this.lastForward.Angle() - new Vector2(forward.x, forward.z).Angle());

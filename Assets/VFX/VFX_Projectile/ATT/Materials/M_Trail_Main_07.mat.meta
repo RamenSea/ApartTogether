@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 862d1660a3a0f9a4db8ac8fd7eb1e817
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/ATT/Materials/M_Trail_Main_07.mat
+  uploadId: 566715

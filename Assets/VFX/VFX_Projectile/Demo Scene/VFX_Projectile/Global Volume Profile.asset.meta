@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 649984daf2176cb4b87bfbac710d2623
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/Demo Scene/VFX_Projectile/Global Volume Profile.asset
+  uploadId: 566715

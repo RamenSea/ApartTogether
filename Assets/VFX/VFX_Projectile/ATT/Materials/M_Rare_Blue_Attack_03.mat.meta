@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2b07060b87ab89349ad9bf0765e7fd8b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 246315
+  packageName: Missile_VFX_Effect_01
+  packageVersion: 1.0
+  assetPath: Assets/VFX/VFX_Projectile/ATT/Materials/M_Rare_Blue_Attack_03.mat
+  uploadId: 566715
