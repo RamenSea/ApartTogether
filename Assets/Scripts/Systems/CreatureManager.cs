@@ -13,6 +13,7 @@ namespace Systems {
         [Layer] public int defaultLayerMask;
         [Layer] public int normalCreatureMask;
         [Layer] public int worldPartsMask;
+        [Layer] public int groundMask;
         
 
         private void Awake() {

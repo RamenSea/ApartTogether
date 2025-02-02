@@ -1,6 +1,8 @@
 using System;
 using Creatures;
+using Creatures.Parts;
 using RamenSea.Foundation3D.Extensions;
+using Systems;
 using UnityEngine;
 
 namespace Player {
@@ -22,6 +24,16 @@ namespace Player {
         }
 
         private void Start() {
+            var save = TheSystem.Get().save;
+            if (save.hasCollectedPepeBody)
+                this.playerSpawn.bodyPart = PartId.PepeBody;
+            if (save.hasCollectedPepeHead)
+                this.playerSpawn.headPart = PartId.PepeHead;
+            if (save.hasCollectedPepeLegs)
+                this.playerSpawn.legPart = PartId.PepeLegs;
+            if (save.hasCollectedPepeWings)
+                this.playerSpawn.armPart = PartId.PepeWings;
+            
             this.creature = this.playerSpawn.Spawn(true);
             creature.gameObject.name = "Player Creature";
             CameraController.Instance.virtualCamera.Follow = this.transform;

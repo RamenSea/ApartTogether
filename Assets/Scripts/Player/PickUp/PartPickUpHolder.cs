@@ -40,11 +40,9 @@ namespace Player.PickUp {
 
         public void OnCreatureTriggerEnter(BaseCreature creature) {
             WorldPartCollector.Instance.OnPartWithinRange(this);
-            this.selectedGo.SetActive(true);
         }
         public void OnCreatureTriggerExit(BaseCreature creature) {
             WorldPartCollector.Instance.OnPartLeft(this);
-            this.selectedGo.SetActive(false);
         }
     }
 }
