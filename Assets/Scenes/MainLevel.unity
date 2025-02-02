@@ -29304,7 +29304,7 @@ MonoBehaviour:
   annoyingBird: {fileID: 0}
   hint: {fileID: 1281988939}
   hiddenDoor: {fileID: 897814673}
-  moveHiddenDoorBy: 5
+  moveHiddenDoorBy: 3.4
 --- !u!114 &1281988939
 MonoBehaviour:
   m_ObjectHideFlags: 0
