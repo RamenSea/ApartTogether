@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Creatures.AI;
 using Creatures.Collision;
 using Creatures.Parts;
 using JetBrains.Annotations;
@@ -39,6 +40,7 @@ namespace Creatures {
         public WaterInfo waterInfo;
         public Transform movingPlatformTransform;
         public List<BaseLimb> attachedLimbs;
+        public List<BaseAIAgent> agents;
 
         /*
          * States
@@ -53,6 +55,7 @@ namespace Creatures {
         public bool doHeadAction;
         public bool doArmsAction;
         public float health;
+        public bool shouldLog = false;
         public bool isDead => health <= 0;
 
         [NonSerialized] public bool isPlayer = false;
@@ -71,8 +74,9 @@ namespace Creatures {
         private bool wasOnGroundLastFrame = false;
         private Vector3[] raycastPositions;
 
-        private void Start() {
+        private void Awake() {
             this.attachedLimbs = new();
+            this.agents = new();
         }
 
         private void Update() {
@@ -328,7 +332,10 @@ namespace Creatures {
                 var currentVelocity = this.rb.linearVelocity;
                 var currentVelocityVector2 = new Vector2(currentVelocity.x, currentVelocity.z);
                 var speed = currentVelocityVector2.magnitude;
-                if (speed > 0.01f) {
+                if (speed > 0.1f) {
+                    if (this.shouldLog) {
+                        Debug.Log(speed);
+                    }
                     this.rb.MoveRotation(Quaternion.Slerp(this.rb.rotation, Quaternion.LookRotation(new Vector3(currentVelocityVector2.x, 0, currentVelocityVector2.y)), this.compiledTraits.rotationSpeedMin * deltaTime));
                 }
             // }

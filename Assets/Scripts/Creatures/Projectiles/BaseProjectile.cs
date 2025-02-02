@@ -44,7 +44,9 @@ namespace Creatures.Projectiles {
                 this.recycleTimer -= Time.deltaTime;
                 if (this.recycleTimer <= 0) {
                     this.recycler.Recycle(this);
-                    this.collectorCollider.targets.Clear();
+                    if (this.collectorCollider != null) {
+                        this.collectorCollider.targets.Clear();
+                    }
                     if (this.explosionSystem != null) {
                         this.explosionSystem.gameObject.SetActive(false);
                     }

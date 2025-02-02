@@ -63,7 +63,7 @@ MonoBehaviour:
     decelerationWater: 3
     effectsGravity: 1
     effectsWaterGravity: 1
-    rotationSpeedMin: 1
+    rotationSpeedMin: 60
     rotationSpeedDampener: 0
     jumpPower: 1700
     jumpPowerHold: 0.25

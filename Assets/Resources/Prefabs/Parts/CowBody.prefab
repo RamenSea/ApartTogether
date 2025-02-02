@@ -536,7 +536,7 @@ MonoBehaviour:
   deactivateCollidersWhileAttached: 0
   _partId: 412
   _traits:
-    height: 0.45
+    height: 0.47
     weight: 20
     maxSpeedGround: 0
     accelerationGround: 0
@@ -551,8 +551,8 @@ MonoBehaviour:
     effectsWaterGravity: 0
     rotationSpeedMin: 0
     rotationSpeedDampener: 0
-    jumpPower: 40
-    jumpPowerHold: 0
+    jumpPower: 5000
+    jumpPowerHold: 0.1
     enableFlapFlight: 0
     flapFlightPower: 0
     flapDuration: 0

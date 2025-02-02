@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 namespace Creatures.AI {
     public class ShootingAI: BaseAIAgent {
         public float timeTilTryToShoot = 0f;
+        public float timeTilTryToShootStart = 0f;
         public float timer = 0f;
         public float timerHoldShooting = 0.1f;
         public float holdShootingFor = 0.1f;
@@ -14,6 +15,7 @@ namespace Creatures.AI {
         public List<ProjectileLimb> limbs;
         public override void StartAI() {
             base.StartAI();
+            this.timer = this.timeTilTryToShootStart;
 
             this.limbs = new();
             for (var i = 0; i < this.creature.attachedLimbs.Count; i++) {

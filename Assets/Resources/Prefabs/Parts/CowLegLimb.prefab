@@ -627,14 +627,14 @@ MonoBehaviour:
   attachPoint: {fileID: 0}
   isAttachedToCreature: 0
   target: {fileID: 7012549164250372271}
-  stepLength: 0.4425
-  stepHeight: 0.17
+  stepLength: 0.29
+  stepHeight: 0.1
   findGroundHeight: 3
   minStepSpeed: 0.5
   offAngleTrigger: 60
-  speedScale: 2
+  speedScale: 2.4
   stepVariance: 0.1
-  biasCreatureForward: 0
+  biasCreatureForward: 1
   stepHeightCurve:
     serializedVersion: 2
     m_Curve:
@@ -668,7 +668,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  forwardTilt: 90
+  leftForwardTilt: 90
+  rightForwardTilt: 90
+  brokenLinkCheckPercent: 1.2
   useForwardTilt: 0
 --- !u!114 &6283810061293213508
 MonoBehaviour:

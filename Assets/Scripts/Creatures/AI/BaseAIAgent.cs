@@ -11,5 +11,7 @@ namespace Creatures.AI {
         public virtual void StartAI() {
             this.hasStarted = true;
         }
+        public virtual void PostStart() {
+        }
     }
 }
