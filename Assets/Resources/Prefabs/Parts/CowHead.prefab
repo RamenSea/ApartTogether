@@ -1101,6 +1101,8 @@ MonoBehaviour:
     flapDuration: 0
     outOfWaterDamage: 0
     inWaterDamage: 0
+    jumpDamage: 0
+    jumpPushEffect: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0
@@ -1108,6 +1110,14 @@ MonoBehaviour:
   limbs:
   - {fileID: 2283714798911688881}
   isAttached: 0
+  hasBiteAttack: 0
+  biteCooldown: 0
+  biteDamage: 0
+  bitePushBack: 0
+  collectorCollider: {fileID: 0}
+  biteSound: {fileID: 0}
+  biteEffect: {fileID: 0}
+  biteTimer: 0
 --- !u!1 &7110883504693362270
 GameObject:
   m_ObjectHideFlags: 0

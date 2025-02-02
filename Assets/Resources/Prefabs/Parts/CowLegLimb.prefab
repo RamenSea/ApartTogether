@@ -624,6 +624,7 @@ MonoBehaviour:
   colliders:
   - {fileID: 8334146902734587156}
   - {fileID: 1226316388370910445}
+  - {fileID: 8636435402590299822}
   attachPoint: {fileID: 0}
   isAttachedToCreature: 0
   target: {fileID: 7012549164250372271}

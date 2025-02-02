@@ -1,4 +1,5 @@
 using Creatures.Parts.Limbs;
+using Systems;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -41,6 +42,10 @@ namespace Creatures.Parts {
             this.isAttachedToCreature = false;
         }
 
+        public virtual void OnAttachToWorldContainer() {
+            var layerMaskToUse = CreatureManager.Instance.worldPartsMask;
+            this.ChangeColliderActivations(true, layerMaskToUse);
+        }
         public void ChangeColliderActivations(bool shouldActivate, LayerMask layerMask) {
             for (var i = 0; i < this.colliders.Length; i++) {
                 this.colliders[i].enabled = shouldActivate;

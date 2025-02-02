@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2853451784682256164}
   - component: {fileID: 8012209437157371221}
   - component: {fileID: 4306289706366573159}
+  - component: {fileID: 8225087147007038934}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -87,6 +88,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &8225087147007038934
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259163591286960968}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.50000024
+  m_Height: 2.0000005
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 3.4667847e-22, z: -0.00000008940699}
 --- !u!1 &701345574826746824
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +266,7 @@ MonoBehaviour:
   rigs: []
   colliders:
   - {fileID: 8539612306607533253}
+  - {fileID: 8225087147007038934}
   attachPoint: {fileID: 0}
   isAttachedToCreature: 0
   projectilePrefab: {fileID: 2514010629840128279, guid: 11ace2f71c9fe443cba0c0776d8c8156, type: 3}
@@ -249,7 +274,7 @@ MonoBehaviour:
   targetPivot: {fileID: 8368480670506066795}
   fireFrom: {fileID: 1732177389179293526}
   projectileSpeed: 1
-  damageAmount: 0
+  damageAmount: 3000
   pushForce: 20000
   pushRadius: 0.4
   bulletActivateTime: 0.2

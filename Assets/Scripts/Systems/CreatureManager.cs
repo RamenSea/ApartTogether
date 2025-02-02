@@ -18,43 +18,29 @@ namespace Systems {
         private void Awake() {
             CreatureManager.Instance = this;
         }
-
-        public void DropPart(BaseCreaturePart part) {
-            var partCollector = WorldPartCollector.Instance;
-            var collector = partCollector.Get();
-            part.OnDeattachToBody(true);
-            collector.AttachPart(part);
-        }
-
         public void CreatureDidDie(BaseCreature creature) {
             var partCollector = WorldPartCollector.Instance;
             if (creature.armPart != null) {
                 var part = creature.armPart;
-                var collector = partCollector.Get();
-                part.OnDeattachToBody(true);
-                collector.AttachPart(part);
+                partCollector.DropPart(part);
             }
             if (creature.legPart != null) {
                 var part = creature.legPart;
-                var collector = partCollector.Get();
-                part.OnDeattachToBody(true);
-                collector.AttachPart(part);
+                partCollector.DropPart(part);
             }
             if (creature.headPart != null) {
                 var part = creature.headPart;
-                var collector = partCollector.Get();
-                part.OnDeattachToBody(true);
-                collector.AttachPart(part);
+                partCollector.DropPart(part);
             }
             if (creature.bodyPart != null) {
                 var part = creature.bodyPart;
-                creature.bodyPart = null;
-                var collector = partCollector.Get();
-                part.OnDeattachToBody(true);
-                collector.AttachPart(part);
+                partCollector.DropPart(part);
             }
-            
-            creature.gameObject.Destroy();
+            creature.OnDeath();
+
+            if (creature.isPlayer) {
+                GameRunner.Instance.PlayerDidDie();
+            }
         }
         private void OnDestroy() {
             if (CreatureManager.Instance == this) {

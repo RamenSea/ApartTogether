@@ -33,6 +33,9 @@ namespace Creatures {
         public float outOfWaterDamage;
         public float inWaterDamage;
         
+        public float jumpDamage;
+        public float jumpPushEffect;
+        
         // All post calculated
         // 2000 based off of 10 weight is good
         public float heightSpringForce;
@@ -96,6 +99,9 @@ namespace Creatures {
             
             traits.outOfWaterDamage += otherTrait.outOfWaterDamage;
             traits.inWaterDamage += otherTrait.inWaterDamage;
+            
+            traits.jumpDamage += otherTrait.jumpDamage;
+            traits.jumpPushEffect += otherTrait.jumpPushEffect;
 
             traits.effectsGravity *= otherTrait.effectsGravity;
             traits.effectsWaterGravity *= otherTrait.effectsWaterGravity;

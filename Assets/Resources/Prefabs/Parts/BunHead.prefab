@@ -711,7 +711,6 @@ MonoBehaviour:
     decelerationWater: 0
     effectsGravity: 1
     effectsWaterGravity: 1
-    downSpeedPercentStopHittingWater: 0
     rotationSpeedMin: 60
     rotationSpeedDampener: 0
     jumpPower: 1000
@@ -721,6 +720,8 @@ MonoBehaviour:
     flapDuration: 0
     outOfWaterDamage: 0
     inWaterDamage: 0
+    jumpDamage: 50
+    jumpPushEffect: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0
@@ -728,3 +729,11 @@ MonoBehaviour:
   limbs:
   - {fileID: 1221923492796647160}
   isAttached: 0
+  hasBiteAttack: 0
+  biteCooldown: 0
+  biteDamage: 0
+  bitePushBack: 0
+  collectorCollider: {fileID: 0}
+  biteSound: {fileID: 0}
+  biteEffect: {fileID: 0}
+  biteTimer: 0

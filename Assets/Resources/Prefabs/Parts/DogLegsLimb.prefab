@@ -586,9 +586,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  forwardTilt: 90
+  leftForwardTilt: 90
+  rightForwardTilt: 90
+  brokenLinkCheckPercent: 1
   useForwardTilt: 0
-  foot: {fileID: 7624723839253920875}
 --- !u!1 &7405207500230718594
 GameObject:
   m_ObjectHideFlags: 0

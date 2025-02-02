@@ -18,16 +18,15 @@ namespace Player.PickUp {
         }
 
         [SerializeField] private Rigidbody rb;
-        public void AttachPart(BaseCreaturePart part) {
+        public void AttachPart(BaseCreaturePart part, BaseLimb limb) {
             this.selectedGo.SetActive(false);
             this.heldPart = part;
-            this.transform.SetPositionAndRotation(part.transform);
-            var pos = part.transform.position;
-            pos.y += 0.5f;
+            this.transform.SetPositionAndRotation(limb.transform);
+            var pos = limb.transform.position;
             this.transform.position = pos;
-            part.transform.SetParent(this.transform);
-            part.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-            part.OnAttachToWorldContainer(this);
+            limb.transform.SetParent(this.transform);
+            limb.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            limb.OnAttachToWorldContainer();
             this.rb.mass = part.traits.weight;
         }
 

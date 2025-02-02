@@ -17,6 +17,7 @@ namespace Creatures {
     
     public class BaseCreature: MonoBehaviour {
         public const int MAX_HEALTH = 10_000;
+        public const float FLAP_RECHARGE = 0.2f;
         public static Quaternion ShortestRotation(Quaternion to, Quaternion from) {
             if (Quaternion.Dot(to, from) < 0) {
                 return to * Quaternion.Inverse(Multiply(from, -1));
@@ -43,6 +44,7 @@ namespace Creatures {
         public Transform movingPlatformTransform;
         public List<BaseLimb> attachedLimbs;
         public List<BaseAIAgent> agents;
+        public ParticleSystem jumpOnEffect;
 
         /*
          * States
@@ -61,16 +63,16 @@ namespace Creatures {
         public bool isDead => health <= 0;
 
         [NonSerialized] public bool isPlayer = false;
-        [NonSerialized] private float currentRotation;
-        [SerializeField] protected Vector3 goalVelocity;
-        [SerializeField] protected float jumpRecharge = 0;
-        [SerializeField] protected float flapRechargeTimer = 0;
-        [SerializeField] protected float flapTimer = 0;
-        [SerializeField] protected bool isFlapping = false;
-        [SerializeField] protected bool isJumping = false;
-        [SerializeField] protected float jumpTimer = 0f;
-        [SerializeField] protected float jumpSavingGrace = 0.1f;
-        [SerializeField] protected AnimationCurve jumpCurve;
+        [SerializeField] public Vector3 goalVelocity;
+        [SerializeField] public float jumpRecharge = 0;
+        [SerializeField] public float flapRechargeTimer = 0;
+        [SerializeField] public float flapTimer = 0;
+        [SerializeField] public bool isFlapping = false;
+        [SerializeField] public bool isJumping = false;
+        [SerializeField] public float jumpTimer = 0f;
+        [SerializeField] public float jumpSavingGrace = 0.1f;
+        [SerializeField] public AnimationCurve jumpCurve;
+        [SerializeField] public AnimationCurve flapCurve;
 
         public Vector3 gravity;
         
@@ -80,10 +82,13 @@ namespace Creatures {
         private void Awake() {
             this.attachedLimbs = new();
             this.agents = new();
+            this.health = MAX_HEALTH;
         }
 
         private void Update() {
-            
+            if (this.isDead) {
+                return;
+            }
             this.raycastPositions[0] = this.transform.position;
             for (var i = 0; i < this.bodyPart.bodyLimb.legsAttachPoint.Length; i++) {
                 this.raycastPositions[i + 1] = this.bodyPart.bodyLimb.legsAttachPoint[i].transform.position;
@@ -117,7 +122,7 @@ namespace Creatures {
                     amount = this.compiledTraits.inWaterDamage * Time.deltaTime,
                     damageType = DamageType.InWater,
                 });
-            } else if (!this.waterInfo.isSwimming && (this.timeOutOfWaterLast > 1f|| this.isOnGround) && this.compiledTraits.outOfWaterDamage > 0.001f) {
+            } else if (!this.waterInfo.isSwimming && (this.timeOutOfWaterLast > 3f || this.isOnGround) && this.compiledTraits.outOfWaterDamage > 0.001f) {
                 this.TakeDamage(new DealDamage() {
                     amount = this.compiledTraits.outOfWaterDamage * Time.deltaTime,
                     damageType = DamageType.OutOfWater,
@@ -140,6 +145,9 @@ namespace Creatures {
             return null;
         }
         public void SetCreaturePart(BaseCreaturePart creaturePart) {
+            if (this.isDead) {
+                return;
+            }
             creaturePart.creature = this;
             
             switch (creaturePart.slotType) {
@@ -159,7 +167,7 @@ namespace Creatures {
                     }
 
                     if (oldBody != null) {
-                        CreatureManager.Instance.DropPart(oldBody);
+                        WorldPartCollector.Instance.DropPart(oldBody);
                     }
                     break;
                 }
@@ -170,7 +178,7 @@ namespace Creatures {
                     }
                     var oldBodyPart = this.GetSocket(creaturePart.slotType);
                     if (oldBodyPart != null) {
-                        CreatureManager.Instance.DropPart(oldBodyPart);
+                        WorldPartCollector.Instance.DropPart(oldBodyPart);
                     }
                     this.bodyPart.AttachPart(creaturePart);
                     break;
@@ -178,6 +186,9 @@ namespace Creatures {
             }
         }
         public void FinishSettingParts(bool resetCounters) {
+            if (this.isDead) {
+                return;
+            }
             this._compiledTraits = CreatureTraitHelper.CreateTraits(this.isPlayer, this);
             if (this.additionalTraits != null) {
                 this._compiledTraits = CreatureTraitHelper.BasicAddition(this._compiledTraits, this.additionalTraits.Value, PartSlotType.Arms);
@@ -245,11 +256,16 @@ namespace Creatures {
             }
         }
         private void FixedUpdate() {
+            if (this.isDead) {
+                return;
+            }
             this.PhysicsUpdate(Time.fixedDeltaTime);
         }
         
         public void HandleGravity(float deltaTime) {
-            
+            if (this.isDead) {
+                return;
+            }
             // var usingDown = Vector3.down;
             // this.raycastPositions[0] = this.transform.position;
             // for (var i = 0; i < this.bodyPart.bodyLimb.legsAttachPoint.Length; i++) {
@@ -291,8 +307,27 @@ namespace Creatures {
                 Rigidbody hitBody = hit.rigidbody;
                 if (hitBody) {
                     otherVel = hitBody.linearVelocity;
+                    if (this.shouldLog) {
+                        Debug.Log($"Jumped on ${hitBody.gameObject.name}");
+                    }
                 }
+                if (hit.collider != null && hit.collider.gameObject.CompareTag(GameTags.Creature)) {
+                    var creature = hit.collider.gameObject.GetComponent<CreatureCollider>().creature;
+                    if (creature.jumpOnEffect.isStopped) {
+                        creature.jumpOnEffect.Stop();
+                        creature.jumpOnEffect.Play();
+                        creature.jumpOnEffect.transform.position = hit.point;
+                    }
 
+                    var damage = (this._compiledTraits.jumpDamage + this.rb.mass * 200f) * deltaTime;
+                    creature.rb.AddExplosionForce(this._compiledTraits.jumpPushEffect, hit.point, 0.1f);
+                    creature.TakeDamage(new DealDamage() {
+                        amount = damage,
+                        damageType = DamageType.Direct,
+                        fromLocation = this.transform.position,
+                    });
+                }
+                
                 if (hit.collider != null && hit.collider.gameObject.CompareTag(GameTags.MovingPlatform) && this.movingPlatformTransform != hit.collider.transform) {
                     this.movingPlatformTransform = hit.collider.transform;
                     this.transform.parent = this.movingPlatformTransform;
@@ -339,9 +374,6 @@ namespace Creatures {
                 var currentVelocityVector2 = new Vector2(currentVelocity.x, currentVelocity.z);
                 var speed = currentVelocityVector2.magnitude;
                 if (speed > 0.1f) {
-                    if (this.shouldLog) {
-                        Debug.Log(speed);
-                    }
                     this.rb.MoveRotation(Quaternion.Slerp(this.rb.rotation, Quaternion.LookRotation(new Vector3(currentVelocityVector2.x, 0, currentVelocityVector2.y)), this.compiledTraits.rotationSpeedMin * deltaTime));
                 }
             // }
@@ -454,22 +486,32 @@ namespace Creatures {
 
             if (wasFlapping && !this.isFlapping) {
                 this.flapTimer = 0;
-                this.flapRechargeTimer = 0.2f;
+                this.flapRechargeTimer = FLAP_RECHARGE;
             }
         }
         public void TakeDamage(DealDamage damage) {
-            Debug.Log("Took damage");
+            if (this.shouldLog) {
+                Debug.Log("Took damage");
+            }
             this.health -= damage.amount;
             if (this.health <= 0) {
                 this.health = 0;
-                this.Die();
+                this.TriggerDeath();
             }
         }
         
         [Button("Test death")]
-        public void Die() {
-            Debug.Log("Died");
+        public void TriggerDeath() {
             CreatureManager.Instance.CreatureDidDie(this);
+        }
+        public void OnDeath() {
+            this.health = 0;
+            this.rb.isKinematic = true;
+            this.rb.linearVelocity = Vector3.zero;
+            this.rb.angularVelocity = Vector3.zero;
+            for (var i = 0; i < this.agents.Count; i++) {
+                this.agents[i].StopAI();
+            }
         }
     }
 

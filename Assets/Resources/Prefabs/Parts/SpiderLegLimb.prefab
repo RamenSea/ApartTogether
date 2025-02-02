@@ -403,7 +403,10 @@ MonoBehaviour:
   bones: []
   rigs:
   - {fileID: 1456968132616974539}
-  colliders: []
+  colliders:
+  - {fileID: 6436373188768042436}
+  - {fileID: 1578145045262811705}
+  - {fileID: 9209977010727052178}
   attachPoint: {fileID: 0}
   isAttachedToCreature: 0
   target: {fileID: 3411619451319458474}

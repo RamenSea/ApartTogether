@@ -15,6 +15,11 @@ namespace Creatures.Parts {
     public enum PartId {
         None = 0,
         
+        PepeHead = 1,
+        PepeBody = 2,
+        PepeLegs = 3,
+        PepeWings = 4,
+        
         DogHead = 10_1,
         DogBody = 10_2,
         DogLegs = 10_3,
@@ -22,11 +27,10 @@ namespace Creatures.Parts {
         CannonArms = 11_1,
         BlasterArm = 11_2,
         
-        BeetleHead = 21_1,
-        BeetleBody = 21_2,
-        BeetleLegs = 21_3,
-        
+        BirdHead= 31_3,
         BirdArm = 31_4,
+        BirdBody = 31_5,
+        BirdLegs = 31_6,
         
         CowHead = 41_1,
         CowBody = 41_2,
@@ -47,6 +51,7 @@ namespace Creatures.Parts {
         FishHead = 81_1,
         FishBody = 81_2,
         FishLegs = 81_3,
+        
     }
     public class BaseCreaturePart: MonoBehaviour {
         public BaseCreature creature;
@@ -107,27 +112,16 @@ namespace Creatures.Parts {
             this.isAttached = false;
             this.creature = null;
             this.transform.SetParent(null); //todo deattch
-            for (var i = 1; i < this.limbs.Length; i++) {
-                this.limbs[i].OnDeattachBody();
-                this.limbs[i].gameObject.Destroy();
-            }
 
             if (isDropped) {
-                for (var i = 0; i < this.limbs.Length; i++) {
+                for (var i = 1; i < this.limbs.Length; i++) {
                     this.limbs[i].OnDeattachBody();
-                    if (i > 0) {
-                        this.limbs[i].gameObject.Destroy();
-                    }
                 }
                 
-                BaseLimb limb;
-                if (this.limbs.Length > 0) {
-                    limb = this.limbs[0];
-                    limb.transform.SetParent(this.transform);
-                } else {
-                    limb = this.limbPrefab.Instantiate(this.transform);
+                if (this.limbs.Length == 0)  {
+                    var limb = this.limbPrefab.Instantiate(this.transform);
+                    this.limbs = new[] {limb};
                 }
-                this.limbs = new[] {limb};
             } else {
                 for (var i = 0; i < this.limbs.Length; i++) {
                     this.limbs[i].OnDeattachBody();

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3210528811060667158}
   - component: {fileID: 1023240425551179526}
   - component: {fileID: 4046929502335268336}
+  - component: {fileID: 1157309020395822408}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -86,6 +87,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &1157309020395822408
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292955582693997714}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1739526859200309942
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,10 +241,11 @@ MonoBehaviour:
   - {fileID: 8566562161450199212}
   colliders:
   - {fileID: 8779359047915391765}
+  - {fileID: 1157309020395822408}
   attachPoint: {fileID: 0}
   isAttachedToCreature: 0
   target: {fileID: 2051693274069649956}
-  stepLength: 0.1
+  stepLength: 0.15
   stepHeight: 0.04
   findGroundHeight: 2
   minStepSpeed: 0.5

@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7034434949530109277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7403665272123710843}
+  - component: {fileID: 5956760731260468134}
+  m_Layer: 0
+  m_Name: AnnoyingBirdLeg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7403665272123710843
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7034434949530109277}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5956760731260468134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7034434949530109277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adbfec5cbb344a378baa0e3803a8a5b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: 0}
+  slotType: 1
+  limbPrefab: {fileID: 3727609617726374543, guid: 6c9af852c1c1547bea6fb045d5740523, type: 3}
+  deactivateCollidersWhileAttached: 1
+  _partId: 316
+  _traits:
+    height: 0.15
+    weight: 1
+    maxSpeedGround: 2
+    accelerationGround: 5
+    decelerationGround: 5
+    maxSpeedAir: 1
+    accelerationAir: 5
+    decelerationAir: 5
+    maxSpeedWater: 1
+    accelerationWater: 2
+    decelerationWater: 2
+    effectsGravity: 0.5
+    effectsWaterGravity: 1
+    rotationSpeedMin: 180
+    rotationSpeedDampener: 0
+    jumpPower: 2000
+    jumpPowerHold: 0.1
+    enableFlapFlight: 0
+    flapFlightPower: 0
+    flapDuration: 0
+    outOfWaterDamage: 0
+    inWaterDamage: 500
+    jumpDamage: 1000
+    jumpPushEffect: 4000
+    heightSpringForce: 0
+    heightSpringDamper: 0
+    uprightSpringStrength: 0
+    uprightSpringDamper: 0
+  limbs: []
+  isAttached: 0

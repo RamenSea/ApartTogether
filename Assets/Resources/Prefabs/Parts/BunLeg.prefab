@@ -72,6 +72,8 @@ MonoBehaviour:
     flapDuration: 0
     outOfWaterDamage: 0
     inWaterDamage: 0
+    jumpDamage: 2000
+    jumpPushEffect: 4000
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0

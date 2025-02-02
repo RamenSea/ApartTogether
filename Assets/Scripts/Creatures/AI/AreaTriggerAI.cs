@@ -19,7 +19,6 @@ namespace Creatures.AI {
         }
 
         public void TriggerStart() {
-            Debug.Log(this.creature.agents.Count);
             for (var i = 0; i < this.creature.agents.Count; i++) {
                 Debug.Log($"{this.creature.agents[i].name} is asdf");
                 this.creature.agents[i].hasStarted = true;

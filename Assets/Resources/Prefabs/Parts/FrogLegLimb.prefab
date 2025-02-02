@@ -386,7 +386,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  forwardTilt: 90
+  leftForwardTilt: 90
+  rightForwardTilt: 90
+  brokenLinkCheckPercent: 1
   useForwardTilt: 0
 --- !u!114 &2612591335367073302
 MonoBehaviour:

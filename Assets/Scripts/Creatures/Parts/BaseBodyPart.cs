@@ -7,8 +7,6 @@ using UnityEngine;
 namespace Creatures.Parts {
     public class BaseBodyPart: BaseCreaturePart {
         
-        public Transform followPoint;
-
         [SerializeField] public BaseBodyLimb bodyLimb;
         
         [NonSerialized] public BaseCreaturePart attachedHeadPart = null;

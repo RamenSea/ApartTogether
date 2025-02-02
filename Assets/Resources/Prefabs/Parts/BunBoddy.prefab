@@ -369,7 +369,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1317412559479440701}
-  - {fileID: 4618204970860351256}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7826562278240611489
@@ -390,7 +389,7 @@ MonoBehaviour:
   deactivateCollidersWhileAttached: 0
   _partId: 612
   _traits:
-    height: 0.2
+    height: 0.22
     weight: 3
     maxSpeedGround: 0
     accelerationGround: 0
@@ -412,6 +411,8 @@ MonoBehaviour:
     flapDuration: 0
     outOfWaterDamage: 0
     inWaterDamage: 0
+    jumpDamage: 100
+    jumpPushEffect: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0
@@ -419,7 +420,6 @@ MonoBehaviour:
   limbs:
   - {fileID: 5750507676647560158}
   isAttached: 0
-  followPoint: {fileID: 3334802057372164258}
   bodyLimb: {fileID: 5750507676647560158}
 --- !u!1 &5059183862211277835
 GameObject:
@@ -451,7 +451,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 494590333652692619}
-  m_Father: {fileID: 3179143510126289331}
+  m_Father: {fileID: 1317412559479440701}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5645922929905445674
 GameObject:
@@ -486,6 +486,7 @@ Transform:
   - {fileID: 5780916216992319356}
   - {fileID: 4317114442186742418}
   - {fileID: 3334802057372164258}
+  - {fileID: 4618204970860351256}
   m_Father: {fileID: 3179143510126289331}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5750507676647560158
@@ -650,7 +651,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6675693162670420716}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 53560fc30ae6041c18b160da2c4e79db, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
