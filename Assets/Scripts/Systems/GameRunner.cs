@@ -17,16 +17,23 @@ namespace Systems {
 
         public RiverLevel riverLevel;
         public Transform pepeLegsLookAtLocation;
+        public Transform pepeLegsCameraLocation;
         public GameObject pepeLegsCollection;
         public Transform pepeBodyLookAtLocation;
+        public Transform pepeBodyCameraLocation;
         public GameObject pepeBodyCollection;
         public Transform pepeHeadLookAtLocation;
+        public Transform pepeHeadCameraLocation;
         public GameObject pepeHeadCollection;
         public Transform pepeWingsLookAtLocation;
+        public Transform pepeWingsCameraLocation;
         public GameObject pepeWingsCollection;
         public SpawnPointActivation[] spawns;
         public SpawnInCreature annoyingBirdSpawn;
         public BaseCreature annoyingBird;
+        public HintingShowingSystem hint;
+        public Transform hiddenDoor;
+        public float moveHiddenDoorBy;
 
         private void Awake() {
             GameRunner.Instance = this;
@@ -43,7 +50,13 @@ namespace Systems {
             if (save.hasCollectedPepeWings) {
                 this.pepeWingsCollection.SetActive(false);
             }
-
+            
+            if (save.hasCollectedPepeLegs && save.hasCollectedPepeHead && save.hasCollectedPepeBody) {
+                var pos = this.hiddenDoor.position;
+                pos.y += this.moveHiddenDoorBy;
+                this.hiddenDoor.position = pos;
+            }
+            
             this.annoyingBird = this.annoyingBirdSpawn.Spawn();
         }
 
@@ -57,6 +70,15 @@ namespace Systems {
                 this.riverLevel.UnDamRiver(true);
             }
 
+            var spawnId = TheSystem.Get().keyStore.GetString("spawn_point");
+            for (var i = 0; i < this.spawns.Length; i++) {
+                var isActive = this.spawns[i].spawnPointId.Equals(spawnId);
+                if (spawnId.Length == 0 && i == 0) {
+                    isActive = true;
+                }
+                this.spawns[i].SetSpawnActive(isActive);
+            }
+            
             
             if (TheSystem.Get().startGameImmediately) {
                 TheSystem.Get().startGameImmediately = false;
@@ -64,15 +86,20 @@ namespace Systems {
             } else {
                 this.startUI.Show();
             }
-            
         }
 
+        [Button("Test spawn")]
+        public void TestSpawn() {
+            this.startUI.gameObject.SetActive(false);
+            this.gameUI.gameObject.SetActive(true);
+            PlayerDriverController.Instance.SpawnInTest();
+        }
         public void SpawnPlayer() {
             this.startUI.gameObject.SetActive(false);
             var spawnId = TheSystem.Get().keyStore.GetString("spawn_point");
             SpawnPointActivation spawn = this.spawns[0];
             for (var i = 0; i < this.spawns.Length; i++) {
-                if (this.spawns[i].spawnPointId == spawnId) {
+                if (this.spawns[i].spawnPointId.Equals(spawnId)) {
                     spawn = this.spawns[i];
                 }
             }
@@ -117,11 +144,28 @@ namespace Systems {
             var part = CreaturePartIndex.Instance.recycler.Get(partId);
             PlayerDriverController.Instance.creature.SetCreaturePart(part);
             PlayerDriverController.Instance.creature.FinishSettingParts(false);
+            
+            if (save.hasCollectedPepeLegs && save.hasCollectedPepeHead && save.hasCollectedPepeBody) {
+                var pos = this.hiddenDoor.position;
+                pos.y += this.moveHiddenDoorBy;
+                this.hiddenDoor.position = pos;
+            }
         }
 
         public void UpdateSpawnPoint(string spawnPointId) {
             
             TheSystem.Get().keyStore.Set("spawn_point", spawnPointId);
+            for (var i = 0; i < this.spawns.Length; i++) {
+                var isActive = this.spawns[i].spawnPointId.Equals(spawnPointId);
+                if (spawnPointId.Length == 0 && i == 0) {
+                    isActive = true;
+                }
+
+                if (isActive) {
+                    continue;
+                }
+                this.spawns[i].SetSpawnActive(false);
+            }
         }
         private void OnDestroy() {
             if (Instance == this) {

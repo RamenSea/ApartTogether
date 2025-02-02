@@ -73,6 +73,8 @@ namespace Creatures {
         [SerializeField] public float jumpSavingGrace = 0.1f;
         [SerializeField] public AnimationCurve jumpCurve;
         [SerializeField] public AnimationCurve flapCurve;
+        [SerializeField] public float speedToDamageCurvedValue;
+        [SerializeField] public float yValueToStartDealingFallDamage;
 
         public Vector3 gravity;
         
@@ -305,6 +307,15 @@ namespace Creatures {
                 // var downDir = Vector3.down;
                 // var rayDir = this.transform.TransformDirection(downDir);
 
+                var falldamageDealt = 0f;
+                if (!wasOnGround && velocity.y < -this.yValueToStartDealingFallDamage) {
+                    var vel = velocity.y - yValueToStartDealingFallDamage;
+                    vel = vel.Abs();
+                    
+                    if (this.shouldLog)
+                    Debug.Log($"{vel} -- dealt damage of {vel * this.yValueToStartDealingFallDamage * this.yValueToStartDealingFallDamage}");    
+                }
+                
                 var otherVel = Vector3.zero;
                 Rigidbody hitBody = hit.rigidbody;
                 if (hitBody) {

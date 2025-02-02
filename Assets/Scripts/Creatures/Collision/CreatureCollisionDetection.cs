@@ -37,7 +37,7 @@ namespace Creatures.Collision {
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
                 if (creatureCollider.creature != null && !creatureCollider.creature.isDead) {
-                this.listener?.OnCreatureTriggerEnter(creatureCollider.creature);
+                    this.listener?.OnCreatureTriggerEnter(creatureCollider.creature);
                 }
             } else {
                 this.listener?.OnOtherTriggerEnter(other);
@@ -48,7 +48,7 @@ namespace Creatures.Collision {
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
                 if (creatureCollider.creature != null && !creatureCollider.creature.isDead) {
-                this.listener?.OnCreatureTriggerExit(creatureCollider.creature);
+                    this.listener?.OnCreatureTriggerExit(creatureCollider.creature);
                 }
             }
         }

@@ -16,7 +16,8 @@ namespace Creatures.Parts {
         public void AttachBody(BaseCreature creature) {
             this.creature = creature;
             this.bodyLimb.creatureCollider.creature = creature;
-
+            this.bodyLimb.creatureCollider.collider.enabled = true;
+            
             if (creature.isPlayer) {
                 this.bodyLimb.creatureCollider.gameObject.layer = CreatureManager.Instance.playerMask;
             } else {

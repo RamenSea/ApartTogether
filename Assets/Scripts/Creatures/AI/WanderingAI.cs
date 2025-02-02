@@ -5,9 +5,9 @@ using Random = UnityEngine.Random;
 namespace Creatures.AI {
     public class WanderingAI: BaseAIAgent {
 
-        public float minWalkTime = 1f;
+        public float minWalkTime = 0.3f;
         public float maxWalkTime = 1f;
-        public float minSitTime = 1f;
+        public float minSitTime = 0.3f;
         public float maxSitTime = 1f;
 
         public Vector3 direction;

@@ -6,7 +6,6 @@ using UnityEngine.Animations.Rigging;
 namespace Creatures.Parts {
     public class BaseLimb: MonoBehaviour {
         public BaseCreature creature;
-        public Transform[] bones;
         public Rig[] rigs;
         public Collider[] colliders;
         public LimbAttachPoint attachPoint;

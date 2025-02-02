@@ -1,6 +1,7 @@
 using System;
 using Creatures;
 using Player;
+using Systems;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,10 @@ namespace UI {
                 this._healthBar.rectTransform.anchorMax = new Vector2(hpPercent, this._healthBar.rectTransform.anchorMax.y);
             }
             
+        }
+
+        public void ShowHint() {
+            GameRunner.Instance.hint.ShowHint();
         }
     }
 }

@@ -27,7 +27,6 @@ namespace Systems {
             }
             
             this.riverPosition = this.river.transform.position;
-            Debug.Log(this.riverPosition);
             var p = this.riverPosition;
             p.y -= 3.94f;
             this.river.transform.position = p;

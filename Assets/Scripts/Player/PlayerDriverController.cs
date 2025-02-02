@@ -26,24 +26,26 @@ namespace Player {
         [SerializeField] public float trackingBirdVerticalAimArm = 0.17f;
         [SerializeField] public float trackingBirdCameraDistance = 2.6f;
         [SerializeField] public Vector3 trackingBirdAimOffset = new Vector3(-1.48f, 0f, 0f);
+        
+        [SerializeField] public Vector3 trackingPlayerDamping = new Vector3(0f,0f,0f);
+        [SerializeField] public Vector3 trackingPlayerRigShoulderOffset = new Vector3(0f,0f,0f);
+        [SerializeField] public float trackingPlayerVerticalAimArm = 0.17f;
+        [SerializeField] public float trackingPlayerCameraDistance = 0f;
+        [SerializeField] public Vector3 trackingPlayerAimOffset = new Vector3(0f,0f,0f);
 
         private void Awake() {
             PlayerDriverController.Instance = this;
         }
 
         private void Start() {
-            
-            this.cameraController.virtualCamera.LookAt = GameRunner.Instance.annoyingBird.transform;
-            this.cameraController.virtualCamera.Follow = GameRunner.Instance.annoyingBird.transform;
-            var cameraBody = this.cameraController.virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-            cameraBody.Damping = this.trackingBirdDamping;
-            cameraBody.ShoulderOffset = this.trackingBirdRigShoulderOffset;
-            cameraBody.VerticalArmLength = this.trackingBirdVerticalAimArm;
-            cameraBody.CameraDistance = this.trackingBirdCameraDistance;
+            this.SetCameraForBird();
+        }
 
-            var cameraAim = this.cameraController.virtualCamera.GetCinemachineComponent<CinemachineComposer>();
-            cameraAim.m_TrackedObjectOffset = this.trackingBirdAimOffset;
-            // var follow  = this.cameraController.virtualCamera.AbstractFollowTargetGroup as Cinemachine3rdPersonFollow
+        public void SpawnInTest() {
+            this.creature = this.playerSpawn.Spawn(true);
+            creature.gameObject.name = "Player Creature";
+            this.PlayerCreatureDidChangeParts();
+            this.SetCameraAfterSpawn();
         }
 
         public void SpawnIn(SpawnPointActivation at) {
@@ -63,12 +65,46 @@ namespace Player {
             at.spawnAnimation.Play();
             this.creature = this.playerSpawn.Spawn(true);
             creature.gameObject.name = "Player Creature";
-            CameraController.Instance.virtualCamera.Follow = this.transform;
-            CameraController.Instance.virtualCamera.LookAt = this.cameraAimAt;
             this.PlayerCreatureDidChangeParts();
-            
+            this.SetCameraAfterSpawn();
         }
 
+        public void SetCameraForBird() {
+            this.cameraController.virtualCamera.LookAt = GameRunner.Instance.annoyingBird.transform;
+            this.cameraController.virtualCamera.Follow = GameRunner.Instance.annoyingBird.transform;
+            var cameraBody = this.cameraController.virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+            cameraBody.Damping = this.trackingBirdDamping;
+            cameraBody.ShoulderOffset = this.trackingBirdRigShoulderOffset;
+            cameraBody.VerticalArmLength = this.trackingBirdVerticalAimArm;
+            cameraBody.CameraDistance = this.trackingBirdCameraDistance;
+
+            var cameraAim = this.cameraController.virtualCamera.GetCinemachineComponent<CinemachineComposer>();
+            cameraAim.m_TrackedObjectOffset = this.trackingBirdAimOffset;
+        }
+        public void SetCameraForHints() {
+            var cameraBody = this.cameraController.virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+            cameraBody.Damping = this.trackingPlayerDamping;
+            cameraBody.ShoulderOffset = this.trackingPlayerRigShoulderOffset;
+            cameraBody.VerticalArmLength = this.trackingPlayerVerticalAimArm;
+            cameraBody.CameraDistance = this.trackingPlayerCameraDistance;
+            cameraBody.CameraCollisionFilter = 0;
+
+            var cameraAim = this.cameraController.virtualCamera.GetCinemachineComponent<CinemachineComposer>();
+            cameraAim.m_TrackedObjectOffset = this.trackingPlayerAimOffset;
+        }
+        public void SetCameraAfterSpawn() {
+            CameraController.Instance.virtualCamera.Follow = this.transform;
+            CameraController.Instance.virtualCamera.LookAt = this.cameraAimAt;
+            var cameraBody = this.cameraController.virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+            cameraBody.Damping = this.trackingPlayerDamping;
+            cameraBody.ShoulderOffset = this.trackingPlayerRigShoulderOffset;
+            cameraBody.VerticalArmLength = this.trackingPlayerVerticalAimArm;
+            cameraBody.CameraDistance = this.trackingPlayerCameraDistance;
+            cameraBody.CameraCollisionFilter = 1 << CreatureManager.Instance.groundMask;
+
+            var cameraAim = this.cameraController.virtualCamera.GetCinemachineComponent<CinemachineComposer>();
+            cameraAim.m_TrackedObjectOffset = this.trackingPlayerAimOffset;
+        }
         public void PlayerCreatureDidChangeParts() {
             if (this.creature == null) {
                 return;

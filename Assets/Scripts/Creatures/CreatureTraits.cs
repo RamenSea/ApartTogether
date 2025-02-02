@@ -36,6 +36,8 @@ namespace Creatures {
         public float jumpDamage;
         public float jumpPushEffect;
         
+        public float fallDamageProtection;
+        
         // All post calculated
         // 2000 based off of 10 weight is good
         public float heightSpringForce;
@@ -105,6 +107,7 @@ namespace Creatures {
 
             traits.effectsGravity *= otherTrait.effectsGravity;
             traits.effectsWaterGravity *= otherTrait.effectsWaterGravity;
+            traits.fallDamageProtection *= otherTrait.fallDamageProtection;
             
 
             if (otherTrait.enableFlapFlight) {
