@@ -17,7 +17,9 @@ namespace Creatures.Collision {
         public virtual void OnCollisionEnter(UnityEngine.Collision other) {
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
-                this.listener?.OnCreatureCollisionEnter(creatureCollider.creature, other);
+                if (creatureCollider.creature != null && !creatureCollider.creature.isDead) {
+                    this.listener?.OnCreatureCollisionEnter(creatureCollider.creature, other);
+                }
             } else {
                 this.listener?.OnOtherCollisionEnter(other);
             }
@@ -25,14 +27,18 @@ namespace Creatures.Collision {
         public virtual void OnCollisionExit(UnityEngine.Collision other) {
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
-                this.listener?.OnCreatureCollisionExit(creatureCollider.creature, other);
+                if (creatureCollider.creature != null && !creatureCollider.creature.isDead) {
+                    this.listener?.OnCreatureCollisionExit(creatureCollider.creature, other);
+                }
             }
             
         }
         public virtual void OnTriggerEnter(Collider other) {
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
+                if (creatureCollider.creature != null && !creatureCollider.creature.isDead) {
                 this.listener?.OnCreatureTriggerEnter(creatureCollider.creature);
+                }
             } else {
                 this.listener?.OnOtherTriggerEnter(other);
             }
@@ -41,7 +47,9 @@ namespace Creatures.Collision {
         public virtual void OnTriggerExit(Collider other) {
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
+                if (creatureCollider.creature != null && !creatureCollider.creature.isDead) {
                 this.listener?.OnCreatureTriggerExit(creatureCollider.creature);
+                }
             }
         }
     }

@@ -16883,7 +16883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a662b7bd1c8a4d0eb09ef7a6bb36e20c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pepeLegs: {fileID: 970642059}
+  pepePart: {fileID: 970642059}
   collisionDetection: {fileID: 989483849}
 --- !u!114 &989483849
 MonoBehaviour:

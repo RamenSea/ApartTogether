@@ -50,8 +50,10 @@ namespace Creatures.Parts.Limbs {
                     break;
                 }
                 var creatureCollider = collider.GetComponent<CreatureCollider>();
-                this.targetCreature = creatureCollider.creature;
-                break;
+                if (creatureCollider.creature != null && !creatureCollider.creature.isDead) {
+                    this.targetCreature = creatureCollider.creature;
+                    break;
+                }
             }
         }
 

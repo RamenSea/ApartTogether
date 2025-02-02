@@ -80,7 +80,7 @@ namespace Systems {
 
             var part = CreaturePartIndex.Instance.recycler.Get(partId);
             PlayerDriverController.Instance.creature.SetCreaturePart(part);
-            PlayerDriverController.Instance.creature.FinishSettingParts(true);
+            PlayerDriverController.Instance.creature.FinishSettingParts(false);
         }
 
         private void OnDestroy() {

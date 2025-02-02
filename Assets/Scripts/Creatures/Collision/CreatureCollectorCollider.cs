@@ -33,14 +33,18 @@ namespace Creatures.Collision {
         public override void OnTriggerEnter(Collider other) {
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var detector = other.gameObject.GetComponent<CreatureCollider>();
-                this.AddTarget(detector.creature);
+                if (detector.creature != null && !detector.creature.isDead) {
+                    this.AddTarget(detector.creature);
+                }
             }
             base.OnTriggerEnter(other);
         }
         public override void OnTriggerExit(Collider other) {
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var detector = other.gameObject.GetComponent<CreatureCollider>();
-                this.RemoveTarget(detector.creature);
+                if (detector.creature != null && !detector.creature.isDead) {
+                    this.RemoveTarget(detector.creature);
+                }
             }
             base.OnTriggerExit(other);
         }

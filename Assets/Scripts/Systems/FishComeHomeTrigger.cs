@@ -16,7 +16,7 @@ namespace Systems {
 
 
         public void OnCreatureTriggerEnter(BaseCreature creature) {
-            if (creature.isPlayer && this.pepePart != null) {
+            if (creature != null && creature.isPlayer && this.pepePart != null) {
                 if (creature.bodyPart.partId == PartId.FishBody && creature.headPart.partId == PartId.FishHead &&
                     creature.legPart.partId == PartId.FishLegs && !TheSystem.Get().save.hasCollectedPepeBody) {
                     pepePart.gameObject.SetActive(true);

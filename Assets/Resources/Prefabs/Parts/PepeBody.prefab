@@ -288,6 +288,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 61.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4800265884569494292, guid: e180ddf0705f642c097e34e12c48342a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6578835936935540707, guid: e180ddf0705f642c097e34e12c48342a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -301,7 +305,8 @@ PrefabInstance:
       value: PepeBody
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2267771880470521896, guid: e180ddf0705f642c097e34e12c48342a, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1450043778911890189, guid: e180ddf0705f642c097e34e12c48342a, type: 3}
       insertIndex: 1

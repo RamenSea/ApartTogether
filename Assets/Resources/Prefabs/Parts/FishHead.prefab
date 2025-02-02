@@ -71,7 +71,7 @@ MonoBehaviour:
     enableFlapFlight: 0
     flapFlightPower: 0
     flapDuration: 0
-    outOfWaterDamage: 100
+    outOfWaterDamage: 200
     inWaterDamage: 0
     jumpDamage: 0
     jumpPushEffect: 0

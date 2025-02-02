@@ -245,6 +245,7 @@ namespace Creatures {
                 this.doHeadAction = false;
                 this.doArmsAction = false;
                 this.timeInAirLast = 0f;
+                this.timeOutOfWaterLast = 0f;
                 this.jumpTimer = 0f;
                 this.health = MAX_HEALTH;
             }
@@ -313,19 +314,21 @@ namespace Creatures {
                 }
                 if (hit.collider != null && hit.collider.gameObject.CompareTag(GameTags.Creature)) {
                     var creature = hit.collider.gameObject.GetComponent<CreatureCollider>().creature;
-                    if (creature.jumpOnEffect.isStopped) {
-                        creature.jumpOnEffect.Stop();
-                        creature.jumpOnEffect.Play();
-                        creature.jumpOnEffect.transform.position = hit.point;
-                    }
+                    if (creature != null && !creature.isDead) {
+                        if (creature.jumpOnEffect.isStopped) {
+                            creature.jumpOnEffect.Stop();
+                            creature.jumpOnEffect.Play();
+                            creature.jumpOnEffect.transform.position = hit.point;
+                        }
 
-                    var damage = (this._compiledTraits.jumpDamage + this.rb.mass * 200f) * deltaTime;
-                    creature.rb.AddExplosionForce(this._compiledTraits.jumpPushEffect, hit.point, 0.1f);
-                    creature.TakeDamage(new DealDamage() {
-                        amount = damage,
-                        damageType = DamageType.Direct,
-                        fromLocation = this.transform.position,
-                    });
+                        var damage = (this._compiledTraits.jumpDamage + this.rb.mass * 200f) * deltaTime;
+                        creature.rb.AddExplosionForce(this._compiledTraits.jumpPushEffect, hit.point, 0.1f);
+                        creature.TakeDamage(new DealDamage() {
+                            amount = damage,
+                            damageType = DamageType.Direct,
+                            fromLocation = this.transform.position,
+                        });
+                    }
                 }
                 
                 if (hit.collider != null && hit.collider.gameObject.CompareTag(GameTags.MovingPlatform) && this.movingPlatformTransform != hit.collider.transform) {
