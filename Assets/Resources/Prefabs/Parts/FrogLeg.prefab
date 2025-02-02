@@ -65,11 +65,13 @@ MonoBehaviour:
     effectsWaterGravity: 1
     rotationSpeedMin: 1
     rotationSpeedDampener: 0
-    jumpPower: 1600
+    jumpPower: 1700
     jumpPowerHold: 0.25
     enableFlapFlight: 0
     flapFlightPower: 0
     flapDuration: 0
+    outOfWaterDamage: 0
+    inWaterDamage: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0

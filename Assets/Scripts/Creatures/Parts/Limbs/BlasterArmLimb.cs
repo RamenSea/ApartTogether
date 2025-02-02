@@ -39,6 +39,9 @@ namespace Creatures.Parts.Limbs {
             }
         }
 
+        public override bool HasTarget() {
+            return this.targetCreature != null;
+        }
 
         public void FindTargets() {
             this.targetCreature = null;

@@ -50,7 +50,7 @@ MonoBehaviour:
   deactivateCollidersWhileAttached: 1
   _partId: 103
   _traits:
-    height: 0.25
+    height: 0.2
     weight: 4
     maxSpeedGround: 5
     accelerationGround: 15

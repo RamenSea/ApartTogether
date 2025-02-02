@@ -51,7 +51,7 @@ MonoBehaviour:
   _partId: 112
   _traits:
     height: 0
-    weight: 5
+    weight: 3
     maxSpeedGround: 0
     accelerationGround: 0
     decelerationGround: 0

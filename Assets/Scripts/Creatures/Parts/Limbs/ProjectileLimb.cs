@@ -22,9 +22,9 @@ namespace Creatures.Parts.Limbs {
 
         public override void OnAttachToBody(BaseBodyPart bodyPart, LimbAttachPoint toPoints) {
             base.OnAttachToBody(bodyPart, toPoints);
-            this.FaceCannon(toPoints.transform.forward);
         }
 
+        public virtual bool HasTarget() => true;
         protected virtual bool ShouldFire() => this.creature?.doArmsAction ?? false;
         protected override void OnGameUpdate(float deltaTime) {
             base.OnGameUpdate(deltaTime);

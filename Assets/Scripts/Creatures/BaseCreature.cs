@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Creatures.Collision;
 using Creatures.Parts;
 using JetBrains.Annotations;
@@ -37,6 +38,7 @@ namespace Creatures {
 
         public WaterInfo waterInfo;
         public Transform movingPlatformTransform;
+        public List<BaseLimb> attachedLimbs;
 
         /*
          * States
@@ -51,6 +53,7 @@ namespace Creatures {
         public bool doHeadAction;
         public bool doArmsAction;
         public float health;
+        public bool isDead => health <= 0;
 
         [NonSerialized] public bool isPlayer = false;
         [NonSerialized] private float currentRotation;
@@ -67,6 +70,11 @@ namespace Creatures {
         
         private bool wasOnGroundLastFrame = false;
         private Vector3[] raycastPositions;
+
+        private void Start() {
+            this.attachedLimbs = new();
+        }
+
         private void Update() {
             
             this.raycastPositions[0] = this.transform.position;
@@ -167,10 +175,12 @@ namespace Creatures {
 
             this.raycastPositions = new Vector3[1 + this.bodyPart.bodyLimb.legsAttachPoint.Length];
             this.rb.mass = this.compiledTraits.weight;
+            this.attachedLimbs.Clear();
             
             // build rig graph
             this.rigBuilder.layers.Clear();
             if (this.bodyPart != null) {
+                this.attachedLimbs.AddRange(this.bodyPart.limbs);
                 for (var i = 0; i < this.bodyPart.limbs.Length; i++) {
                     for (var limbIndex = 0; limbIndex < this.bodyPart.limbs[i].rigs.Length; limbIndex++) {
                         this.rigBuilder.layers.Add(new RigLayer(this.bodyPart.limbs[i].rigs[limbIndex]));
@@ -178,6 +188,7 @@ namespace Creatures {
                 }
             }
             if (this.legPart != null) {
+                this.attachedLimbs.AddRange(this.legPart.limbs);
                 for (var i = 0; i < this.legPart.limbs.Length; i++) {
                     for (var limbIndex = 0; limbIndex < this.legPart.limbs[i].rigs.Length; limbIndex++) {
                         this.rigBuilder.layers.Add(new RigLayer(this.legPart.limbs[i].rigs[limbIndex]));
@@ -185,6 +196,7 @@ namespace Creatures {
                 }
             }
             if (this.armPart != null) {
+                this.attachedLimbs.AddRange(this.armPart.limbs);
                 for (var i = 0; i < this.armPart.limbs.Length; i++) {
                     for (var limbIndex = 0; limbIndex < this.armPart.limbs[i].rigs.Length; limbIndex++) {
                         this.rigBuilder.layers.Add(new RigLayer(this.armPart.limbs[i].rigs[limbIndex]));
@@ -192,6 +204,7 @@ namespace Creatures {
                 }
             }
             if (this.headPart != null) {
+                this.attachedLimbs.AddRange(this.headPart.limbs);
                 for (var i = 0; i < this.headPart.limbs.Length; i++) {
                     for (var limbIndex = 0; limbIndex < this.headPart.limbs[i].rigs.Length; limbIndex++) {
                         this.rigBuilder.layers.Add(new RigLayer(this.headPart.limbs[i].rigs[limbIndex]));

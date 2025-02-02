@@ -16,7 +16,9 @@ namespace Creatures.Parts.Limbs {
         public float stepVariance = 0.1f;
         public float biasCreatureForward = 0f;
         public AnimationCurve stepHeightCurve;
-        public float forwardTilt = 90f;
+        public float leftForwardTilt = 90f;
+        public float rightForwardTilt = 90f;
+        public float brokenLinkCheckPercent = 1f;
         public bool useForwardTilt = false;
         
         private Vector3 finalTargetPosition;
@@ -68,22 +70,27 @@ namespace Creatures.Parts.Limbs {
         }
 
         private float actualStepLenght;
-        private Vector3 GetStepForward() {
+        private Vector3 GetStepForward(bool goingForward = false) {
             var myForward = this.transform.forward;
             myForward.y = 0;
             if (this.useForwardTilt) {
-                var updatedDir = forwardTilt.DegreeToDirection();
+                var tilt = this.leftForwardTilt;
                 if (!this.attachPoint.isLeft) {
-                    updatedDir = -updatedDir;
+                    tilt = this.rightForwardTilt;
                 }
-
+                var updatedDir = tilt.DegreeToDirection();
+                var dir = this.transform.TransformDirection(new Vector3(updatedDir.x, 0, updatedDir.y));
                 myForward.x += updatedDir.x;
                 myForward.z += updatedDir.y;
                 myForward = myForward.normalized;
+                myForward = dir;
             }
             
             var creatureForward = this.creature.transform.forward;
             creatureForward.y = 0f;
+            if (!goingForward) {
+                creatureForward *= 1f;
+            }
 
             var amountMyForward = 1.0f - this.biasCreatureForward;
             var f = myForward * amountMyForward + creatureForward * this.biasCreatureForward;
@@ -91,12 +98,8 @@ namespace Creatures.Parts.Limbs {
         }
         public void ScrambleIdleStep(bool goingForward) {
             this.SetStepLength();
-            var forward = this.GetStepForward();
+            var forward = this.GetStepForward(goingForward);
             forward.y = 0;
-            if (!goingForward) {
-                forward *= -1f;
-            }
-
             var usingStepLength = this.currentStepLength * 0.5f;
             if (Physics.Raycast(this.transform.position + forward * usingStepLength, Vector3.down, out RaycastHit hit, this.findGroundHeight, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
                 this.SetStepPosition(hit.point);
@@ -127,13 +130,17 @@ namespace Creatures.Parts.Limbs {
             //     forward *= -1;
             // }
             //
+
+            if (!this.creature.isOnGround) {
+                forward = Vector3.zero;
+            }
             var currentActualStepDistance = this.transform.position.Distance(this.finalTargetPosition);
             if (Physics.Raycast(this.transform.position + forward * this.currentStepLength, Vector3.down, out RaycastHit hit, this.findGroundHeight, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
                 var distance = this.finalTargetPosition.Distance(hit.point);
                 
                 if (distance> this.currentStepLength * 2) {
                     this.SetStepPosition(hit.point);
-                } else if (currentActualStepDistance > this.actualStepLenght) {
+                } else if (currentActualStepDistance > this.actualStepLenght * this.brokenLinkCheckPercent) {
                     Debug.Log("broken position");
                     this.SetStepPosition(hit.point);
                 } else {

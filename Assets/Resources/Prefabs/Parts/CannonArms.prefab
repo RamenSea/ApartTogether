@@ -46,12 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creature: {fileID: 0}
   slotType: 3
-  limbPrefab: {fileID: 1917579007265540604, guid: d018466ad29164086a4e6d14661bf382, type: 3}
+  limbPrefab: {fileID: 232453098854601732, guid: d018466ad29164086a4e6d14661bf382, type: 3}
   deactivateCollidersWhileAttached: 1
   _partId: 111
   _traits:
     height: 0
-    weight: 0
+    weight: 1
     maxSpeedGround: 0
     accelerationGround: 0
     decelerationGround: 0
@@ -70,6 +70,8 @@ MonoBehaviour:
     enableFlapFlight: 0
     flapFlightPower: 0
     flapDuration: 0
+    outOfWaterDamage: 0
+    inWaterDamage: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0

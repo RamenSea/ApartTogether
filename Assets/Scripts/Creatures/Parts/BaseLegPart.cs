@@ -1,4 +1,5 @@
 using Creatures.Parts.Limbs;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Creatures.Parts {
@@ -17,6 +18,7 @@ namespace Creatures.Parts {
             this.ScrambleSteps();
         }
 
+        [Button("Scramble Steps")]
         public void ScrambleSteps() {
             for (var i = 0; i < this.limbs.Length; i++) {
                 var limb = this.limbs[i];

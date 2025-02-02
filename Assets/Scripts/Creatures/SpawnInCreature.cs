@@ -68,6 +68,7 @@ namespace Creatures {
                 for (int i = 0; i < agents.Length; i++) {
                     var agent = agents[i];
                     agent.creature = creatureController;
+                    agent.StartAI();
                 }
             }
             // var agents = this.gameObject.GetComponents<BaseAIAgent>();

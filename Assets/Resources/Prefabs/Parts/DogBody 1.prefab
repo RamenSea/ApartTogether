@@ -1192,7 +1192,7 @@ MonoBehaviour:
   deactivateCollidersWhileAttached: 0
   _partId: 102
   _traits:
-    height: 0.25
+    height: 0.3
     weight: 5
     maxSpeedGround: 0
     accelerationGround: 0

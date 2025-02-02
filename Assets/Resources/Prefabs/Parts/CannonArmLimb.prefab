@@ -120,6 +120,77 @@ Transform:
   - {fileID: 8368480670506066795}
   m_Father: {fileID: 6967256090147334665}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &832934712263504807
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6646507493810426786}
+  - component: {fileID: 4174224487701110165}
+  - component: {fileID: 7766757296273946059}
+  m_Layer: 0
+  m_Name: TargetFinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6646507493810426786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832934712263504807}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6967256090147334665}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &4174224487701110165
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832934712263504807}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7766757296273946059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832934712263504807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86b55bd0835f4975bee5082fadfd55d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  measureFrom: {fileID: 8368480670506066795}
+  sphereCollider: {fileID: 4174224487701110165}
+  bestTarget: {fileID: 0}
+  targets: []
+  findBestTargetTimer: 1
 --- !u!1 &873590633787953016
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6967256090147334665}
-  - component: {fileID: 1917579007265540604}
+  - component: {fileID: 232453098854601732}
   m_Layer: 0
   m_Name: CannonArmLimb
   m_TagString: Untagged
@@ -151,9 +222,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7830612405792870520}
+  - {fileID: 6646507493810426786}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1917579007265540604
+--- !u!114 &232453098854601732
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,7 +234,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 873590633787953016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c80001c674543138684c17168b40faf, type: 3}
+  m_Script: {fileID: 11500000, guid: 21781b30fb934e86906b57fa053a3412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   creature: {fileID: 0}
@@ -177,7 +249,12 @@ MonoBehaviour:
   targetPivot: {fileID: 8368480670506066795}
   fireFrom: {fileID: 1732177389179293526}
   projectileSpeed: 3
-  damageAmount: 50000
+  damageAmount: 0
+  targetCreature: {fileID: 0}
+  turretAimer: {fileID: 8368480670506066795}
+  targetFinder: {fileID: 7766757296273946059}
+  range: 5
+  rotationSpeed: 40
 --- !u!1 &4330478716740721939
 GameObject:
   m_ObjectHideFlags: 0
