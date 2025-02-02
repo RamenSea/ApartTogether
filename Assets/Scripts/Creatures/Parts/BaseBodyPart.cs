@@ -22,6 +22,10 @@ namespace Creatures.Parts {
             } else {
                 this.bodyLimb.creatureCollider.gameObject.layer = CreatureManager.Instance.normalCreatureMask;
             }
+            
+            this.bodyLimb.transform.localPosition = Vector3.zero;
+            this.bodyLimb.transform.localRotation = Quaternion.identity;
+            this.bodyLimb.isAttachedToCreature = true;
         }
         public void AttachPart(BaseCreaturePart part) {
             Transform worldPartsTransform = null; // todo

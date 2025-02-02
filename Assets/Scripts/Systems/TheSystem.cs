@@ -35,6 +35,7 @@ namespace Systems {
         }
         public void ClearSave() {
             this.keyStore.Remove("game_save");
+            this.save = new GameSave();
         }
         public static TheSystem Get() {
             if (instance == null) {

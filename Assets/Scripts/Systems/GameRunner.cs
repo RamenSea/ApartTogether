@@ -93,5 +93,12 @@ namespace Systems {
         public void ClearSave() {
             TheSystem.Get().ClearSave();
         }
+        [Button("Test save")]
+        public void GetSave() {
+            TheSystem.Get().ClearSave();
+            var save = TheSystem.Get().save;
+            save.hasUnDammedRiver = true;
+            TheSystem.Get().UpdateSave();
+        }
     }
 }
