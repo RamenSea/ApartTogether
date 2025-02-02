@@ -378,7 +378,7 @@ namespace Creatures {
                 var currentVelocityVector2 = new Vector2(currentVelocity.x, currentVelocity.z);
                 var speed = currentVelocityVector2.magnitude;
                 if (speed > 0.1f) {
-                    this.rb.MoveRotation(Quaternion.Slerp(this.rb.rotation, Quaternion.LookRotation(new Vector3(currentVelocityVector2.x, 0, currentVelocityVector2.y)), this.compiledTraits.rotationSpeedMin * deltaTime));
+                    this.rb.MoveRotation(Quaternion.RotateTowards(this.rb.rotation, Quaternion.LookRotation(new Vector3(currentVelocityVector2.x, 0, currentVelocityVector2.y)), this.compiledTraits.rotationSpeedMin * deltaTime));
                 }
             // }
         }

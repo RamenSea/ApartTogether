@@ -23,7 +23,7 @@ namespace Systems {
         }
 
         private void Update() {
-            if (PlayerDriverController.Instance.inputController.didPressInteractThisTurn &&
+            if (PlayerDriverController.Instance.creature != null && PlayerDriverController.Instance.inputController.didPressInteractThisTurn &&
                 this.highlightedPart != null) {
                 if (this.highlightedPart.heldPart != null) {
                     var part = this.highlightedPart.heldPart;

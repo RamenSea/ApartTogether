@@ -1,5 +1,6 @@
 using System;
 using Creatures;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using NaughtyAttributes;
 using UnityEngine;
@@ -15,8 +16,9 @@ namespace Systems {
         public ParticleSystem[] damExplosion;
         public SpawnInCreature[] riverSpawns;
         public float riverRiseTime;
-        public float riverRiseHeight;
         public Vector3 riverPosition;
+        public GameObject forestSpawn;
+        public GameObject forestPushButton;
         
         private void Awake() {
             Instance = this;
@@ -25,7 +27,7 @@ namespace Systems {
             }
             
             this.riverPosition = this.river.transform.position;
-
+            Debug.Log(this.riverPosition);
             var p = this.riverPosition;
             p.y -= 3.94f;
             this.river.transform.position = p;
@@ -57,6 +59,8 @@ namespace Systems {
 
             if (instant) {
                 this.river.transform.position = this.riverPosition;
+                this.forestSpawn.gameObject.SetActive(true);
+                this.forestPushButton.gameObject.SetActive(false);
                 return;
             }
             
@@ -67,6 +71,10 @@ namespace Systems {
             }
             
             this.river.transform.DOMove(this.riverPosition, this.riverRiseTime);
+            
+            await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
+            this.forestSpawn.gameObject.SetActive(true);
+            this.forestPushButton.gameObject.SetActive(false);
         }
     }
 }

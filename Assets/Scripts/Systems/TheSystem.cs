@@ -18,7 +18,8 @@ namespace Systems {
 
         public KeyStoreService keyStore;
         public GameSave save;
-        
+
+        public bool startGameImmediately = false;
         
         public TheSystem() {
             this.keyStore = new KeyStoreService();

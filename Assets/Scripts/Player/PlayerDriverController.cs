@@ -1,5 +1,7 @@
 using System;
+using Cinemachine;
 using Creatures;
+using Creatures.Collision;
 using Creatures.Parts;
 using RamenSea.Foundation3D.Extensions;
 using Systems;
@@ -18,12 +20,33 @@ namespace Player {
         [SerializeField] public Vector3 defaultCameraOffset;
         [SerializeField] public Vector2 cameraMoveEffect;
         [SerializeField] public float cameraMaxMove;
+        
+        [SerializeField] public Vector3 trackingBirdDamping = new Vector3(4f, 4f, 4f);
+        [SerializeField] public Vector3 trackingBirdRigShoulderOffset = new Vector3(0.79f, 3.86f, 0f);
+        [SerializeField] public float trackingBirdVerticalAimArm = 0.17f;
+        [SerializeField] public float trackingBirdCameraDistance = 2.6f;
+        [SerializeField] public Vector3 trackingBirdAimOffset = new Vector3(-1.48f, 0f, 0f);
 
         private void Awake() {
             PlayerDriverController.Instance = this;
         }
 
         private void Start() {
+            
+            this.cameraController.virtualCamera.LookAt = GameRunner.Instance.annoyingBird.transform;
+            this.cameraController.virtualCamera.Follow = GameRunner.Instance.annoyingBird.transform;
+            var cameraBody = this.cameraController.virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+            cameraBody.Damping = this.trackingBirdDamping;
+            cameraBody.ShoulderOffset = this.trackingBirdRigShoulderOffset;
+            cameraBody.VerticalArmLength = this.trackingBirdVerticalAimArm;
+            cameraBody.CameraDistance = this.trackingBirdCameraDistance;
+
+            var cameraAim = this.cameraController.virtualCamera.GetCinemachineComponent<CinemachineComposer>();
+            cameraAim.m_TrackedObjectOffset = this.trackingBirdAimOffset;
+            // var follow  = this.cameraController.virtualCamera.AbstractFollowTargetGroup as Cinemachine3rdPersonFollow
+        }
+
+        public void SpawnIn(SpawnPointActivation at) {
             var save = TheSystem.Get().save;
             if (save.hasCollectedPepeBody)
                 this.playerSpawn.bodyPart = PartId.PepeBody;
@@ -34,11 +57,16 @@ namespace Player {
             if (save.hasCollectedPepeWings)
                 this.playerSpawn.armPart = PartId.PepeWings;
             
+            this.transform.SetPositionAndRotation(at.spawnPoint);
+            at.spawnAnimation.gameObject.SetActive(true);
+            at.spawnAnimation.Stop();
+            at.spawnAnimation.Play();
             this.creature = this.playerSpawn.Spawn(true);
             creature.gameObject.name = "Player Creature";
             CameraController.Instance.virtualCamera.Follow = this.transform;
             CameraController.Instance.virtualCamera.LookAt = this.cameraAimAt;
             this.PlayerCreatureDidChangeParts();
+            
         }
 
         public void PlayerCreatureDidChangeParts() {
@@ -63,6 +91,9 @@ namespace Player {
         }
 
         private void Update() {
+            if (this.creature == null) {
+                return;
+            }
             this.transform.position = this.creature.transform.position;
             var yInput = this.cameraController.transform.forward * this.inputController.moveInput.y;
             var xInput = this.cameraController.transform.right * this.inputController.moveInput.x;

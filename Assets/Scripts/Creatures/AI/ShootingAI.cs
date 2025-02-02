@@ -39,7 +39,7 @@ namespace Creatures.AI {
             if (!this.hasStarted) {
                 return;
             }
-            if (this.creature == null || this.creature.isDead) {
+            if (this.creature == null || this.creature.isDead ) {
                 return;
             }
             
