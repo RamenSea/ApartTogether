@@ -6,6 +6,7 @@ namespace Creatures.AI {
         public BaseCreature creature;
 
         public bool hasStarted = false;
+        public bool chasingAIIsRunning = false;
 
         [Button("start AI")]
         public virtual void StartAI() {

@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Creatures.AI {
     public class ChasePlayerAI: BaseAIAgent {
         public float range;
+        public bool isChasing = false;
         private void Update() {
             if (!this.hasStarted) {
                 return;
@@ -15,7 +16,15 @@ namespace Creatures.AI {
 
             var distance
                 = this.creature.transform.position.Distance(PlayerDriverController.Instance.creature.transform.position);
-            if (distance <= this.range) {
+            var shouldChase = distance <= range;
+
+            if (this.isChasing != shouldChase) {
+                this.isChasing = shouldChase;
+                for (var i = 0; i < this.creature.agents.Count; i++) {
+                    this.creature.agents[i].chasingAIIsRunning = this.isChasing;
+                }
+            }
+            if (this.isChasing) {
                 var directionToPlayer
                     = this.creature.transform.position.Direction(PlayerDriverController.Instance.creature.transform.position);
                 this.creature.moveDirection = directionToPlayer;

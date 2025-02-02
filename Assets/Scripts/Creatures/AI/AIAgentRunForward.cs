@@ -10,6 +10,9 @@ namespace Creatures.AI {
                 return;
             }
             
+            if (this.chasingAIIsRunning) {
+                return;
+            }
             this.creature.moveDirection = this.direction;
         }
     }

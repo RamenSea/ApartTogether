@@ -6,6 +6,7 @@ using Creatures.Parts;
 using JetBrains.Annotations;
 using NaughtyAttributes;
 using Player;
+using RamenSea.Foundation.Extensions;
 using RamenSea.Foundation3D.Extensions;
 using Systems;
 using UnityEngine;
@@ -32,6 +33,7 @@ namespace Creatures {
         public Rigidbody rb => _rb;
         public RigBuilder rigBuilder;
         public CreatureTraits compiledTraits => this._compiledTraits;
+        public CreatureTraits? additionalTraits;
         public BaseBodyPart bodyPart { get; set; }
         public BaseCreaturePart legPart => this.bodyPart?.attachedLegPart;
         public BaseCreaturePart headPart => this.bodyPart?.attachedHeadPart;
@@ -68,6 +70,7 @@ namespace Creatures {
         [SerializeField] protected bool isJumping = false;
         [SerializeField] protected float jumpTimer = 0f;
         [SerializeField] protected float jumpSavingGrace = 0.1f;
+        [SerializeField] protected AnimationCurve jumpCurve;
 
         public Vector3 gravity;
         
@@ -176,6 +179,9 @@ namespace Creatures {
         }
         public void FinishSettingParts(bool resetCounters) {
             this._compiledTraits = CreatureTraitHelper.CreateTraits(this.isPlayer, this);
+            if (this.additionalTraits != null) {
+                this._compiledTraits = CreatureTraitHelper.BasicAddition(this._compiledTraits, this.additionalTraits.Value, PartSlotType.Arms);
+            }
 
             this.raycastPositions = new Vector3[1 + this.bodyPart.bodyLimb.legsAttachPoint.Length];
             this.rb.mass = this.compiledTraits.weight;
@@ -408,7 +414,11 @@ namespace Creatures {
                     this.isJumping = false;
                     timeAmount = deltaTime + this.jumpTimer;
                 }
-                this.rb.AddForce(Vector3.up * (this.compiledTraits.jumpPower * timeAmount));
+
+                var force = this.jumpCurve.Evaluate(this._compiledTraits.jumpPowerHold /
+                                                    this._compiledTraits.jumpPowerHold); // curve in inversed fuck it
+                force = force.Clamp01() * this.compiledTraits.jumpPower;
+                this.rb.AddForce(Vector3.up * (force * timeAmount));
             }
 
             if (wasJumping && !this.isJumping) {

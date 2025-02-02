@@ -19,6 +19,10 @@ namespace Creatures.AI {
                 return;
             }
 
+            if (this.chasingAIIsRunning) {
+                return;
+            }
+
             var shouldRotateTowardsPlayer = this.creature.transform.position.Distance(PlayerDriverController.Instance.creature.transform.position) <= this.distance;
             if (shouldRotateTowardsPlayer) {
                 var towardPlayer = this.creature.transform.position.Direction(PlayerDriverController.Instance.creature.transform.position);

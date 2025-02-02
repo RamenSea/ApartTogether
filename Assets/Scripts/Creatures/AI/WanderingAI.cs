@@ -24,12 +24,17 @@ namespace Creatures.AI {
                 return;
             }
 
+            if (this.chasingAIIsRunning) {
+                return;
+            }
+            
             this.wanderingTime -= Time.deltaTime;
             if (this.wanderingTime <= 0) {
                 this.isWandering = !this.isWandering;
 
                 if (this.isWandering) {
                     this.direction = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
+                    this.direction.Normalize();
                     this.creature.moveDirection = this.direction;
                     this.wanderingTime = Random.Range(this.minWalkTime, this.maxWalkTime);
                 } else {

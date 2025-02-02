@@ -13,6 +13,7 @@ namespace Creatures.AI {
         public float timeToStartVariation = 0f;
         public float timeToHoldJump = 0f;
         public float timeToHoldJumpVariation = 0f;
+        public bool listenForGround = true;
 
         private void Start() {
             this.jumpWaitTimer = this.timeToStart + Random.Range(0f, this.timeToStartVariation);
@@ -40,7 +41,9 @@ namespace Creatures.AI {
             this.jumpHoldTimer -= Time.deltaTime;
             if (this.jumpHoldTimer >= 0f) {
                 this.creature.doLegAction = true;
-            } else if (this.creature.isOnGround) {
+            } else if (this.listenForGround && this.creature.isOnGround) {
+                this.jumpWaitTimer = this.timeTilWaitToJump + Random.Range(0f, this.timeTilWaitToJumpVariation);
+            } else if (!this.listenForGround) {
                 this.jumpWaitTimer = this.timeTilWaitToJump + Random.Range(0f, this.timeTilWaitToJumpVariation);
             }
         }

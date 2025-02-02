@@ -148,9 +148,11 @@ MonoBehaviour:
   _rb: {fileID: 9123951281119718223}
   rigBuilder: {fileID: 6817320316588372538}
   waterInfo: {fileID: 3709195950680773417}
-  characterController: {fileID: 0}
+  movingPlatformTransform: {fileID: 0}
+  attachedLimbs: []
+  agents: []
   moveDirection: {x: 0, y: 0, z: 0}
-  playerLookDirection: {x: 0, y: 0, z: 0}
+  moveInput: {x: 0, y: 0, z: 0}
   isOnGround: 0
   landedOnGroundThisFrame: 0
   timeInAirLast: 0
@@ -159,6 +161,7 @@ MonoBehaviour:
   doHeadAction: 0
   doArmsAction: 0
   health: 0
+  shouldLog: 0
   goalVelocity: {x: 0, y: 0, z: 0}
   jumpRecharge: 0
   flapRechargeTimer: 0
@@ -166,6 +169,31 @@ MonoBehaviour:
   isFlapping: 0
   isJumping: 0
   jumpTimer: 0
+  jumpSavingGrace: 0.1
+  jumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   gravity: {x: 0, y: 0, z: 0}
 --- !u!54 &9123951281119718223
 Rigidbody:
