@@ -38,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2595918700508408848, guid: a23d8689c3518426580cbd49fd2989c4, type: 3}
       propertyPath: _traits.accelerationAir
-      value: 17
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2595918700508408848, guid: a23d8689c3518426580cbd49fd2989c4, type: 3}
       propertyPath: _traits.decelerationAir
@@ -46,11 +46,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2595918700508408848, guid: a23d8689c3518426580cbd49fd2989c4, type: 3}
       propertyPath: _traits.accelerationGround
-      value: 17
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2595918700508408848, guid: a23d8689c3518426580cbd49fd2989c4, type: 3}
       propertyPath: _traits.decelerationGround
-      value: 17
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4208602126020704889, guid: a23d8689c3518426580cbd49fd2989c4, type: 3}
       propertyPath: m_Name

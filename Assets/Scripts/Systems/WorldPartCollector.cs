@@ -30,20 +30,20 @@ namespace Systems {
                 this.highlightedPart != null) {
                 if (this.highlightedPart.heldPart != null) {
                     var part = this.highlightedPart.heldPart;
+                    this.highlightedPart = null;
 
                     var i = 0;
                     while (i < this.parts.Count) {
                         var holder = this.parts[i];
                         if (holder.heldPart == part) {
                             this.parts.RemoveAt(i);
-                            holder.selectedGo.SetActive(false);
-                            this.Recycle(holder);
+                            holder.OnPickUp();
                             continue;
                         }
 
                         i++;
                     }
-                    this.highlightedPart.OnPickUp();
+
                     part.OnDeattachToWorldContainer();
                     PlayerDriverController.Instance.creature.SetCreaturePart(part);
                     PlayerDriverController.Instance.creature.FinishSettingParts(false);

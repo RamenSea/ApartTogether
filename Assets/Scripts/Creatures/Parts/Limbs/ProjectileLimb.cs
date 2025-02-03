@@ -57,6 +57,9 @@ namespace Creatures.Parts.Limbs {
         }
 
         public void DidHit(BaseProjectile projectile, [CanBeNull] BaseCreature creature) {
+            if (creature == this.creature) {
+                return; // can't hit yourself
+            }
             var damage = new DealDamage() {
                 damageType = DamageType.Direct,
                 fromLocation = projectile.transform.position,

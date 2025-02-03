@@ -10,14 +10,15 @@ using Systems;
 namespace Player.PickUp {
     public class PartPickUpHolder: MonoBehaviour, IRecyclableObject, ICreatureCollisionDetectionListener {
         public BaseCreaturePart heldPart;
+        public BaseLimb limb;
         public CreatureCollisionDetection playerDetection;
         public GameObject selectedGo;
-        public bool isSelected = false;
+        [SerializeField] private Rigidbody rb;
+
         private void Start() {
             this.playerDetection.listener = this;
         }
 
-        [SerializeField] private Rigidbody rb;
         public void AttachPart(BaseCreaturePart part, BaseLimb limb) {
             this.selectedGo.SetActive(false);
             this.heldPart = part;
@@ -31,6 +32,10 @@ namespace Player.PickUp {
         }
 
         public void OnPickUp() {
+            if (this.limb != null) {
+                this.limb.transform.SetParent(null);
+            }
+            this.limb = null;
             this.heldPart = null;
             this.recycler.Recycle(this);
             this.selectedGo.SetActive(false);

@@ -12,13 +12,26 @@ namespace Creatures.Parts {
         public CreatureCollectorCollider collectorCollider;
         public VariationAudioSource biteSound;
         public ParticleSystem biteEffect;
+        public VariationAudioSource painSound;
+        public VariationAudioSource talkingSound;
 
         public float biteTimer;
+        public float timeTilTalk;
+        public float hurtSoundBuffer;
         public bool CanAndReadyToBite() => this.collectorCollider.targets.Count > 0 && this.biteTimer <= 0f;
         
         protected override void OnGameUpdate(float deltaTime) {
             base.OnGameUpdate(deltaTime);
 
+            if (this.hurtSoundBuffer > 0) {
+                this.hurtSoundBuffer -= deltaTime;
+            }
+            this.timeTilTalk -= deltaTime;
+            if (timeTilTalk <= 0f && this.talkingSound != null) {
+                this.talkingSound.Play();
+                this.timeTilTalk = Random.Range(5f, 15f);
+            }
+            
             if (this.hasBiteAttack) {
                 if (this.biteTimer <= 0f && this.creature.doHeadAction) {
                     
@@ -28,7 +41,7 @@ namespace Creatures.Parts {
                     
                     for (var i = 0; i < this.collectorCollider.targets.Count; i++) {
                         if (this.collectorCollider.targets[i].isDead) {
-                            return;
+                            continue;
                         }
                         this.collectorCollider.targets[i].TakeDamage(new DealDamage() {
                             amount = this.biteDamage,
@@ -43,6 +56,15 @@ namespace Creatures.Parts {
                     this.biteTimer -= deltaTime;
                 }
             }
+        }
+
+        public void PlayHurtSound() {
+            if (this.hurtSoundBuffer > 0 || this.painSound == null) {
+                return;
+            }
+
+            this.painSound.Play();
+            this.hurtSoundBuffer = 1f;
         }
     }
 }

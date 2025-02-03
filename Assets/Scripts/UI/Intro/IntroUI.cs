@@ -14,14 +14,11 @@ namespace UI.Intro {
         public int storyIndex = 0;
         public string[] storyLines;
 
-        private void Update() {
-            if (this.timeTilStart > 0f) {
-                this.timeTilStart -= Time.deltaTime;
-                if (this.timeTilStart <= 0f) {
-                    this.PlayNextStoryLine();
-                }
-            }
+        private void Start() {
+            
+            this.PlayNextStoryLine();
         }
+
 
         public void PlayNextStoryLine() {
             if (this.storyIndex >= this.storyLines.Length) {

@@ -230,6 +230,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PepeHead
       objectReference: {fileID: 0}
+    - target: {fileID: 4866356394169210110, guid: 5296cb25aec034cc09c529f56772b153, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6708960554762427008, guid: 5296cb25aec034cc09c529f56772b153, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.378
@@ -274,6 +278,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 0e92e241d8455427d8123ea933e03ab4, type: 2}
+    - target: {fileID: 8238280960360626842, guid: 5296cb25aec034cc09c529f56772b153, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8270730234598990166, guid: 5296cb25aec034cc09c529f56772b153, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

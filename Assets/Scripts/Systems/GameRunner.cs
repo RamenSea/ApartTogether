@@ -1,4 +1,5 @@
 using System;
+using Audio;
 using Creatures;
 using Creatures.Collision;
 using Creatures.Parts;
@@ -105,6 +106,7 @@ namespace Systems {
             PlayerDriverController.Instance.SpawnInTest();
         }
         public void SpawnPlayer() {
+            MusicPlayer.Instance.SpawningIn();
             this.startUI.gameObject.SetActive(false);
             var spawnId = TheSystem.Get().keyStore.GetString("spawn_point");
             SpawnPointActivation spawn = this.spawns[0];
@@ -119,9 +121,10 @@ namespace Systems {
         }
 
         public async void SpawnPlayerAndThenShowHints() {
+            TheSystem.Get().startGameImmediately = false;
             this.SpawnPlayer();
-            await UniTask.Delay(TimeSpan.FromSeconds(15f));
-            this.hint.ShowHint();
+            // await UniTask.Delay(TimeSpan.FromSeconds(15f));
+            // this.hint.ShowHint();
         }
 
         public void PlayerDidDie() {

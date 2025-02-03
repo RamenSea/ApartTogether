@@ -19,11 +19,13 @@ namespace Creatures.AI {
         }
 
         public void TriggerStart() {
+            if (this.creature == null) return;
             for (var i = 0; i < this.creature.agents.Count; i++) {
                 this.creature.agents[i].hasStarted = true;
             }
         }
         public void OnCreatureTriggerEnter(BaseCreature creature) {
+            if (this.creature == null) return;
             if (!creature.isDead && creature.isPlayer && !this.creature.isDead && this.hasStarted == false) {
                 this.TriggerStart();
             }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Creatures.AI;
 using Creatures.Collision;
 using Creatures.Parts;
+using Creatures.Parts.Limbs;
 using JetBrains.Annotations;
 using NaughtyAttributes;
 using Player;
@@ -73,6 +74,7 @@ namespace Creatures {
         [SerializeField] public float jumpSavingGrace = 0.1f;
         [SerializeField] public AnimationCurve jumpCurve;
         [SerializeField] public AnimationCurve flapCurve;
+        [SerializeField] public AnimationCurve accelerationCurve;
         [SerializeField] public float speedToDamageCurvedValue;
         [SerializeField] public float yValueToStartDealingFallDamage;
 
@@ -187,10 +189,6 @@ namespace Creatures {
                     if (this.bodyPart == null) {
                         Debug.LogError("You can't build a creature without a body");
                         return;
-                    }
-                    var oldBodyPart = this.GetSocket(creaturePart.slotType);
-                    if (oldBodyPart != null) {
-                        WorldPartCollector.Instance.DropPart(oldBodyPart);
                     }
                     this.bodyPart.AttachPart(creaturePart);
                     break;
@@ -315,16 +313,6 @@ namespace Creatures {
                 var rayDir = usingDown;
                 // var downDir = Vector3.down;
                 // var rayDir = this.transform.TransformDirection(downDir);
-
-                var falldamageDealt = 0f;
-                if (!wasOnGround && velocity.y < -this.yValueToStartDealingFallDamage) {
-                    var vel = velocity.y - yValueToStartDealingFallDamage;
-                    vel = vel.Abs();
-                    
-                    if (this.shouldLog)
-                    Debug.Log($"{vel} -- dealt damage of {vel * this.yValueToStartDealingFallDamage * this.yValueToStartDealingFallDamage}");    
-                }
-                
                 var otherVel = Vector3.zero;
                 Rigidbody hitBody = hit.rigidbody;
                 if (hitBody) {
@@ -333,9 +321,9 @@ namespace Creatures {
                         Debug.Log($"Jumped on ${hitBody.gameObject.name}");
                     }
                 }
-                if (hit.collider != null && hit.collider.gameObject.CompareTag(GameTags.Creature)) {
+                if (hit.collider != null && hit.collider.gameObject.CompareTag(GameTags.Creature) ) {
                     var creature = hit.collider.gameObject.GetComponent<CreatureCollider>().creature;
-                    if (creature != null && !creature.isDead) {
+                    if (creature != null && !creature.isDead && creature != this) {
                         if (creature.jumpOnEffect.isStopped) {
                             creature.jumpOnEffect.Stop();
                             creature.jumpOnEffect.Play();
@@ -398,7 +386,8 @@ namespace Creatures {
                 var currentVelocityVector2 = new Vector2(currentVelocity.x, currentVelocity.z);
                 var speed = currentVelocityVector2.magnitude;
                 if (speed > 0.1f) {
-                    this.rb.MoveRotation(Quaternion.RotateTowards(this.rb.rotation, Quaternion.LookRotation(new Vector3(currentVelocityVector2.x, 0, currentVelocityVector2.y)), this.compiledTraits.rotationSpeedMin * deltaTime));
+                    // this.rb.MoveRotation(Quaternion.RotateTowards(this.rb.rotation, Quaternion.LookRotation(new Vector3(currentVelocityVector2.x, 0, currentVelocityVector2.y)), this.compiledTraits.rotationSpeedMin * deltaTime));
+                    this.rb.MoveRotation(Quaternion.Slerp(this.rb.rotation, Quaternion.LookRotation(new Vector3(currentVelocityVector2.x, 0, currentVelocityVector2.y)), this.compiledTraits.rotationSpeedMin * deltaTime));
                 }
             // }
         }
@@ -433,16 +422,22 @@ namespace Creatures {
             }
             
             var usingAccel = Mathf.Approximately(this.moveInput.x, 0f) ? deceleration : acceleration;
-            if (this.moveInput.x < -0.001f) {
-                usingAccel *= 0.5f;
-            }
-            if (Mathf.Approximately(usingAccel, 0f)) {
-                usingDirection.x = 0f;
-                usingAccel = deceleration;
-            }
+            // if (this.moveInput.x < -0.001f) {
+            //     usingAccel *= 0.5f;
+            // }
+            // if (Mathf.Approximately(usingAccel, 0f)) {
+            //     usingDirection.x = 0f;
+            //     usingAccel = deceleration;
+            // }
             
             var targetGoalVelocity = usingDirection * maxSpeed;
-            this.goalVelocity = Vector3.MoveTowards(this.goalVelocity, targetGoalVelocity, deltaTime * usingAccel);
+            var targetNormalized = targetGoalVelocity.normalized;
+            var normalizedCurrent = this.goalVelocity.normalized;
+            var testVar = Vector3.Dot(normalizedCurrent, targetNormalized);
+            var bufferAcceell = this.accelerationCurve.Evaluate(testVar);
+                                                                
+            this.goalVelocity = Vector3.MoveTowards(this.goalVelocity, targetGoalVelocity, deltaTime * usingAccel * bufferAcceell);
+            
             var accelNeeded = (this.goalVelocity - this.rb.linearVelocity) / deltaTime;
             this.rb.AddForce(Vector3.Scale(accelNeeded, new Vector3(1,0,1)));
         }
@@ -517,7 +512,21 @@ namespace Creatures {
             if (this.shouldLog) {
                 Debug.Log("Took damage");
             }
-            this.health -= damage.amount;
+
+            if (this.shouldLog) {
+                Debug.LogError("HI");
+            }
+
+            if (this.bodyPart.attachedHeadPart is BaseHeadPart h) {
+                h.PlayHurtSound();
+            }
+
+            if (this.isPlayer) {
+                this.health -= damage.amount * 0.5f;
+            } else {
+                this.health -= damage.amount;
+            }
+            
             if (this.health <= 0) {
                 this.health = 0;
                 this.TriggerDeath();

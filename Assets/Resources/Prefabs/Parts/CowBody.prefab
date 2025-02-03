@@ -116,7 +116,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8065252006205639707}
-  m_Father: {fileID: 4635013462706526212}
+  m_Father: {fileID: 5065158324260187568}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &783829462021656325
 GameObject:
@@ -514,7 +514,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5065158324260187568}
-  - {fileID: 4635013462706526212}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2007686483242716588
@@ -550,7 +549,7 @@ MonoBehaviour:
     effectsWaterGravity: 0
     rotationSpeedMin: 0
     rotationSpeedDampener: 0
-    jumpPower: 5000
+    jumpPower: 10000
     jumpPowerHold: 0.1
     enableFlapFlight: 0
     flapFlightPower: 0
@@ -559,6 +558,7 @@ MonoBehaviour:
     inWaterDamage: 0
     jumpDamage: 0
     jumpPushEffect: 0
+    fallDamageProtection: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0
@@ -882,7 +882,7 @@ GameObject:
   - component: {fileID: 8065252006205639707}
   - component: {fileID: 1920040331037028481}
   - component: {fileID: 3570951402760557257}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Capsule
   m_TagString: Creature
   m_Icon: {fileID: 0}
@@ -1323,8 +1323,7 @@ Transform:
   - {fileID: 525025716878224392}
   - {fileID: 7216065923498638746}
   - {fileID: 6932255315872823420}
-  - {fileID: 4804612892883200220}
-  m_Father: {fileID: 6218380043821847067}
+  m_Father: {fileID: 5065158324260187568}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6774599681431098170
 GameObject:
@@ -1859,8 +1858,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4635013462706526212}
   - {fileID: 9022530939435484077}
   - {fileID: 6243870765392516147}
+  - {fileID: 4804612892883200220}
   m_Father: {fileID: 6218380043821847067}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8886131537567370675
@@ -1876,7 +1877,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creature: {fileID: 0}
-  bones: []
   rigs: []
   colliders:
   - {fileID: 1920040331037028481}

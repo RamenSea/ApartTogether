@@ -3913,7 +3913,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1555197056}
-  timeTilStart: 1.5
+  timeTilStart: 0
   perLetterSpeed: 0.1
   storyIndex: 0
   storyLines:

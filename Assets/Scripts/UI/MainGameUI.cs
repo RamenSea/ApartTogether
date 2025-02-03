@@ -47,7 +47,7 @@ namespace UI {
             
             var headPart = PlayerDriverController.Instance.creature.headPart;
             if (headPart != null && headPart is BaseHeadPart castedHead && castedHead.hasBiteAttack) {
-                this.shootButton.interactable = true;
+                this.biteButton.interactable = true;
 
                 var percent = 1f;
                 if (castedHead.biteTimer > 0f) {

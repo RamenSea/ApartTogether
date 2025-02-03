@@ -536,7 +536,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creature: {fileID: 0}
-  bones: []
   rigs:
   - {fileID: 654955560493534887}
   colliders:
@@ -590,6 +589,7 @@ MonoBehaviour:
   rightForwardTilt: 90
   brokenLinkCheckPercent: 1
   useForwardTilt: 0
+  stepSound: {fileID: 0}
 --- !u!1 &7405207500230718594
 GameObject:
   m_ObjectHideFlags: 0

@@ -144,6 +144,7 @@ MonoBehaviour:
     inWaterDamage: 0
     jumpDamage: 0
     jumpPushEffect: 0
+    fallDamageProtection: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0
@@ -222,6 +223,41 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  accelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.50094616
+      value: 1.000061
+      inSlope: -0.034490604
+      outSlope: -0.034490604
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06535201
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.99902785
+      value: 1.00711
+      inSlope: 0.014152226
+      outSlope: 0.014152226
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  speedToDamageCurvedValue: 0
+  yValueToStartDealingFallDamage: 0
   gravity: {x: 0, y: 0, z: 0}
 --- !u!54 &9123951281119718223
 Rigidbody:

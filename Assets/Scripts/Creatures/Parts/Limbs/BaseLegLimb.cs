@@ -1,6 +1,7 @@
 using System;
 using Player;
 using RamenSea.Foundation3D.Extensions;
+using Systems;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -20,6 +21,7 @@ namespace Creatures.Parts.Limbs {
         public float rightForwardTilt = 90f;
         public float brokenLinkCheckPercent = 1f;
         public bool useForwardTilt = false;
+        public PlayAudio stepSound;
         
         private Vector3 finalTargetPosition;
         private Vector3 currentTargetPosition;
@@ -58,6 +60,7 @@ namespace Creatures.Parts.Limbs {
                 this.hasSetLastMovingPlatformPosition = false;
             }
             
+            this.didPlayStepSound = false;
             var forward = this.GetStepForward();
             
             this.currentTargetPosition = this.finalTargetPosition;
@@ -164,11 +167,16 @@ namespace Creatures.Parts.Limbs {
                 workingPosition.y += this.stepHeightCurve.Evaluate(progressOnStep) * this.stepHeight;
                 this.target.position = workingPosition;
             } else {
+                if (!this.didPlayStepSound && this.stepSound != null) {
+                    this.stepSound.Play();
+                    this.didPlayStepSound = true;
+                }
                 this.currentTargetPosition = this.finalTargetPosition;
                 this.target.position = this.currentTargetPosition;
             }
         }
 
+        private bool didPlayStepSound = false;
         private void OnDrawGizmos() {
             if (this.creature != null) {
                 var forward = this.GetStepForward();

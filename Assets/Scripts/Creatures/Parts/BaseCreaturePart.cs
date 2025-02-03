@@ -130,12 +130,6 @@ namespace Creatures.Parts {
             }
         }
 
-        public virtual void OnAttachToWorldContainer(PartPickUpHolder holder) {
-            var layerMaskToUse = CreatureManager.Instance.worldPartsMask;
-            for (var i = 0; i < this.limbs.Length; i++) {
-                this.limbs[i].ChangeColliderActivations(true, layerMaskToUse);
-            }
-        }
 
         public virtual void OnDeattachToWorldContainer() {
         }

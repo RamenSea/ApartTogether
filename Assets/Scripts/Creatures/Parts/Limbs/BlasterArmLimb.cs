@@ -57,8 +57,6 @@ namespace Creatures.Parts.Limbs {
                         bestDistance = distance;
                         this.targetCreature = creatureCollider.creature;
                     }
-                    this.targetCreature = creatureCollider.creature;
-                    break;
                 }
             }
         }

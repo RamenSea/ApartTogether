@@ -1,5 +1,6 @@
 using System;
 using Creatures.Parts.Limbs;
+using NaughtyAttributes;
 using RamenSea.Foundation3D.Extensions;
 using Systems;
 using Unity.VisualScripting;
@@ -10,9 +11,9 @@ namespace Creatures.Parts {
         
         [SerializeField] public BaseBodyLimb bodyLimb;
         
-        [NonSerialized] public BaseCreaturePart attachedHeadPart = null;
-        [NonSerialized] public BaseCreaturePart attachedLegPart = null;
-        [NonSerialized] public BaseCreaturePart attachedArmsPart = null;
+        public BaseCreaturePart attachedHeadPart = null;
+        public BaseCreaturePart attachedLegPart = null;
+        public BaseCreaturePart attachedArmsPart = null;
 
         public void AttachBody(BaseCreature creature) {
             this.creature = creature;
@@ -34,8 +35,11 @@ namespace Creatures.Parts {
             switch (part.slotType) {
                 case PartSlotType.Head:
                     if (this.attachedHeadPart != null) {
-                        this.attachedHeadPart.transform.SetParent(worldPartsTransform);
-                        this.attachedHeadPart.OnDeattachToBody(true);
+                        var removePart = this.attachedHeadPart;
+                        this.attachedHeadPart = null;
+                        removePart.transform.SetParent(worldPartsTransform);
+                        removePart.OnDeattachToBody(true);
+                        WorldPartCollector.Instance.DropPart(removePart);
                     }
 
                     this.attachedHeadPart = part;
@@ -43,8 +47,11 @@ namespace Creatures.Parts {
                     break;
                 case PartSlotType.Legs:
                     if (this.attachedLegPart != null) {
-                        this.attachedLegPart.transform.SetParent(worldPartsTransform);
-                        this.attachedLegPart.OnDeattachToBody(true);
+                        var removePart = this.attachedLegPart;
+                        this.attachedLegPart = null;
+                        removePart.transform.SetParent(worldPartsTransform);
+                        removePart.OnDeattachToBody(true);
+                        WorldPartCollector.Instance.DropPart(removePart);
                     }
 
                     this.attachedLegPart = part;
@@ -52,8 +59,11 @@ namespace Creatures.Parts {
                     break;
                 case PartSlotType.Arms:
                     if (this.attachedArmsPart != null) {
-                        this.attachedArmsPart.transform.SetParent(worldPartsTransform);
-                        this.attachedArmsPart.OnDeattachToBody(true);
+                        var removePart = this.attachedArmsPart;
+                        this.attachedArmsPart = null;
+                        removePart.transform.SetParent(worldPartsTransform);
+                        removePart.OnDeattachToBody(true);
+                        WorldPartCollector.Instance.DropPart(removePart);
                     }
 
                     this.attachedArmsPart = part;

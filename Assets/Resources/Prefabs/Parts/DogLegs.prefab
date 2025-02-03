@@ -53,11 +53,11 @@ MonoBehaviour:
     height: 0.2
     weight: 4
     maxSpeedGround: 5
-    accelerationGround: 15
-    decelerationGround: 15
+    accelerationGround: 7
+    decelerationGround: 7
     maxSpeedAir: 5
-    accelerationAir: 15
-    decelerationAir: 15
+    accelerationAir: 7
+    decelerationAir: 7
     maxSpeedWater: 1
     accelerationWater: 0.3
     decelerationWater: 1
@@ -74,6 +74,7 @@ MonoBehaviour:
     inWaterDamage: 0
     jumpDamage: 0
     jumpPushEffect: 0
+    fallDamageProtection: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0

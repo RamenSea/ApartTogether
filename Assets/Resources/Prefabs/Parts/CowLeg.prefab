@@ -65,7 +65,7 @@ MonoBehaviour:
     effectsWaterGravity: 1
     rotationSpeedMin: 40
     rotationSpeedDampener: 0
-    jumpPower: 7000
+    jumpPower: 10000
     jumpPowerHold: 0.1
     enableFlapFlight: 0
     flapFlightPower: 0
@@ -74,6 +74,7 @@ MonoBehaviour:
     inWaterDamage: 0
     jumpDamage: 0
     jumpPushEffect: 0
+    fallDamageProtection: 0
     heightSpringForce: 0
     heightSpringDamper: 0
     uprightSpringStrength: 0

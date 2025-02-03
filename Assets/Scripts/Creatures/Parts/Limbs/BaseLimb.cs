@@ -36,6 +36,7 @@ namespace Creatures.Parts {
             this.attachPoint = toPoint;
         }
         public virtual void OnDeattachBody() {
+            this.transform.SetParent(null);
             this.creature = null;
             this.attachPoint = null;
             this.isAttachedToCreature = false;
