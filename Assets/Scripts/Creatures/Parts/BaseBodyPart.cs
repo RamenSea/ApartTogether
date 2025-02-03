@@ -1,5 +1,6 @@
 using System;
 using Creatures.Parts.Limbs;
+using RamenSea.Foundation3D.Extensions;
 using Systems;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Creatures.Parts {
 
         public void AttachBody(BaseCreature creature) {
             this.creature = creature;
+            this.bodyLimb.transform.SetParent(this.transform);
             this.bodyLimb.creatureCollider.creature = creature;
             this.bodyLimb.creatureCollider.collider.enabled = true;
             
@@ -24,8 +26,7 @@ namespace Creatures.Parts {
                 this.bodyLimb.creatureCollider.gameObject.layer = CreatureManager.Instance.normalCreatureMask;
             }
             
-            this.bodyLimb.transform.localPosition = Vector3.zero;
-            this.bodyLimb.transform.localRotation = Quaternion.identity;
+            this.bodyLimb.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             this.bodyLimb.isAttachedToCreature = true;
         }
         public void AttachPart(BaseCreaturePart part) {
@@ -67,6 +68,7 @@ namespace Creatures.Parts {
         public override void OnDeattachToBody(bool isDropped) {
             base.OnDeattachToBody(isDropped);
             this.bodyLimb.creatureCollider.creature = null;
+            this.bodyLimb.creatureCollider.collider.enabled = false;
         }
 
         public void PartWillDeattach(BaseCreaturePart part) {

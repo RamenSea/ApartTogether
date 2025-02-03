@@ -36,7 +36,6 @@ namespace Creatures.Collision {
         }
 
         public void OnCreatureTriggerEnter(BaseCreature creature) {
-            Debug.Log(this.isActiveSpawn);
             if (this.isActiveSpawn) {
                 return;
             }

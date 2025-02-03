@@ -25,7 +25,7 @@ namespace Creatures.Parts.Limbs {
 
         protected override void Awake() {
             base.Awake();
-            this.cachedColliderArray = new Collider[10];
+            this.cachedColliderArray = new Collider[20];
         }
 
         public override void OnAttachToBody(BaseBodyPart bodyPart, LimbAttachPoint toPoints) {
@@ -43,6 +43,7 @@ namespace Creatures.Parts.Limbs {
 
         public void FindTargets() {
             this.targetCreature = null;
+            var bestDistance = 100000000f;
             Physics.OverlapSphereNonAlloc(this.transform.position, this.range, this.cachedColliderArray, this.lookingForType, QueryTriggerInteraction.Ignore);
             for (var i = 0; i < this.cachedColliderArray.Length; i++) {
                 var collider = this.cachedColliderArray[i];
@@ -51,6 +52,11 @@ namespace Creatures.Parts.Limbs {
                 }
                 var creatureCollider = collider.GetComponent<CreatureCollider>();
                 if (creatureCollider.creature != null && !creatureCollider.creature.isDead) {
+                    var distance = Vector3.Distance(this.transform.position, creatureCollider.creature.transform.position);
+                    if (this.targetCreature == null || bestDistance < distance) {
+                        bestDistance = distance;
+                        this.targetCreature = creatureCollider.creature;
+                    }
                     this.targetCreature = creatureCollider.creature;
                     break;
                 }
@@ -69,7 +75,7 @@ namespace Creatures.Parts.Limbs {
             base.OnGameUpdate(deltaTime);
             this.timeTilLookForNewTarget -= deltaTime;
             if (this.timeTilLookForNewTarget < 0) {
-                this.timeTilLookForNewTarget = 1f;
+                this.timeTilLookForNewTarget = 0.5f;
                 this.FindTargets();
             }
             this.CheckDistance();

@@ -57,10 +57,11 @@ namespace Systems {
                 this.hiddenDoor.position = pos;
             }
             
-            this.annoyingBird = this.annoyingBirdSpawn.Spawn();
         }
 
         private void Start() {
+            this.annoyingBird = this.annoyingBirdSpawn.Spawn();
+            
             this.deathUI.gameObject.SetActive(false);
             this.startUI.gameObject.SetActive(true);
             this.gameUI.gameObject.SetActive(false);
@@ -84,6 +85,7 @@ namespace Systems {
                 TheSystem.Get().startGameImmediately = false;
                 this.SpawnPlayer();
             } else {
+                PlayerDriverController.Instance.SetCameraForBird();
                 this.startUI.Show();
             }
         }

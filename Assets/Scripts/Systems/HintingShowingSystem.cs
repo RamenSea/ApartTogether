@@ -27,6 +27,8 @@ namespace Systems {
         public bool showingHints = false;
         private void Awake() {
             this.hints = new List<Hint>();
+            this.hintText.text = "";
+            this.hintText.gameObject.SetActive(false);
         }
 
         private void Update() {

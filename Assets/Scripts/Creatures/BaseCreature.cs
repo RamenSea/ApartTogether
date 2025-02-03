@@ -159,14 +159,25 @@ namespace Creatures {
                     this.bodyPart.transform.SetParent(this.transform);
                     this.bodyPart.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
                     this.bodyPart.AttachBody(this);
-                    if (oldBody?.attachedArmsPart != null) {
-                        this.bodyPart.AttachPart(oldBody.attachedArmsPart);
+                    Debug.Log(oldBody);
+                    Debug.Log(oldBody?.attachedArmsPart);
+                    if (oldBody != null && oldBody.attachedArmsPart != null) {
+                        var part = oldBody.attachedArmsPart;
+                        part.OnDeattachToBody(true);
+                        oldBody.attachedArmsPart = null;
+                        this.bodyPart.AttachPart(part);
                     }
-                    if (oldBody?.attachedLegPart != null) {
-                        this.bodyPart.AttachPart(oldBody.attachedLegPart);
+                    if (oldBody != null && oldBody?.attachedLegPart != null) {
+                        var part = oldBody.attachedLegPart;
+                        part.OnDeattachToBody(true);
+                        oldBody.attachedLegPart = null;
+                        this.bodyPart.AttachPart(part);
                     }
-                    if (oldBody?.attachedHeadPart != null) {
-                        this.bodyPart.AttachPart(oldBody.attachedHeadPart);
+                    if (oldBody != null && oldBody?.attachedHeadPart != null) {
+                        var part = oldBody.attachedHeadPart;
+                        part.OnDeattachToBody(true);
+                        oldBody.attachedHeadPart = null;
+                        this.bodyPart.AttachPart(part);
                     }
 
                     if (oldBody != null) {

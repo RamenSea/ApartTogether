@@ -1,4 +1,5 @@
 using System;
+using Systems;
 using UnityEngine;
 
 namespace Creatures.Collision {
@@ -13,14 +14,19 @@ namespace Creatures.Collision {
     }
     public class CreatureCollisionDetection: MonoBehaviour {
         public ICreatureCollisionDetectionListener listener;
-        
+
+        private void Start() {
+            var mask = CreatureManager.Instance.playerMask & CreatureManager.Instance.groundMask &
+                CreatureManager.Instance.normalCreatureMask;
+        }
+
         public virtual void OnCollisionEnter(UnityEngine.Collision other) {
             if (other.gameObject.CompareTag(GameTags.Creature)) {
                 var creatureCollider = other.gameObject.GetComponent<CreatureCollider>();
                 if (creatureCollider.creature != null && !creatureCollider.creature.isDead) {
                     this.listener?.OnCreatureCollisionEnter(creatureCollider.creature, other);
                 }
-            } else {
+            } else if (other.collider.isTrigger == false) {
                 this.listener?.OnOtherCollisionEnter(other);
             }
         }
@@ -39,7 +45,7 @@ namespace Creatures.Collision {
                 if (creatureCollider.creature != null && !creatureCollider.creature.isDead) {
                     this.listener?.OnCreatureTriggerEnter(creatureCollider.creature);
                 }
-            } else {
+            } else if (other.isTrigger == false) {
                 this.listener?.OnOtherTriggerEnter(other);
             }
             

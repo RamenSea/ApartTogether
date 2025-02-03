@@ -22,6 +22,9 @@ namespace Systems {
             this.parts = new();
         }
 
+        public bool CanInteract() {
+            return this.highlightedPart != null;
+        }
         private void Update() {
             if (PlayerDriverController.Instance.creature != null && PlayerDriverController.Instance.inputController.didPressInteractThisTurn &&
                 this.highlightedPart != null) {

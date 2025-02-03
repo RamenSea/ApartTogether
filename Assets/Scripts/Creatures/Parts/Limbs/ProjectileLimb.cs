@@ -6,20 +6,20 @@ using UnityEngine;
 namespace Creatures.Parts.Limbs {
     public class ProjectileLimb: BaseLimb, IBaseProjectileListener{
         
-        [SerializeField] protected BaseProjectile projectilePrefab;
-        [SerializeField] protected float fireRate;
-        [SerializeField] protected Transform targetPivot;
-        [SerializeField] protected Transform fireFrom;
-        [SerializeField] protected float projectileSpeed;
-        [SerializeField] protected float damageAmount;
-        [SerializeField] protected float pushForce;
-        [SerializeField] protected float pushRadius;
-        [SerializeField] protected float bulletActivateTime;
-        [SerializeField] protected Vector3 bulletGravity;
+        [SerializeField] public BaseProjectile projectilePrefab;
+        [SerializeField] public float fireRate;
+        [SerializeField] public Transform targetPivot;
+        [SerializeField] public Transform fireFrom;
+        [SerializeField] public float projectileSpeed;
+        [SerializeField] public float damageAmount;
+        [SerializeField] public float pushForce;
+        [SerializeField] public float pushRadius;
+        [SerializeField] public float bulletActivateTime;
+        [SerializeField] public Vector3 bulletGravity;
 
-        protected float fireCooldown;
+        public float fireCooldown;
         
-        protected PrefabRecycler<BaseProjectile> prefabRecycler;
+        public PrefabRecycler<BaseProjectile> prefabRecycler;
 
         protected virtual void Awake() {
             this.prefabRecycler = new PrefabRecycler<BaseProjectile>(this.projectilePrefab);
@@ -62,17 +62,18 @@ namespace Creatures.Parts.Limbs {
                 fromLocation = projectile.transform.position,
                 amount = this.damageAmount,
             };
+            Debug.Log($"HITTING Player${creature?.gameObject.name}");
             if (projectile.collectorCollider != null) {
                 for (var i = 0; i < projectile.collectorCollider.targets.Count; i++) {
                     var c = projectile.collectorCollider.targets[i];
                     c.TakeDamage(damage);
                     if (this.pushForce > 0.001f) {
-                        c.rb.AddExplosionForce(this.pushForce, projectile.transform.position, this.pushRadius);
+                        c.rb.AddExplosionForce(this.pushForce, projectile.transform.position, this.pushRadius, 0.4f);
                     }
                 }
             } else if (creature != null) {
+                Debug.Log($"HITTING Player${creature.gameObject.name}");
                 if (this.pushForce > 0.001f) {
-                    Debug.Log($"HITTING Player${creature.gameObject.name}");
                     creature.rb.AddExplosionForce(this.pushForce, projectile.transform.position, this.pushRadius, 0.4f);
                 }
                 creature.TakeDamage(damage);

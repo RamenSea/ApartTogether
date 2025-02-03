@@ -31,8 +31,8 @@ namespace Player {
             this.moveInputAction = this.playerInput.actions["Move"];
             this.cameraInputAction = this.playerInput.actions["Look"];
             this.legActionInputAction = this.playerInput.actions["Jump"];
-            this.armActionInputAction = this.playerInput.actions["Attack"];
-            this.headActionInputAction = this.playerInput.actions["Crouch"];
+            this.armActionInputAction = this.playerInput.actions["Fire"];
+            this.headActionInputAction = this.playerInput.actions["Bite"];
             this.interactActionInputAction = this.playerInput.actions["Interact"];
         }
 

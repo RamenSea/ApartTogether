@@ -37,10 +37,6 @@ namespace Player {
             PlayerDriverController.Instance = this;
         }
 
-        private void Start() {
-            this.SetCameraForBird();
-        }
-
         public void SpawnInTest() {
             this.creature = this.playerSpawn.Spawn(true);
             creature.gameObject.name = "Player Creature";

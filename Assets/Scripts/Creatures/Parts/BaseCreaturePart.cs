@@ -101,7 +101,7 @@ namespace Creatures.Parts {
             }
             this.limbs = updatedLimbs;
 
-            var layerMaskToUse = CreatureManager.Instance.defaultLayerMask;
+            var layerMaskToUse = CreatureManager.Instance.normalCreatureMask;
             for (var i = 0; i < this.limbs.Length; i++) {
                 this.limbs[i].ChangeColliderActivations(!this.deactivateCollidersWhileAttached, layerMaskToUse);
             }
