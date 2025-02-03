@@ -51,11 +51,21 @@ namespace UI {
         }
 
         public void StartGame() {
-            GameRunner.Instance.SpawnPlayer();
+            if (TheSystem.Get().keyStore.GetBool("played_before", false) == false) {
+                TheSystem.Get().keyStore.Set("played_before", true);
+                TheSystem.Get().startGameImmediately = true;
+                SceneManager.LoadScene("Intro");
+            } else {
+                GameRunner.Instance.SpawnPlayer();
+            }
         }
         public void NewSave() {
             TheSystem.Get().ClearSave();
-            SceneManager.LoadScene("MainLevel");
+            TheSystem.Get().startGameImmediately = true;
+            SceneManager.LoadScene("Intro");
+        }
+        public void PlayIntro() {
+            SceneManager.LoadScene("Intro");
         }
     }
 }

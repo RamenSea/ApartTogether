@@ -2,6 +2,7 @@ using System;
 using Creatures;
 using Creatures.Collision;
 using Creatures.Parts;
+using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using Player;
 using UI;
@@ -64,7 +65,7 @@ namespace Systems {
             this.annoyingBird = this.annoyingBirdSpawn.Spawn();
             
             this.deathUI.gameObject.SetActive(false);
-            this.startUI.gameObject.SetActive(true);
+            this.startUI.gameObject.SetActive(false);
             this.gameUI.gameObject.SetActive(false);
             var save = TheSystem.Get().save;
 
@@ -81,11 +82,10 @@ namespace Systems {
                 this.spawns[i].SetSpawnActive(isActive);
             }
             
-            
             if (TheSystem.Get().startGameImmediately) {
-                TheSystem.Get().startGameImmediately = false;
-                this.SpawnPlayer();
+                this.SpawnPlayerAndThenShowHints();
             } else {
+                this.startUI.gameObject.SetActive(false);
                 PlayerDriverController.Instance.SetCameraForBird();
                 this.startUI.Show();
             }
@@ -116,6 +116,12 @@ namespace Systems {
             
             this.gameUI.gameObject.SetActive(true);
             PlayerDriverController.Instance.SpawnIn(spawn);
+        }
+
+        public async void SpawnPlayerAndThenShowHints() {
+            this.SpawnPlayer();
+            await UniTask.Delay(TimeSpan.FromSeconds(15f));
+            this.hint.ShowHint();
         }
 
         public void PlayerDidDie() {

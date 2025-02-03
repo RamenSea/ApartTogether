@@ -15,7 +15,6 @@ namespace Systems {
     public class TheSystem {
         private static TheSystem instance;
 
-
         public KeyStoreService keyStore;
         public GameSave save;
 

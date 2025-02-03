@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using NaughtyAttributes;
 using Player;
@@ -41,10 +42,16 @@ namespace Systems {
         }
 
         [Button("Show hints")]
-        public async void ShowHint() {
+        public async void ShowHint(bool introHint = false) {
             if (this.showingHints) {
                 this.ShowNextHint();
                 return;
+            }
+
+            if (introHint) {
+                this.hintText.text = "";
+                this.hintText.DOText("Here this might help... hold on", 2f);
+                await UniTask.Delay(TimeSpan.FromSeconds(2f));
             }
 
             PlayerDriverController.Instance.SetCameraForHints();
@@ -79,21 +86,21 @@ namespace Systems {
                 this.hints.Add(new Hint() {
                     transform = GameRunner.Instance.pepeHeadCameraLocation,
                     lookAt = GameRunner.Instance.pepeHeadLookAtLocation,
-                    message = "A head at the top of a bar"
+                    message = "(1) Somewhere in this barn"
                 });
             }
             if (!save.hasCollectedPepeLegs) {
                 this.hints.Add(new Hint() {
                     transform = GameRunner.Instance.pepeLegsCameraLocation,
                     lookAt = GameRunner.Instance.pepeLegsLookAtLocation,
-                    message = "Climb the mountain"
+                    message = "(2) On top of the mountain"
                 });
             }
             if (!save.hasCollectedPepeBody) {
                 this.hints.Add(new Hint() {
                     transform = GameRunner.Instance.pepeBodyCameraLocation,
                     lookAt = GameRunner.Instance.pepeBodyLookAtLocation,
-                    message = "Return a fish to its pond"
+                    message = "(3) Return a fish to its pond"
                 });
             }
             if (!save.hasCollectedPepeWings) {
@@ -101,13 +108,13 @@ namespace Systems {
                 this.hints.Add(new Hint() {
                     transform = GameRunner.Instance.pepeWingsCameraLocation,
                     lookAt = GameRunner.Instance.pepeWingsLookAtLocation,
-                    message = otherHintsSoFar ? "He needs more parts before he can get his wings" : "His wings await!",
+                    message = otherHintsSoFar ? "(4) He needs more parts before he can get his wings" : "(4) His wings await!",
                 });
             }
             this.hints.Add(new Hint() {
                 transform = GameRunner.Instance.annoyingBird.transform,
                 lookAt = GameRunner.Instance.annoyingBird.transform,
-                message = "End this annoying bird so we can get out of here",
+                message = "(5) End this annoying bird...",
             });
 
             if (this.hintIndex >= this.hints.Count) {
