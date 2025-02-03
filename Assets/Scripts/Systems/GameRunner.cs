@@ -14,6 +14,7 @@ namespace Systems {
         public DeathUI deathUI;
         public StartGameUI startUI;
         public MainGameUI gameUI;
+        public WinUI winUI;
 
         public RiverLevel riverLevel;
         public Transform pepeLegsLookAtLocation;
@@ -87,6 +88,13 @@ namespace Systems {
             } else {
                 PlayerDriverController.Instance.SetCameraForBird();
                 this.startUI.Show();
+            }
+        }
+
+        private void Update() {
+            if (PlayerDriverController.Instance.creature != null && !PlayerDriverController.Instance.creature.isDead &&
+                this.annoyingBird != null && this.annoyingBird.isDead) {
+                this.winUI.gameObject.SetActive(true);
             }
         }
 

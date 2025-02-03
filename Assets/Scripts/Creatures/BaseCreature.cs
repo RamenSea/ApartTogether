@@ -159,8 +159,6 @@ namespace Creatures {
                     this.bodyPart.transform.SetParent(this.transform);
                     this.bodyPart.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
                     this.bodyPart.AttachBody(this);
-                    Debug.Log(oldBody);
-                    Debug.Log(oldBody?.attachedArmsPart);
                     if (oldBody != null && oldBody.attachedArmsPart != null) {
                         var part = oldBody.attachedArmsPart;
                         part.OnDeattachToBody(true);
