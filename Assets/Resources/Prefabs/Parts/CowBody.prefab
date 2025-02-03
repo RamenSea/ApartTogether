@@ -549,8 +549,8 @@ MonoBehaviour:
     effectsWaterGravity: 0
     rotationSpeedMin: 0
     rotationSpeedDampener: 0
-    jumpPower: 10000
-    jumpPowerHold: 0.1
+    jumpPower: 12000
+    jumpPowerHold: 0.15
     enableFlapFlight: 0
     flapFlightPower: 0
     flapDuration: 0
@@ -567,6 +567,9 @@ MonoBehaviour:
   - {fileID: 8886131537567370675}
   isAttached: 0
   bodyLimb: {fileID: 8886131537567370675}
+  attachedHeadPart: {fileID: 0}
+  attachedLegPart: {fileID: 0}
+  attachedArmsPart: {fileID: 0}
 --- !u!1 &2966932954500020626
 GameObject:
   m_ObjectHideFlags: 0

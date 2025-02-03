@@ -21594,7 +21594,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Form a new
+  m_text: Reform
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -21972,8 +21972,20 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2767731053686224733, guid: 262ac7c3fe9244cb1bb6bd407c3bfd0c, type: 3}
+      propertyPath: armPart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2767731053686224733, guid: 262ac7c3fe9244cb1bb6bd407c3bfd0c, type: 3}
+      propertyPath: legPart
+      value: 103
+      objectReference: {fileID: 0}
+    - target: {fileID: 2767731053686224733, guid: 262ac7c3fe9244cb1bb6bd407c3bfd0c, type: 3}
       propertyPath: bodyPart
       value: 102
+      objectReference: {fileID: 0}
+    - target: {fileID: 2767731053686224733, guid: 262ac7c3fe9244cb1bb6bd407c3bfd0c, type: 3}
+      propertyPath: headPart
+      value: 101
       objectReference: {fileID: 0}
     - target: {fileID: 4801958250060815226, guid: 262ac7c3fe9244cb1bb6bd407c3bfd0c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -28464,7 +28476,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 42.8}
+  m_AnchoredPosition: {x: 0, y: 74.6}
   m_SizeDelta: {x: 200.9, y: 59.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1128666503
@@ -29979,7 +29991,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -13.4}
+  m_AnchoredPosition: {x: 0, y: -4.1}
   m_SizeDelta: {x: 200.9, y: 59.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &1226515187 stripped
@@ -46127,7 +46139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2025859001
 RectTransform:
   m_ObjectHideFlags: 0
@@ -46176,8 +46188,11 @@ MonoBehaviour:
   - We are no longer together
   - We have grown apart
   tips:
-  - Remember to try different power part combinations
-  - Movement is momentum based so becareful going fast
+  - Different parts have different stats and abilties
+  - Movement is momentum based
+  - Certain parts make each section a lot easier
+  - Momentum movement means going slow saves lives
+  - Its hard, but you're crushing it!
 --- !u!1001 &2033946161
 PrefabInstance:
   m_ObjectHideFlags: 0
